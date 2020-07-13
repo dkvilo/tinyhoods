@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  node-app:
+    restart: unless-stopped
+    build: ./node-app
+    env_file:
+      - .env
+    volumes:
+      - ./node-app:/usr/src/app
+    ports:
+      - "3000:3000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+
+  nginx:
+    restart: unless-stopped
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - node-app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+
+  varnish:
+    restart: unless-stopped
+    build: ./varnish
+    container_name: varnish_cache
+    depends_on:
+      - nginx
+    ports:
+      - "80:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
