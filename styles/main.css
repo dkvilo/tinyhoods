@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--color-background: theme("colors.gray.100");
+	--color-primary: rgb(0, 98, 240);
+	--color-secondary: theme("colors.gray.200");
+	--color-secondary-soft: #e2e8f0;
+	--color-default: theme("colors.white");
+  --color-default-inverted: theme("colors.gray.700");
+  --color-warning: theme("colors.orange.500");
+  /* font-family: JetBrainsMono; */
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.theme-dark {
+	--color-background: theme("colors.gray.800");
+	--color-primary: theme("colors.gray.200");
+	--color-secondary: theme("colors.gray.800");
+	--color-secondary-soft: theme("colors.gray.900");
+  --color-default: theme("colors.gray.900");
+  --color-default-inverted: theme("colors.white");
+	--color-warning: theme("colors.gray.900");
+}
+
+.mapboxgl-popup {
+  max-width: 500px;
+}
+
+.mapboxgl-popup-tip {
+  border-bottom-color: var(--color-default) !important;
+  border-top-color: var(--color-default) !important;
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mapboxgl-popup-close-button {
+  display: none !important;
+}
+
+.marker {
+  background-image: url('../public/location.svg');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.svg-blend-mode {
+	mix-blend-mode: normal;
+}
+
+.custom-label input:checked + svg {
+	display: block !important;
+}
+

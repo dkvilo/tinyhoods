@@ -1,0 +1,65 @@
+const {
+	DATABASE_DRIVER,
+	DATABASE_PORT,
+	DATABASE_NAME,
+	DATABASE_USER,
+	DATABASE_PASS,
+	DATABASE_HOST,
+	DATABASE_ATLAS_PATH,
+	PORT,
+	NODE_ENV,
+	GOOGLE_CLOUD_PROJECT_ID,
+	GOOGLE_CLOUD_KEYFILE,
+	DEFAULT_BUCKET_NAME,
+	PASSWORD_SALT,
+	SESSION_SALT,
+	ACCESS_TOKEN_SALT,
+	REFRESH_TOKEN_SALT,
+	STRIPE_PUBLIC_KEY,
+	STRIPE_SECRET_KEY,
+	APP_DOMAIN,
+	STRIPE_CHECKOUT_SUCCESS_URL,
+	STRIPE_CHECKOUT_CANCEL_URL,
+	STRIPE_CHECKOUT_PAYMENT_METHODS,
+} = process.env;
+
+module.exports = {
+	app: {
+		port: PORT || 9000,
+		env: NODE_ENV || "development",
+		secrets: {
+			password: PASSWORD_SALT,
+			session: SESSION_SALT,
+			accessToken: ACCESS_TOKEN_SALT,
+			refreshToken: REFRESH_TOKEN_SALT,
+		},
+		domain: APP_DOMAIN,
+	},
+	shadowVariable: {},
+	internalServices: {},
+	externalServices: {
+		google: {
+			projectId: GOOGLE_CLOUD_PROJECT_ID,
+			keyFile: GOOGLE_CLOUD_KEYFILE,
+			bucketName: DEFAULT_BUCKET_NAME,
+		},
+		stripe: {
+			publicsKey: STRIPE_PUBLIC_KEY,
+			secretKey: STRIPE_SECRET_KEY,
+			checkout: {
+				successUrl: STRIPE_CHECKOUT_SUCCESS_URL,
+				cancelUrl: STRIPE_CHECKOUT_CANCEL_URL,
+				paymentMethods: STRIPE_CHECKOUT_PAYMENT_METHODS,
+			},
+		},
+	},
+	mongo: {
+		driver: DATABASE_DRIVER,
+		port: DATABASE_PORT,
+		password: DATABASE_PASS,
+		user: DATABASE_USER,
+		dbName: DATABASE_NAME,
+		fullPath: `${DATABASE_DRIVER}${DATABASE_USER}:${DATABASE_PASS}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`,
+		atlasPath: DATABASE_ATLAS_PATH,
+	},
+};
