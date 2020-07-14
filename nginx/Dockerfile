@@ -6,7 +6,7 @@ RUN rm default.conf
 
 WORKDIR /
 
-COPY ./conf/production/sites-enabled/tinyhoods.net.conf /etc/nginx/conf.d
+COPY ./conf/production/sites-enabled/tinyhoods.net.ssl.conf /etc/nginx/conf.d
 
 EXPOSE 80 443
 
