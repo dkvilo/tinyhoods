@@ -10,10 +10,3 @@ module.exports = withPWA({
 		dest: "public",
 	},
 });
-
-// module.exports = {
-// 	excludeFile: (str) => /\*.{spec,test,config}.js/.test(str),
-// 	env: {
-// 		...config,
-// 	},
-// };
