@@ -8,32 +8,41 @@ services:
       - .env
     volumes:
       - ./node-app:/usr/src/app
-    ports:
-      - "3000:3000"
     logging:
       driver: "json-file"
       options:
         max-size: "100MB"
         max-file: "3"
+    networks:
+      - sunset
 
   nginx:
     restart: unless-stopped
     build: ./nginx
     container_name: nginx
     ports:
-      - "8080:80"
+      - 443:443
+    links:
+      - node-app
     depends_on:
       - node-app
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
     logging:
       driver: "json-file"
       options:
         max-size: "100MB"
         max-file: "3"
+    networks:
+      - sunset
 
   varnish:
     restart: unless-stopped
     build: ./varnish
     container_name: varnish_cache
+    links:
+      - nginx
     depends_on:
       - nginx
     ports:
@@ -43,3 +52,13 @@ services:
       options:
         max-size: "100MB"
         max-file: "3"
+    networks:
+      - sunset
+
+volumes:
+  certs:
+  certs-data:
+
+networks:
+  sunset:
+    driver: bridge
