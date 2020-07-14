@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  node-app:
+    restart: unless-stopped
+    build: ./node-app
+    env_file:
+      - .env
+    volumes:
+      - ./node-app:/usr/src/app
+    ports: 
+      - "3000:3000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+networks:
+  sunset:
+    driver: bridge
