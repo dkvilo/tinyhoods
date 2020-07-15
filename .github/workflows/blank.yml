@@ -26,8 +26,8 @@ jobs:
     - name: Install Node Modules And Build The App
       run: |
         cd node-app
-        yarn
-        yarn build
+        sudo yarn
+        sudo yarn build
 
     # Runs a set of commands using the runners shell
     - name: Build And Restart Docker Containers
