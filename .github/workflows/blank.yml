@@ -1,40 +1,48 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: self-hosted
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
-    - name: Install Node Modules And Build The App
+    - name: Cacheting node_nodules
+      id: cache-node_modules
+      uses: actions/cache@v2
+      with:
+        path: ${{ github.workspace }}/node-app/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Cacheting .next/cache
+      id: cache-next
+      uses: actions/cache@v2
+      with:
+        path: ${{ github.workspace }}/.next/cache
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Installing node_modules
       run: |
         cd node-app
         yarn
-        yarn build
 
-    # Export ENV from Kvilo 
-    - name: Generate ENV
+    - name: Building The Source
+      run: |
+        cd node-app
+        yarn build
+  
+    - name: Generating .env
       run: kvilo exp-env > .env
 
-    # Runs a set of commands using the runners shell
-    - name: Build And Restart Docker Containers
-      run: |
-        sudo docker-compose build
-        sudo docker-compose restart
+    - name: Building Node Container 
+      run: sudo docker-compose build node-app
+    
+    - name: Restarting Node Container 
+      run: sudo docker-compose restart node-app
+      
+
