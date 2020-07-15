@@ -7,4 +7,3 @@ docker run -it --rm \
   --email datokviloria@gmail.com \
   --agree-tos --no-eff-email --staging \
   -d tinyhoods.net -d www.tinyhoods.net
-

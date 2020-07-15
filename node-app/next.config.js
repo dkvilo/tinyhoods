@@ -1,8 +1,12 @@
 const config = require("./shared/config");
+const withPWA = require("next-pwa");
 
-module.exports = {
+module.exports = withPWA({
 	excludeFile: (str) => /\*.{spec,test,config}.js/.test(str),
 	env: {
 		...config,
 	},
-};
+	pwa: {
+		dest: "public",
+	},
+});
