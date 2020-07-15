@@ -7,11 +7,14 @@ import typeDefs from "../../server/graphql/typedefs";
 import cfg from "../../shared/config";
 
 mongoose.set("useCreateIndex", true);
-mongoose.connect((cfg as any).mongo.atlasPath, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useFindAndModify: true,
-});
+mongoose.connect(
+	`${(cfg as any).mongo.atlasPath}?retryWrites=true&w=majority`,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: true,
+	}
+);
 
 const Server = new ApolloServer({
 	typeDefs,

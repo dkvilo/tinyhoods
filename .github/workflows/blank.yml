@@ -28,9 +28,13 @@ jobs:
         cd node-app
         yarn
         yarn build
+        
+    # Export ENV from Kvilo 
+    - name: Generate ENV
+      run: kvilo exp-env > .env
 
     # Runs a set of commands using the runners shell
     - name: Build And Restart Docker Containers
       run: |
-        sudo docker-compose build
-        sudo docker-compose restart
+        docker-compose build
+        docker-compose restart
