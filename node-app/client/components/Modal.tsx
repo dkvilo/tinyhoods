@@ -21,7 +21,7 @@ export default function ({
 			<div
 				className="bg-default text-default-inverted fixed w-full h-full top-0 left-0 flex items-center justify-center"
 				style={{
-					zIndex: 99999,
+					zIndex: 9999,
 				}}
 			>
 				<div className="fixed w-full h-full z-50 overflow-y-auto">

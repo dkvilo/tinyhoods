@@ -43,8 +43,8 @@ export function useThemeSwitch(defaultState: boolean | false) {
 	return [theme, switchTheme];
 }
 
-export function useDropToggleState(defaultState = false) {
-	const [state, setState] = useState(defaultState);
+export function useDropToggleState(defaultState: boolean = false) {
+	const [state, setState] = useState<boolean>(defaultState);
 	const updateState = () => {
 		setState(!state);
 	};

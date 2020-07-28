@@ -1,6 +1,10 @@
 import { gql } from "apollo-server-micro";
 
 const typeDefs = gql`
+	input TokenAuthenticationInput {
+		token: String
+	}
+
 	input CoordsInput {
 		longitude: Float!
 		latitude: Float!
@@ -41,6 +45,7 @@ const typeDefs = gql`
 	}
 
 	type UserPayload {
+		avatar: String
 		image: String
 		email: String
 		name: String
@@ -58,6 +63,7 @@ const typeDefs = gql`
 
 	type Query {
 		getLocations: [LocationPayload]
+		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
 	}
 
 	type Mutation {

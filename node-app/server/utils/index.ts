@@ -8,6 +8,7 @@ import config from "../../shared/config";
 import avatarify from "../services/avatar";
 
 import UserModel from "../../server/models/users";
+import { NextApiRequest } from "next";
 
 export function encrypt(string: string, salt: string) {
 	const hash = crypto.createHmac("sha512", salt);
@@ -43,8 +44,7 @@ export async function generateAvatar(username: string) {
 	return await avatarify(username);
 }
 
-export function decryptToken(req: any) {
-	const token = req.headers["x-refresh-token"];
+export function decryptToken(token: string) {
 	try {
 		return verify(token, (config as any).app.secrets.refreshToken);
 	} catch (error) {
@@ -53,9 +53,11 @@ export function decryptToken(req: any) {
 	}
 }
 
-export function requireToken(req: any, requireAuth = true, isAdmin = false) {
-	const token = req.headers["x-refresh-token"];
-
+export function requireToken(
+	token: string,
+	requireAuth = true,
+	isAdmin = false
+) {
 	if (requireAuth && !token) {
 		throw new Error("Required Authenticated user access");
 	}
