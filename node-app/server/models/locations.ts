@@ -12,6 +12,28 @@ export default mongoose.model("locations", {
 	cover: {
 		type: String,
 	},
+	explorer: {
+		type: (mongoose.Schema as any).ObjectId,
+		ref: "users",
+	},
+	citizens: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "users",
+		},
+	],
+	posts: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "posts",
+		},
+	],
+	questions: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "questions",
+		},
+	],
 	description: {
 		type: String,
 	},
