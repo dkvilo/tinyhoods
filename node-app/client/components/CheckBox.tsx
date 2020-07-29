@@ -5,11 +5,11 @@ import { Field } from "formik";
 function CheckBox(props: any) {
 	const { text } = props;
 	return (
-		<label className="custom-label flex items-center cursor-pointer">
-			<div className=" bg-default border border-primary w-6 h-6 flex justify-center items-center mr-2 rounded-full shadow-sm cursor-pointer">
+		<label className="custom-label flex hover:bg-secondary-soft rounded-md cursor-pointer p-1">
+			<div className=" bg-default border border-secondary-soft w-6 h-6 flex justify-center items-center mr-2 rounded-full shadow-sm cursor-pointer">
 				<Field {...props} className="hidden" type="checkbox" />
 				<svg
-					className="hidden w-4 h-4 text-primary pointer-events-none"
+					className=" hidden w-4 h-4 text-primary pointer-events-none"
 					viewBox="0 0 172 172"
 				>
 					<g
@@ -31,7 +31,7 @@ function CheckBox(props: any) {
 					</g>
 				</svg>
 			</div>
-			<span className="select-none text-sm text-primary">{text && text}</span>
+			<span className=" select-none text-sm text-primary">{text && text}</span>
 		</label>
 	);
 }

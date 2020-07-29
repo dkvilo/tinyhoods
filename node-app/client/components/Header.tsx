@@ -16,12 +16,16 @@ import Registration from "../forms/user/Registration";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
+import EditUserProfileCard from "./EditUserProfileCard";
+
 const GET_MY_INFO = gql`
 	query getMyInfo($data: TokenAuthenticationInput!) {
 		getMyInfo(data: $data) {
 			username
 			name
 			avatar
+			about
+			link
 		}
 	}
 `;
@@ -69,7 +73,7 @@ export default function (): JSX.Element {
 				<Modal
 					title={`${
 						loginState.isLogin && !loading && !error
-							? "Hello, " + data.getMyInfo.name.split(" ")[0]
+							? "Hello, " + data.getMyInfo.name.split(" ")[0] + " 👋"
 							: !authViewState
 							? "Authentication"
 							: "Registration"
@@ -77,21 +81,7 @@ export default function (): JSX.Element {
 					controller={authModalController}
 				>
 					{loginState.isLogin && !loading && !error ? (
-						<div className="flex flex-col items-center justify-center">
-							<img
-								src={data.getMyInfo.avatar}
-								alt={data.getMyInfo.username}
-								className="w-20 h-20 rounded-full border-2 border-secondary-soft"
-								style={{
-									height: 80,
-									width: 80,
-								}}
-							/>
-							<p className="text-lg py-2 text-primary">{data.getMyInfo.name}</p>
-							<p className="text-md py-2 text-primary">
-								@{data.getMyInfo.username}
-							</p>
-						</div>
+						<EditUserProfileCard data={data.getMyInfo} />
 					) : (
 						<>
 							{authViewState ? <Registration /> : <Authentication />}
@@ -145,7 +135,7 @@ export default function (): JSX.Element {
 								? data?.getMyInfo.avatar
 								: "/avatar.svg"
 						}
-						className="w-8 h-8 ml-2 rounded-full border-2 border-default-inverted"
+						className="w-8 h-8 ml-2 rounded-full border-2 border-default-inverted cursor-pointer"
 					/>
 					<SearchInput placeholder="Search ..." />
 				</div>

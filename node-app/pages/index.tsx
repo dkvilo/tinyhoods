@@ -5,9 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 import Grid from "../client/components/Grid";
-
 import SEOHeader from "../client/components/SEOHeader";
-import TabContent from "../client/components/TabsContent";
 
 const GET_LOCATIONS = gql`
 	{

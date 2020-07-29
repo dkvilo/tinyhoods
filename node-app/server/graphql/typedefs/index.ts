@@ -61,15 +61,28 @@ const typeDefs = gql`
 		token: String!
 	}
 
+	input UserAccountPrivacyInput {
+		isPrivate: Boolean!
+		token: String!
+	}
+
+	input UserUpdateInput {
+		about: String
+		name: String
+		link: String
+	}
+
 	type Query {
 		getLocations: [LocationPayload]
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
+		getUser(username: String!): UserPayload!
 	}
 
 	type Mutation {
 		createUser(data: UserCreateInput!): Boolean!
 		authenticateUser(data: UserLoginInput!): AuthPayload!
 		createLocation(data: LocationDataInput!): Boolean!
+		updateAccountPrivacy(data: UserAccountPrivacyInput!): Boolean!
 	}
 `;
 
