@@ -1,6 +1,8 @@
 import { gql } from "apollo-server-micro";
 
 const typeDefs = gql`
+	scalar Date
+
 	input TokenAuthenticationInput {
 		token: String
 	}
@@ -17,6 +19,7 @@ const typeDefs = gql`
 	}
 
 	input LocationDataInput {
+		token: String
 		name: String!
 		address: String!
 		description: String!
@@ -25,11 +28,13 @@ const typeDefs = gql`
 	}
 
 	type LocationPayload {
+		id: ID!
 		name: String!
 		address: String
 		description: String
 		coordinates: CoordsPayload
 		cover: String
+		explorer: UserPayload
 	}
 
 	input UserCreateInput {
@@ -72,10 +77,28 @@ const typeDefs = gql`
 		link: String
 	}
 
+	input QuestionInputData {
+		token: String!
+		content: String!
+		location: String!
+		isPublished: Boolean!
+	}
+
+	type QuestionPayload {
+		id: ID!
+		content: String!
+		author: UserPayload!
+		location: LocationPayload!
+		isPublished: Boolean!
+		publishedAt: Date
+	}
+
 	type Query {
-		getLocations: [LocationPayload]
+		getLocations: [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
 		getUser(username: String!): UserPayload!
+		getUsers(data: TokenAuthenticationInput!): [UserPayload]!
+		getQuestions: [QuestionPayload]!
 	}
 
 	type Mutation {
@@ -83,6 +106,7 @@ const typeDefs = gql`
 		authenticateUser(data: UserLoginInput!): AuthPayload!
 		createLocation(data: LocationDataInput!): Boolean!
 		updateAccountPrivacy(data: UserAccountPrivacyInput!): Boolean!
+		createQuestion(data: QuestionInputData!): Boolean!
 	}
 `;
 

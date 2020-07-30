@@ -1,6 +1,9 @@
 import React from "react";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
+
 import Card from "./Card";
+import UsersList from "./UsersList";
+import QuestionsList from "./QuestionsList";
 
 function TabsContent({ loading, data, error, onFocus }: any) {
 	return (
@@ -23,7 +26,7 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 							People
 						</Tab>
 						<Tab className="text-xl text-primary text-center w-full py-1 px-2">
-							Favorites
+							FAQ
 						</Tab>
 					</TabList>
 				</div>
@@ -55,12 +58,10 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 						))}
 				</TabPanel>
 				<TabPanel>
-					<h2>People's content 2</h2>
-					<div className="h-screen bg-default rounded-md shadow-md" />
+					<UsersList />
 				</TabPanel>
 				<TabPanel>
-					<h2>Favorite's content 3</h2>
-					<div className="h-screen bg-default rounded-md shadow-md" />
+					<QuestionsList />
 				</TabPanel>
 			</Tabs>
 
@@ -70,7 +71,7 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					Developed by @dkvilo
+					By @dkvilo
 				</a>
 
 				<a
