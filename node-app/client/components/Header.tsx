@@ -17,6 +17,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 import EditUserProfileCard from "./EditUserProfileCard";
+import AuthCard from "./AuthCard";
 
 const GET_MY_INFO = gql`
 	query getMyInfo($data: TokenAuthenticationInput!) {
@@ -25,6 +26,7 @@ const GET_MY_INFO = gql`
 			name
 			avatar
 			about
+			isPrivate
 			link
 		}
 	}
@@ -48,12 +50,6 @@ export default function (): JSX.Element {
 
 	const { state: loginState } = useContext<any>(UserTokenContext);
 
-	const [authViewState, setAuthViewState] = useState(false);
-
-	const switchAuthState = useCallback(() => {
-		setAuthViewState(!authViewState);
-	}, [authViewState, setAuthViewState]);
-
 	const { loading, data, error, refetch } = useQuery(GET_MY_INFO, {
 		fetchPolicy: "network-only",
 		variables: {
@@ -74,26 +70,14 @@ export default function (): JSX.Element {
 					title={`${
 						loginState.isLogin && !loading && !error
 							? "Hello, " + data.getMyInfo.name.split(" ")[0] + " 👋"
-							: !authViewState
-							? "Authentication"
-							: "Registration"
+							: "Member Area"
 					}`}
 					controller={authModalController}
 				>
 					{loginState.isLogin && !loading && !error ? (
 						<EditUserProfileCard data={data.getMyInfo} />
 					) : (
-						<>
-							{authViewState ? <Registration /> : <Authentication />}
-
-							<div className="flex f-ull items-center justify-center my-6">
-								<Button onClick={switchAuthState}>
-									{authViewState
-										? "Already have an account?"
-										: "Don't have an account?"}
-								</Button>
-							</div>
-						</>
+						<AuthCard />
 					)}
 				</Modal>
 			</CSSTransition>

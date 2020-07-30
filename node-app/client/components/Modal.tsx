@@ -30,7 +30,7 @@ export default function ({
 							<p className="text-2xl text-primary font-bold">{title}</p>
 							<div
 								onClick={updateState as any}
-								className="flex items-center justify-center w-8 h-8 rounded-full outline-none bg-secondary-soft cursor-pointer cursor-pointer flex flex-col items-center mt-4 text-black text-sm z-50"
+								className="flex items-center justify-center w-8 h-8 rounded-full outline-none bg-secondary-soft cursor-pointer cursor-pointer flex flex-col items-center text-black text-sm z-50"
 							>
 								<svg
 									className="fill-current text-default-inverted"

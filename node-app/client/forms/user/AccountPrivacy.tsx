@@ -8,6 +8,7 @@ import CheckBox from "../../components/CheckBox";
 import Alert from "../../components/ErrorAlert";
 import InputError from "../../components/InputError";
 import { GQLErrorContext, UserTokenContext } from "../../context";
+import InputSwitch from "../../components/InputSwitch";
 
 interface IProps {
 	isPrivate: boolean;
@@ -39,34 +40,35 @@ const AccountPrivacy = ({ isPrivate }: IProps) => {
 		}
 	}, [error, errorDispatcher]);
 
+	const submitHandler = async (values: any) => {
+		try {
+			await updateUser({
+				variables: {
+					data: {
+						isPrivate: values.isPrivate,
+						token: tokenState.token,
+					},
+				},
+			});
+		} catch (e) {}
+	};
+
 	return (
 		<>
 			<Formik
+				onSubmit={() => {}}
 				initialValues={{
 					isPrivate,
 				}}
 				initialTouched={{
-					isPrivate: false,
+					isPrivate,
 				}}
 				validationSchema={Yup.object().shape({
 					isPrivate: Yup.bool().required(),
 				})}
-				onSubmit={async (values: any, { setSubmitting }: any) => {
-					try {
-						await updateUser({
-							variables: {
-								data: {
-									isPrivate: values.isPrivate,
-									token: tokenState.token,
-								},
-							},
-						});
-					} catch (e) {}
-					setSubmitting(false);
-				}}
 			>
-				{({ isSubmitting, values, touched }: any) => (
-					<Form>
+				{({ isSubmitting, setSubmitting, values, touched }: any) => (
+					<Form className="p-2 bg-secondary w-full rounded-md">
 						{data?.updateAccountPrivacy && (
 							<Alert
 								title="Account Privacy"
@@ -74,21 +76,17 @@ const AccountPrivacy = ({ isPrivate }: IProps) => {
 							/>
 						)}
 
-						<div className="flex flex-col mb-4">
-							<CheckBox name="isPrivate" text="Make My Account Private" />
-							<InputError name={"isPrivate"} />
-						</div>
-
-						<div className="flex">
-							<div className="flex justify-start">
-								<button
-									className="px-3 text-default-inverted bg-default hover:bg-primary hover:text-default w-full py-1 rounded-md mr-2"
-									type="submit"
-									disabled={isSubmitting}
-								>
-									Update
-								</button>
-							</div>
+						<div className="flex justify-between">
+							<span className="block text-default-inverted">
+								Make My Account Private
+							</span>
+							<InputSwitch
+								name="isPrivate"
+								onSave={(value: boolean) => {
+									submitHandler({ isPrivate: !value });
+									setSubmitting(false);
+								}}
+							/>
 						</div>
 					</Form>
 				)}
