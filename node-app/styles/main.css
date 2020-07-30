@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
 	--color-background: theme("colors.gray.100");
 	--color-primary: rgb(0, 98, 240);
@@ -106,6 +110,63 @@
   transition: opacity 300ms, transform 300ms;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* React Select */
+:root .css-g1d714-ValueContainer,
+:root .css-g1d714-ValueContainer:hover,
+:root .css-g1d714-ValueContainer:active {
+  border-radius: 5px !important;
+  background-color: var(--color-secondary) !important;
+  color: var(--color-primary) !important;
+}
+
+:root .css-1pahdxg-control,
+:root .css-1pahdxg-control:hover,
+:root .css-1pahdxg-control:active,
+:root .css-yk16xz-control {
+	background-color: var(--color-secondary) !important;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+:root .css-1n7v3ny-option {
+  background-color: var(--color-secondary-soft) !important;
+}
+
+:root .css-xb97g8:hover {
+  background-color: var(--color-secondary-soft);
+}
+
+
+:root .css-1rhbuit-multiValue {
+  background-color: var(--color-secondary);
+}
+
+:root .css-1uccc91-singleValue {
+  color: var(--color-default-inverted);
+}
+
+:root .css-12jo7m5 {
+  color: var(--color-primary);
+}
+
+:root .css-1wa3eu0-placeholder {
+  color: var(--color-primary);
+}
+
+:root .css-tlfecz-indicatorContainer {
+  color: var(--color-primary);
+}
+
+:root .css-xb97g8 svg {
+  fill: var(--color-primary);
+}
+
+:root .css-26l3qy-menu {
+  background-color: var(--color-default);
+}
+
+:root .css-26l3qy-menu div {
+  color: var(--color-primary);
+}
+

@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { useDropToggleState } from "../hooks";
@@ -7,11 +7,8 @@ import { UserTokenContext } from "../context";
 import Modal from "./Modal";
 import SearchInput from "./SearchInput";
 
-import Authentication from "../forms/user/Authentication";
 import AddHood from "../forms/hoods/add";
-import AddPost from "../forms/posts/add";
-import Button from "./Button";
-import Registration from "../forms/user/Registration";
+import AddQuestion from "../forms/questions/add";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -87,10 +84,7 @@ export default function (): JSX.Element {
 				timeout={300}
 				classNames="swoop-in"
 			>
-				<Modal
-					title="Add Current Location"
-					controller={addLocationModalController}
-				>
+				<Modal title="Add Location" controller={addLocationModalController}>
 					<AddHood />
 				</Modal>
 			</CSSTransition>
@@ -101,7 +95,7 @@ export default function (): JSX.Element {
 				classNames="swoop-in"
 			>
 				<Modal title="Ask a Question" controller={askQuestionModalController}>
-					<AddPost />
+					<AddQuestion />
 				</Modal>
 			</CSSTransition>
 

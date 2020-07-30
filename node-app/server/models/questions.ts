@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 delete mongoose.connection.models["questions"];
 
 export default mongoose.model("questions", {
-	description: {
+	content: {
 		type: String,
 		required: [true, "Question Content is Required"],
 		sparse: true,
 		index: true,
 	},
-	publisher: {
+	author: {
 		type: (mongoose.Schema as any).ObjectId,
 		ref: "users",
 	},

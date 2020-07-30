@@ -14,6 +14,10 @@ const GET_LOCATIONS = gql`
 			address
 			description
 			cover
+			explorer {
+				username
+				name
+			}
 			coordinates {
 				longitude
 				latitude
