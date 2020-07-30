@@ -8,7 +8,7 @@ function EditUserProfileCard({ data }: any) {
 	const { dispatch } = useContext<any>(UserTokenContext);
 
 	return (
-		<div className="flex flex-col items-center justify-center">
+		<div className="flex flex-col items-center justify-center my-6">
 			<img
 				src={data.avatar}
 				alt={data.username}
@@ -26,7 +26,7 @@ function EditUserProfileCard({ data }: any) {
 				<p className="text-sm text-default-inverted p-1">{data.about}</p>
 			</div>
 
-			<div className="flex justify-center p-2 bg-secondary text-default-inverted">
+			<div className="flex justify-center p-1 text-default-inverted">
 				<div className="p-2">
 					<span className="font-bold">100K</span> Followers
 				</div>
@@ -36,13 +36,16 @@ function EditUserProfileCard({ data }: any) {
 				<div className="p-2">
 					<span className="font-bold">0</span> Questions
 				</div>
+				<div className="p-2">
+					<span className="font-bold">0</span> Posts
+				</div>
 			</div>
 
-			<div className="flex flex-col w-full justify-start bg-default rounded-md p-2 my-4">
+			<div className="flex flex-col w-full bg-default rounded-md ">
 				<h1 className="text-2xl text-default-inverted font-bold py-2">
 					Account Settings
 				</h1>
-				<div className="flex items-center p-2 bg-secondary rounded">
+				<div className="flex items-center">
 					<AccountPrivacy isPrivate={data.isPrivate} />
 				</div>
 
@@ -50,9 +53,9 @@ function EditUserProfileCard({ data }: any) {
 					<h1 className="text-2xl text-default-inverted font-bold py-2">
 						App Settings
 					</h1>
-					<div className="flex items-center p-2 bg-secondary rounded">
+					<div className="flex items-center justify-between p-2 bg-secondary rounded">
+						<p className="text-sm text-default-inverted">Dark Mode</p>
 						<ThemeToggle />
-						<p className="text-sm text-default-inverted ml-4">Dark Mode</p>
 					</div>
 					<div className="my-5 flex items-center bg-secondary rounded">
 						<Button

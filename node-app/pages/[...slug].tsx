@@ -1,4 +1,3 @@
-import { useState } from "react";
 import dynamic from "next/dynamic";
 
 import { useQuery } from "@apollo/react-hooks";
@@ -21,13 +20,6 @@ const GET_USER = gql`
 		}
 	}
 `;
-
-const HeaderCSR = dynamic(
-	() => import("../client/components/Header").then((mod) => mod.default) as any,
-	{
-		ssr: false,
-	}
-) as any;
 
 export default function Home() {
 	const router = useRouter();

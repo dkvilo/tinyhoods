@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik } from "formik";
 import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
 
 import Textarea from "../../components/Textarea";
-import Input from "../../components/Input";
-import { useMutation } from "@apollo/react-hooks";
+import FromikInput from "../../components/FormikInput";
 import DraggableMapInput from "../../components/DraggableMapInput";
 import CheckBox from "../../components/CheckBox";
 
@@ -27,8 +27,8 @@ const AddHood = () => {
 					cover: "",
 					address: "",
 					coordinates: {
-						latitude: null,
-						longitude: null,
+						latitude: 0,
+						longitude: 0,
 						accuracy: 3,
 					},
 				}}
@@ -73,13 +73,12 @@ const AddHood = () => {
 							)}
 						</div>
 						<div className="my-4">
-							<Input
+							<FromikInput
 								placeholder="Name"
 								type="text"
 								name="name"
 								onChange={handleChange}
 								onBlur={handleBlur}
-								value={values.name}
 							/>
 						</div>
 
@@ -89,18 +88,16 @@ const AddHood = () => {
 								name="description"
 								onChange={handleChange}
 								onBlur={handleBlur}
-								value={values.description}
 							/>
 						</div>
 
 						<div className="my-4">
-							<Input
+							<FromikInput
 								placeholder="Address"
 								type="text"
 								name="address"
 								onChange={handleChange}
 								onBlur={handleBlur}
-								value={values.address}
 							/>
 						</div>
 
@@ -130,33 +127,30 @@ const AddHood = () => {
 						)}
 
 						<div className="my-4 flex">
-							<Input
+							<FromikInput
 								placeholder="Latitude"
 								type="text"
 								name="coordinates.latitude"
 								onChange={handleChange}
 								onBlur={handleBlur}
-								value={values.coordinates.latitude as any}
 							/>
 							<div className="w-6" />
-							<Input
+							<FromikInput
 								placeholder="Longitude"
 								type="text"
 								name="coordinates.longitude"
 								onChange={handleChange}
 								onBlur={handleBlur}
-								value={values.coordinates.longitude as any}
 							/>
 						</div>
 
 						<div className="my-4">
-							<Input
+							<FromikInput
 								placeholder="Image URI"
 								type="text"
 								name="cover"
 								onChange={handleChange}
 								onBlur={handleBlur}
-								value={values.cover}
 							/>
 						</div>
 

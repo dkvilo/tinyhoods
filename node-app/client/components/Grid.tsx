@@ -8,8 +8,7 @@ interface IProps {
 
 export default function ({
 	children,
-	margin = 4,
 	background = "transparent",
 }: IProps): JSX.Element {
-	return <div className={`m-${margin} bg-${background}`}>{children}</div>;
+	return <div className={`m-4 bg-${background}`}>{children}</div>;
 }
