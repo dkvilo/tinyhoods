@@ -14,9 +14,11 @@ import {
 	UserTokenContext,
 	GQLErrorContext,
 	LoaderProgressContext,
+	FiltersContext,
 } from "../../context";
 import InputError from "../../components/InputError";
 import InputSwitch from "../../components/InputSwitch";
+import { isEmpty } from "ramda";
 
 const CREATE_QUESTION = gql`
 	mutation createQuestion($data: QuestionInputData!) {
@@ -25,13 +27,11 @@ const CREATE_QUESTION = gql`
 `;
 
 const GET_LOCATIONS = gql`
-	{
-		getLocations {
-			name
+	query getLocations($data: GetLocationInputData!) {
+		getLocations(data: $data) {
 			id
+			name
 			address
-			description
-			cover
 			explorer {
 				username
 				name
@@ -47,11 +47,24 @@ const AddQuestion = () => {
 		CREATE_QUESTION
 	);
 
+	const { state: filtersState, dispatch: filterDispatcher } = useContext<any>(
+		FiltersContext
+	);
+
 	const {
 		loading: locationLoading,
 		error: locationError,
 		data: locationData,
-	} = useQuery(GET_LOCATIONS);
+	} = useQuery(GET_LOCATIONS, {
+		variables: {
+			data: {
+				coordinates: !isEmpty(filtersState.coordinates)
+					? filtersState.coordinates
+					: [],
+				maxDistance: parseFloat(filtersState.maxDistance) * 1000,
+			},
+		},
+	});
 
 	const { state: loginState } = useContext<any>(UserTokenContext);
 	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
@@ -146,14 +159,17 @@ const AddQuestion = () => {
 								}}
 								closeMenuOnSelect
 								components={animatedComponents}
+								noOptionsMessage={() => "No Nearby Locations"}
 								isMulti={false}
 								options={
 									!locationLoading &&
 									!locationError &&
-									locationData.getLocations.map((each: any) => ({
-										value: each.id,
-										label: each.name,
-									}))
+									!isEmpty(locationData?.getLocations)
+										? locationData.getLocations.map((each: any) => ({
+												value: each.id,
+												label: each.name,
+										  }))
+										: []
 								}
 							/>
 							<div className="mt-2">

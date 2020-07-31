@@ -1,13 +1,14 @@
-import { useState, useContext, useLayoutEffect, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import { isEmpty } from "ramda";
 
 import Grid from "../client/components/Grid";
 import SEOHeader from "../client/components/SEOHeader";
 import { FiltersContext } from "../client/context";
-import { isEmpty } from "ramda";
+
 import getLocationService from "../client/services/geoLocation";
 
 const GET_LOCATIONS = gql`
@@ -71,13 +72,7 @@ export default function Home() {
 		},
 	});
 
-	const [activeCoordinates, setActiveCoordinates] = useState(
-		() =>
-			!loading &&
-			!error &&
-			!isEmpty(data.getLocations) &&
-			data.getLocations[0].geometry.coordinates
-	);
+	const [activeCoordinates, setActiveCoordinates] = useState(null);
 
 	useEffect(() => {
 		(async () => {

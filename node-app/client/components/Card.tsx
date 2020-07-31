@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import Button from "./Button";
+import { FiltersContext } from "../context";
 
 interface IProps {
 	name: string;
@@ -12,11 +14,20 @@ export default function ({
 	name,
 	description,
 	address,
-	coordinates,
+	geometry: { coordinates },
 	explorer,
 	cover,
 	onSelect,
 }: IProps & any): JSX.Element {
+	const { state: filterState } = useContext<any>(FiltersContext);
+
+	const openMap = () => {
+		window.open(
+			`http://maps.google.com/?saddr=${filterState.coordinates[1]},${filterState.coordinates[0]}&daddr=${coordinates[1]},${coordinates[0]}&dirflg=d`,
+			"_blank"
+		);
+	};
+
 	return (
 		<div
 			onClick={() => {
@@ -25,9 +36,21 @@ export default function ({
 			className="p-4 bg-default text-decoration-none text-default-inverted border-b-2 border-secondary hover:bg-secondary"
 		>
 			<div className="card">
-				<h3 className="text-xl flex justify-between">
-					{name} <span>&rarr;</span>
-				</h3>
+				<div className="flex justify-between items-center">
+					<h3 className="text-xl">{name}</h3>
+					<Button onClick={openMap}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="w-6 h-6 fill-current"
+							viewBox="0 0 24 24"
+						>
+							<g>
+								<rect width="24" height="24" opacity="0" />
+								<path d="M13.67 22h-.06a1 1 0 0 1-.92-.8l-1.54-7.57a1 1 0 0 0-.78-.78L2.8 11.31a1 1 0 0 1-.12-1.93l16-5.33A1 1 0 0 1 20 5.32l-5.33 16a1 1 0 0 1-1 .68z" />
+							</g>
+						</svg>
+					</Button>
+				</div>
 				<div className="flex flex-col">
 					{cover && (
 						<div className="rounded-lg my-3 overflow-hidden">
@@ -62,9 +85,9 @@ export default function ({
 								className="w-5 h-5 rounded-full border-2 border-default-inverted mr-1"
 								alt={explorer.username}
 							/>
-							{/* <span className="text-default-inverted text-sm">
+							<span className="text-default-inverted text-sm">
 								{explorer.username}
-							</span> */}
+							</span>
 						</div>
 					)}
 				</div>

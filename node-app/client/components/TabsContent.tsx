@@ -42,20 +42,8 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 								data.getLocations.map((each: any) => (
 									<div key={each.address}>
 										<Card
-											onSelect={(coordinates: Number[]) => {
-												if (
-													"standalone" in window.navigator &&
-													(window.navigator as any).standalone
-												) {
-													window.open(
-														`http://maps.apple.com/?saddr=${27.2038},${77.5011}&daddr=${
-															coordinates[1]
-														},${coordinates[0]}&dirflg=d`,
-														"_blank"
-													);
-												} else {
-													onFocus(coordinates);
-												}
+											onSelect={(coordinates: any) => {
+												onFocus(coordinates);
 											}}
 											{...each}
 										/>

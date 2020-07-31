@@ -11,7 +11,7 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 	);
 
 	useEffect(() => {
-		if (map?.current && data) {
+		if (map?.current) {
 			mapboxgl.accessToken =
 				"pk.eyJ1IjoidHJ1eGEiLCJhIjoiY2s3eG81Z2s3MGRlcjNsczh3azFiMmhxNCJ9.UB2Wh6rWuC8D0aMRowgU9Q";
 			setMyMap(
@@ -31,7 +31,7 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 				})
 			);
 		}
-	}, [map, data, setMyMap]);
+	}, [map, setMyMap]);
 
 	useEffect(() => {
 		if (myMap !== null && activeCoordinates) {
