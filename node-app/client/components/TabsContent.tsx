@@ -4,6 +4,9 @@ import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
 import Card from "./Card";
 import UsersList from "./UsersList";
 import QuestionsList from "./QuestionsList";
+import Container from "./Container";
+import { isEmpty } from "ramda";
+import EmptyCard from "./EmptyCard";
 
 function TabsContent({ loading, data, error, onFocus }: any) {
 	return (
@@ -32,56 +35,49 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 				</div>
 
 				<TabPanel>
-					{!loading &&
-						!error &&
-						data.getLocations.map((each: any) => (
-							<div key={each.address} className="mb-4">
-								<Card
-									onSelect={(coordinates: any) => {
-										if (
-											"standalone" in window.navigator &&
-											(window.navigator as any).standalone
-										) {
-											window.open(
-												`http://maps.apple.com/?saddr=${27.2038},${77.5011}&daddr=${
-													coordinates.latitude
-												},${coordinates.longitude}&dirflg=d`,
-												"_blank"
-											);
-										} else {
-											onFocus(coordinates);
-										}
-									}}
-									{...each}
-								/>
-							</div>
-						))}
+					<Container>
+						<>
+							{!loading &&
+								!error &&
+								data.getLocations.map((each: any) => (
+									<div key={each.address}>
+										<Card
+											onSelect={(coordinates: Number[]) => {
+												if (
+													"standalone" in window.navigator &&
+													(window.navigator as any).standalone
+												) {
+													window.open(
+														`http://maps.apple.com/?saddr=${27.2038},${77.5011}&daddr=${
+															coordinates[1]
+														},${coordinates[0]}&dirflg=d`,
+														"_blank"
+													);
+												} else {
+													onFocus(coordinates);
+												}
+											}}
+											{...each}
+										/>
+									</div>
+								))}
+							{isEmpty(data?.getLocations) && !loading && !error && (
+								<EmptyCard />
+							)}
+						</>
+					</Container>
 				</TabPanel>
 				<TabPanel>
-					<UsersList />
+					<Container>
+						<UsersList />
+					</Container>
 				</TabPanel>
 				<TabPanel>
-					<QuestionsList />
+					<Container>
+						<QuestionsList />
+					</Container>
 				</TabPanel>
 			</Tabs>
-
-			<footer className="py-2 mb-16 px-1 border-t-4 border-primary text-primary flex justify-between">
-				<a
-					href="https://twitter.com/dkvilo"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					By @dkvilo
-				</a>
-
-				<a
-					href="https://twitter.com/dkvilo"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					2020 &copy; TinyHoods.Net
-				</a>
-			</footer>
 		</div>
 	);
 }

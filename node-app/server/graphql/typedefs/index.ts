@@ -7,15 +7,14 @@ const typeDefs = gql`
 		token: String
 	}
 
-	input CoordsInput {
-		longitude: Float!
-		latitude: Float!
-		accuracy: Float!
+	input GeometryInput {
+		type: String = "Point"
+		coordinates: [Float!]!
 	}
 
-	type CoordsPayload {
-		longitude: Float!
-		latitude: Float!
+	type GeometryPayload {
+		type: String!
+		coordinates: [Float!]!
 	}
 
 	input LocationDataInput {
@@ -23,8 +22,13 @@ const typeDefs = gql`
 		name: String!
 		address: String!
 		description: String!
-		coordinates: CoordsInput
+		geometry: GeometryInput
 		cover: String
+	}
+
+	input GetLocationInputData {
+		coordinates: [Float!]
+		maxDistance: Float = 2.1
 	}
 
 	type LocationPayload {
@@ -32,7 +36,7 @@ const typeDefs = gql`
 		name: String!
 		address: String
 		description: String
-		coordinates: CoordsPayload
+		geometry: GeometryPayload
 		cover: String
 		explorer: UserPayload
 	}
@@ -60,6 +64,10 @@ const typeDefs = gql`
 		following: [UserPayload!]
 		followers: [UserPayload!]
 		isPrivate: Boolean
+		questionsCount: Int!
+		followersCount: Int!
+		followingCount: Int!
+		locationCount: Int!
 	}
 
 	type AuthPayload {
@@ -94,7 +102,7 @@ const typeDefs = gql`
 	}
 
 	type Query {
-		getLocations: [LocationPayload]!
+		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
 		getUser(username: String!): UserPayload!
 		getUsers(data: TokenAuthenticationInput!): [UserPayload]!

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { useThemeSwitch } from "../hooks";
+import { isEmpty } from "ramda";
 
 export default function ({ data, activeCoordinates }: any): JSX.Element {
 	const map = useRef<any>();
@@ -17,7 +18,10 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 				new mapboxgl.Map({
 					container: map.current.id,
 					style: `mapbox://styles/mapbox/${theme ? "dark-v10" : "streets-v10"}`, // stylesheet location
-					center: [data[0].coordinates.longitude, data[0].coordinates.latitude], // starting position [lng, lat]
+					center: [
+						!isEmpty(data) ? data[0].geometry.coordinates[0] : 0,
+						!isEmpty(data) ? data[0].geometry.coordinates[1] : 0,
+					], // starting position [lng, lat]
 					zoom: 5,
 					maxZoom: 15,
 					minZoom: 4,
@@ -32,7 +36,7 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 	useEffect(() => {
 		if (myMap !== null && activeCoordinates) {
 			myMap.flyTo({
-				center: [activeCoordinates.longitude, activeCoordinates.latitude],
+				center: [activeCoordinates[0], activeCoordinates[1]],
 				zoom: 9,
 			});
 		}
@@ -44,7 +48,10 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 				var el = document.createElement("div");
 				el.className = "marker";
 				new mapboxgl.Marker(el)
-					.setLngLat([each.coordinates.longitude, each.coordinates.latitude])
+					.setLngLat([
+						each.geometry.coordinates[0],
+						each.geometry.coordinates[1],
+					])
 					.setPopup(
 						new mapboxgl.Popup({ offset: 20 }).setHTML(
 							`

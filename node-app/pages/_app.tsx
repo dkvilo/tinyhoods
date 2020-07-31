@@ -11,10 +11,12 @@ import {
 	LoaderProgressContextProvider,
 	LoaderProgressContext,
 	GQLErrorContext,
+	FiltersContextProvider,
 } from "../client/context";
 
 import InlineLoader from "../client/components/InlineLoader";
 
+import "rc-slider/assets/index.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/main.css";
 import GQLError from "../client/components/GQLError";
@@ -28,24 +30,26 @@ const App = ({ Component, pageProps, apollo }: any) => {
 			<LoaderProgressContextProvider>
 				<GQLErrorContextProvider>
 					<UserTokenContextProvider>
-						<>
-							{loaderState?.loading && loaderState.loading && (
-								<div
-									style={{
-										zIndex: 8888,
-										position: "absolute",
-										top: 0,
-										width: "100%",
-									}}
-								>
-									<InlineLoader />
-								</div>
-							)}
-							{errorState?.hasError && (
-								<GQLError title={errorState.title} error={errorState.error} />
-							)}
-							<Component {...pageProps} />
-						</>
+						<FiltersContextProvider>
+							<>
+								{loaderState?.loading && loaderState.loading && (
+									<div
+										style={{
+											zIndex: 8888,
+											position: "absolute",
+											top: 0,
+											width: "100%",
+										}}
+									>
+										<InlineLoader />
+									</div>
+								)}
+								{errorState?.hasError && (
+									<GQLError title={errorState.title} error={errorState.error} />
+								)}
+								<Component {...pageProps} />
+							</>
+						</FiltersContextProvider>
 					</UserTokenContextProvider>
 				</GQLErrorContextProvider>
 			</LoaderProgressContextProvider>

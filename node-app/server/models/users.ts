@@ -47,10 +47,10 @@ export default mongoose.model("users", {
 		},
 	],
 
-	posts: [
+	questions: [
 		{
 			type: (mongoose.Schema as any).ObjectId,
-			ref: "posts",
+			ref: "questions",
 		},
 	],
 

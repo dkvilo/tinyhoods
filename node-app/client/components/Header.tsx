@@ -23,6 +23,10 @@ const GET_MY_INFO = gql`
 			name
 			avatar
 			about
+			locationCount
+			questionsCount
+			followersCount
+			followingCount
 			isPrivate
 			link
 		}

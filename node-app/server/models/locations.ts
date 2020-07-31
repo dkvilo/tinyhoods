@@ -2,6 +2,17 @@ import mongoose from "mongoose";
 
 delete mongoose.connection.models["locations"];
 
+const GeoSchema = new mongoose.Schema({
+	type: {
+		type: String,
+		default: "Point",
+	},
+	coordinates: {
+		type: [Number],
+		index: "2dsphere",
+	},
+});
+
 export default mongoose.model("locations", {
 	name: {
 		type: String,
@@ -40,17 +51,7 @@ export default mongoose.model("locations", {
 	address: {
 		type: String,
 	},
-	coordinates: {
-		longitude: {
-			type: Number,
-		},
-		latitude: {
-			type: Number,
-		},
-		accuracy: {
-			type: Number,
-		},
-	},
+	geometry: GeoSchema,
 	createdAt: {
 		type: Date,
 		default: Date.now(),

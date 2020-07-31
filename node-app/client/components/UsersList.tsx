@@ -50,7 +50,7 @@ function UsersList(): JSX.Element {
 					return (
 						<div
 							key={user.username}
-							className="p-2 bg-default rounded-lg mb-4 shadow-md"
+							className="p-2 bg-default border-b-2 border-secondary"
 						>
 							<div className="flex items-center justify-between">
 								<div className="flex items-center">

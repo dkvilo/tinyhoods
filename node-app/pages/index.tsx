@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useLayoutEffect, useEffect } from "react";
 import dynamic from "next/dynamic";
 
 import { useQuery } from "@apollo/react-hooks";
@@ -6,10 +6,13 @@ import { gql } from "apollo-boost";
 
 import Grid from "../client/components/Grid";
 import SEOHeader from "../client/components/SEOHeader";
+import { FiltersContext } from "../client/context";
+import { isEmpty } from "ramda";
+import getLocationService from "../client/services/geoLocation";
 
 const GET_LOCATIONS = gql`
-	{
-		getLocations {
+	query getLocations($data: GetLocationInputData!) {
+		getLocations(data: $data) {
 			name
 			address
 			description
@@ -18,9 +21,9 @@ const GET_LOCATIONS = gql`
 				username
 				name
 			}
-			coordinates {
-				longitude
-				latitude
+			geometry {
+				coordinates
+				type
 			}
 		}
 	}
@@ -51,13 +54,47 @@ const TabsContentCSR = dynamic(
 ) as any;
 
 export default function Home() {
+	const { state: filtersState, dispatch: filterDispatcher } = useContext<any>(
+		FiltersContext
+	);
+
 	const { loading, data, error } = useQuery(GET_LOCATIONS, {
 		fetchPolicy: "network-only",
+		variables: {
+			data: {
+				coordinates: !isEmpty(filtersState.coordinates)
+					? filtersState.coordinates
+					: [],
+				// convert distance (km) to (m)
+				maxDistance: parseFloat(filtersState.maxDistance) * 1000,
+			},
+		},
 	});
 
 	const [activeCoordinates, setActiveCoordinates] = useState(
-		() => !loading && !error && data.getLocations[0].coordinates
+		() =>
+			!loading &&
+			!error &&
+			!isEmpty(data.getLocations) &&
+			data.getLocations[0].geometry.coordinates
 	);
+
+	useEffect(() => {
+		(async () => {
+			const {
+				coords: { latitude, longitude },
+			}: any = await getLocationService({
+				watch: false,
+				enableHighAccuracy: true,
+			} as any);
+			if (longitude && latitude) {
+				filterDispatcher({
+					type: "SET_COORDINATES",
+					payload: [longitude, latitude],
+				});
+			}
+		})();
+	}, []);
 
 	return (
 		<div className=" w-full h-screen overflow-x-scroll">

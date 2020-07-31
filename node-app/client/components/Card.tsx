@@ -1,16 +1,10 @@
 import React from "react";
 
-interface Coordinates {
-	latitude: number;
-	longitude: number;
-	accuracy?: number;
-}
-
 interface IProps {
 	name: string;
 	description: string;
 	address: string;
-	coordinates: Coordinates;
+	coordinates: [Number];
 	cover?: string;
 }
 
@@ -28,23 +22,23 @@ export default function ({
 			onClick={() => {
 				onSelect(coordinates);
 			}}
-			className="p-4 bg-default shadow-md text-decoration-none rounded-lg text-default-inverted"
+			className="p-4 bg-default text-decoration-none text-default-inverted border-b-2 border-secondary hover:bg-secondary"
 		>
 			<div className="card">
 				<h3 className="text-xl flex justify-between">
 					{name} <span>&rarr;</span>
 				</h3>
-				<div className="flex">
-					{/* {cover && (
+				<div className="flex flex-col">
+					{cover && (
 						<div className="rounded-lg my-3 overflow-hidden">
 							<img src={cover} alt={name} />
 						</div>
-					)} */}
+					)}
 					<p className="mt-2 text-sm rounded my-2">{description}</p>
 				</div>
 				<div className="mt-2 flex justify-between items-center">
 					<div className="text-sm flex items-center">
-						{/* <svg
+						<svg
 							className="w-4 h-4 mr-1"
 							version="1.1"
 							id="Capa_1"
@@ -57,7 +51,7 @@ export default function ({
 								className="active-path"
 								fill="var(--color-default-inverted)"
 							/>
-						</svg> */}
+						</svg>
 						<span className="mr-1">Near,</span>
 						<span>{address}</span>
 					</div>

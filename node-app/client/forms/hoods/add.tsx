@@ -64,7 +64,6 @@ const AddHood = () => {
 					coordinates: {
 						latitude: null,
 						longitude: null,
-						accuracy: 3,
 					},
 				}}
 				validationSchema={Yup.object().shape({
@@ -88,10 +87,11 @@ const AddHood = () => {
 							variables: {
 								data: {
 									...withoutCoords,
-									coordinates: {
-										latitude: parseFloat(coordinates.latitude as any),
-										longitude: parseFloat(coordinates.longitude as any),
-										accuracy: parseFloat(coordinates.accuracy as any),
+									geometry: {
+										coordinates: [
+											parseFloat(coordinates.longitude as any),
+											parseFloat(coordinates.latitude as any),
+										],
 									},
 									token: loginState.token,
 								},
