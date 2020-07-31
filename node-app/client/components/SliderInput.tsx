@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import Slider from "rc-slider";
 import { FiltersContext } from "../context";
 
+const SliderF: any = Slider;
+
 function SliderInput(): JSX.Element {
 	const { state, dispatch } = useContext<any>(FiltersContext);
 	const [value, setValue] = useState(state.maxDistance);
@@ -11,7 +13,7 @@ function SliderInput(): JSX.Element {
 			<div className="flex items-center justify-between text-default-inverted py-2 text-sm">
 				Visibility Distance (km) <span>{value}</span>
 			</div>
-			<Slider
+			<SliderF
 				className="p-2 z-0"
 				railStyle={{
 					background: "var(--color-default)",
