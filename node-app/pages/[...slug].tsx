@@ -15,6 +15,9 @@ const GET_USER = gql`
 			name
 			avatar
 			about
+			followersCount
+			followingCount
+			questionsCount
 			link
 			isPrivate
 		}

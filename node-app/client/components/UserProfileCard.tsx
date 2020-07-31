@@ -40,15 +40,15 @@ function UserProfileCard({ data }: any) {
 					<p className="text-sm text-default-inverted p-1">{data.about}</p>
 				</div>
 
-				<div className="flex items-center justify-center p-1 bg-secondary text-default-inverted w-full">
-					<div className="p-2">
-						<span className="font-bold">100K</span> Followers
+				<div className="flex justify-center p-1 text-default-inverted">
+					<div className="p-2 rounded bg-secondary mr-1 text-center">
+						<span className="font-bold">{data.followersCount}</span> Followers
 					</div>
-					<div className="p-2">
-						<span className="font-bold">25</span> Following
+					<div className="p-2 rounded bg-secondary mr-1 text-center">
+						<span className="font-bold">{data.followingCount}</span> Following
 					</div>
-					<div className="p-2">
-						<span className="font-bold">0</span> Questions
+					<div className="p-2 rounded bg-secondary text-center">
+						<span className="font-bold">{data.questionsCount}</span> Questions
 					</div>
 				</div>
 

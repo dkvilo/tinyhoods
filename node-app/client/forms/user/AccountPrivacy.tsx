@@ -77,7 +77,7 @@ const AccountPrivacy = ({ isPrivate }: IProps) => {
 						)}
 
 						<div className="flex justify-between">
-							<span className="block text-default-inverted">
+							<span className="block text-sm text-default-inverted">
 								Make My Account Private
 							</span>
 							<InputSwitch

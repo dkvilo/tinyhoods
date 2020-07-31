@@ -15,3 +15,9 @@ export {
 	LoaderProgressContextProvider,
 	LoaderProgressContextConsumer,
 } from "./LoaderProgress";
+
+export {
+	FiltersContext,
+	FiltersContextProvider,
+	FiltersContextConsumer,
+} from "./Filters";
