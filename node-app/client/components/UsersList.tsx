@@ -4,6 +4,8 @@ import { useContext } from "react";
 import { UserTokenContext } from "../context";
 import { isEmpty } from "ramda";
 import Button from "./Button";
+import Loader from "./Loader";
+import EmptyCard from "./EmptyCard";
 
 const GET_USERS = gql`
 	query getUsers($data: TokenAuthenticationInput!) {
@@ -29,20 +31,15 @@ function UsersList(): JSX.Element {
 	if (loading && !error) {
 		return (
 			<div className="p-2 bg-default rounded-lg mb-4">
-				<p className="py-2 text-default-inverted">Loading ...</p>
+				<Loader />
 			</div>
 		);
 	}
 
 	if (!loading && !error && isEmpty(data?.getUsers)) {
-		return (
-			<div className="p-2 bg-default rounded-lg mb-4">
-				<p className="py-2 text-default-inverted">
-					There is not content to show
-				</p>
-			</div>
-		);
+		return <EmptyCard />;
 	}
+
 	return (
 		<>
 			{data?.getUsers &&

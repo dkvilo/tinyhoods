@@ -5,6 +5,7 @@ export default async function (parent: any, args: any, context: any) {
 	const { coordinates, maxDistance } = args.data;
 
 	const response = await LocationModel.find({
+		isPrivate: false,
 		geometry: {
 			$nearSphere: !isEmpty(coordinates)
 				? [parseFloat(coordinates[0]), parseFloat(coordinates[1])]

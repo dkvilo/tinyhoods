@@ -1,4 +1,5 @@
 import LocationModel from "../../../models/locations";
+import UserModel from "../../../models/users";
 
 import { requireToken, decryptToken } from "../../../utils";
 
@@ -7,15 +8,25 @@ export default async function createLocation(
 	args: any,
 	context: any
 ) {
-	const { token } = args.data;
+	const { token, isPrivate } = args.data;
 	requireToken(token);
+
 	const userId = (decryptToken(token) as any).id;
 
 	try {
-		return !!(await LocationModel.create({
+		const response = await LocationModel.create({
 			...args.data,
 			explorer: userId,
-		}));
+		});
+
+		if (isPrivate) {
+			const updateReps = await UserModel.findByIdAndUpdate(userId, {
+				$push: { locations: response._id },
+			});
+			return !!updateReps && !!response;
+		}
+
+		return !!response;
 	} catch (e) {
 		throw new Error(e.message);
 	}

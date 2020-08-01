@@ -14,7 +14,6 @@ const getLocationService = ({
 		 */
 		const geoSuccess = (position: any) => {
 			if (process.env.NODE_ENV === "development") {
-				console.log("Watching");
 				console.log(position);
 			}
 			return resolve(position);

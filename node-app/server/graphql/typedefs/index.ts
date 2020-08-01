@@ -3,6 +3,66 @@ import { gql } from "apollo-server-micro";
 const typeDefs = gql`
 	scalar Date
 
+	type LineItems {
+		price: String
+		quantity: Int
+	}
+
+	type SessionPayload {
+		id: String
+		object: String
+		billing_address_collection: String
+		cancel_url: String
+		client_reference_id: String
+		customer: String
+		customer_email: String
+		livemode: Boolean
+		locale: String
+		mode: String
+		payment_intent: String
+		setup_intent: String
+		shipping: String
+		shipping_address_collection: String
+		submit_type: String
+		subscription: String
+		success_url: String
+		line_items: [LineItems]
+		payment_method_types: [String]
+	}
+
+	type Recurring {
+		aggregate_usage: String
+		interval: String
+		interval_count: Int
+		usage_type: String
+	}
+
+	type PriceListPayloadData {
+		id: String
+		object: String
+		active: Boolean
+		billing_scheme: String
+		created: Int
+		currency: String
+		livemode: Boolean
+		lookup_key: String
+		nickname: String
+		product: String
+		tiers_mode: String
+		transform_quantity: String
+		type: String
+		unit_amount: Int
+		unit_amount_decimal: String
+		recurring: Recurring
+	}
+
+	type PriceListPayload {
+		object: String
+		url: String
+		has_more: Boolean
+		data: [PriceListPayloadData]
+	}
+
 	input TokenAuthenticationInput {
 		token: String
 	}
@@ -24,6 +84,7 @@ const typeDefs = gql`
 		description: String!
 		geometry: GeometryInput
 		cover: String
+		isPrivate: Boolean!
 	}
 
 	input GetLocationInputData {
@@ -53,6 +114,12 @@ const typeDefs = gql`
 		password: String!
 	}
 
+	type UserMembershipPayload {
+		isPaid: Boolean
+		startedAt: Date
+		expiresAt: Date
+	}
+
 	type UserPayload {
 		avatar: String
 		image: String
@@ -68,6 +135,7 @@ const typeDefs = gql`
 		followersCount: Int!
 		followingCount: Int!
 		locationCount: Int!
+		membership: UserMembershipPayload
 	}
 
 	type AuthPayload {
@@ -92,6 +160,19 @@ const typeDefs = gql`
 		isPublished: Boolean!
 	}
 
+	input ConfirmCheckoutSessionInput {
+		user: ID!
+		token: String!
+		plan: String!
+		sessionId: String!
+	}
+
+	input CreateCheckoutSessionInput {
+		token: String!
+		price: String!
+		quantity: Int
+	}
+
 	type QuestionPayload {
 		id: ID!
 		content: String!
@@ -106,7 +187,7 @@ const typeDefs = gql`
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
 		getUser(username: String!): UserPayload!
 		getUsers(data: TokenAuthenticationInput!): [UserPayload]!
-		getQuestions: [QuestionPayload]!
+		getQuestions(data: TokenAuthenticationInput!): [QuestionPayload]!
 	}
 
 	type Mutation {
@@ -115,6 +196,8 @@ const typeDefs = gql`
 		createLocation(data: LocationDataInput!): Boolean!
 		updateAccountPrivacy(data: UserAccountPrivacyInput!): Boolean!
 		createQuestion(data: QuestionInputData!): Boolean!
+		confirmCheckoutSession(data: ConfirmCheckoutSessionInput!): Boolean!
+		createCheckoutSession(data: CreateCheckoutSessionInput!): SessionPayload
 	}
 `;
 

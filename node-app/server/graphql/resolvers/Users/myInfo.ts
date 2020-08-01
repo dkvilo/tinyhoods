@@ -20,6 +20,7 @@ export default async function getMyInfo(parent: any, args: any, context: any) {
 					about: 1,
 					link: 1,
 					isPrivate: 1,
+					membership: 1,
 					followingCount: { $size: "$following" },
 					followersCount: { $size: "$followers" },
 					locationCount: { $size: "$locations" },

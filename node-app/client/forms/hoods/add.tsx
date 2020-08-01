@@ -16,6 +16,7 @@ import {
 	GQLErrorContext,
 	UserTokenContext,
 } from "../../context";
+import InputSwitch from "../../components/InputSwitch";
 
 const CREATE_LOCATION = gql`
 	mutation createLocation($data: LocationDataInput!) {
@@ -28,8 +29,8 @@ const AddHood = () => {
 		CREATE_LOCATION
 	);
 
-	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
 	const { state: loginState } = useContext<any>(UserTokenContext);
+	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
 
 	useEffect(() => {
 		if (error) {
@@ -61,6 +62,7 @@ const AddHood = () => {
 					description: "",
 					cover: "",
 					address: "",
+					isPrivate: true,
 					coordinates: {
 						latitude: null,
 						longitude: null,
@@ -68,6 +70,7 @@ const AddHood = () => {
 				}}
 				validationSchema={Yup.object().shape({
 					name: Yup.string().required("Location Name is Required!"),
+					isPrivate: Yup.boolean().required("Location Type is Required"),
 					description: Yup.string().required(
 						"Location Description is Required!"
 					),
@@ -237,6 +240,18 @@ const AddHood = () => {
 								onChange={handleChange}
 								onBlur={handleBlur}
 							/>
+						</div>
+
+						<div className="my-6 flex">
+							<InputSwitch name="isPrivate" />
+							<span className="block text-primary ml-2">
+								{values.isPrivate ? "Private Location" : "Public Locations"}
+							</span>
+						</div>
+						<div className="p-2 mb-4 bg-secondary text-sm rounded-md text-default-inverted">
+							{values.isPrivate
+								? "This location will be visible only on your profile, mentioned as part of your personal memory, experience"
+								: "This location will be publicly available and you will be mentioned as an explorer"}
 						</div>
 
 						<div className="flex justify-center pt-2">

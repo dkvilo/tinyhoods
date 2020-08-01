@@ -112,7 +112,7 @@ const Authentication = () => {
 						<div className="flex flex-col">
 							<div className="flex justify-center">
 								<button
-									className="px-4 bg-primary w-full p-3 text-default rounded-full mr-2"
+									className="bg-primary w-full p-2 text-default rounded-full mr-2"
 									type="submit"
 									disabled={isSubmitting}
 								>
