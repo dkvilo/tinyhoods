@@ -5,6 +5,8 @@ import Button from "./Button";
 import { UserTokenContext } from "../context";
 import SliderInput from "./SliderInput";
 
+import CheckoutContainer from "./CheckoutContainer";
+
 function EditUserProfileCard({ data }: any) {
 	const { dispatch } = useContext<any>(UserTokenContext);
 
@@ -52,6 +54,8 @@ function EditUserProfileCard({ data }: any) {
 						<ThemeToggle />
 					</div>
 				</div>
+
+				{!data.membership.isPaid && <CheckoutContainer />}
 
 				<h1 className="text-2xl text-default-inverted font-bold py-2">
 					Account Settings

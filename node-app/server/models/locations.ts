@@ -63,6 +63,10 @@ export default mongoose.model("locations", {
 	deletedAt: {
 		type: Date,
 	},
+	isPrivate: {
+		type: Boolean,
+		default: false,
+	},
 	isDeleted: {
 		type: Boolean,
 		default: false,

@@ -1,12 +1,14 @@
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import { useContext } from "react";
-import { UserTokenContext } from "../context";
+import { useContext, useEffect } from "react";
+import { UserTokenContext, GQLErrorContext } from "../context";
 import { isEmpty } from "ramda";
+import Loader from "./Loader";
+import EmptyCard from "./EmptyCard";
 
 const GET_QUESTIONS = gql`
-	{
-		getQuestions {
+	query getQuestions($data: TokenAuthenticationInput!) {
+		getQuestions(data: $data) {
 			id
 			content
 			location {
@@ -25,25 +27,38 @@ function QuestionsList(): JSX.Element {
 
 	const { loading, data, error } = useQuery(GET_QUESTIONS, {
 		fetchPolicy: "network-only",
+		variables: {
+			data: {
+				token: loginState.token,
+			},
+		},
 	});
+
+	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
+	useEffect(() => {
+		if (error) {
+			errorDispatcher({
+				type: "SET_ERROR",
+				payload: {
+					title: "Questions",
+					error: error,
+				},
+			});
+		}
+	}, [error, errorDispatcher]);
 
 	if (loading && !error) {
 		return (
 			<div className="p-2 bg-default rounded-lg mb-4">
-				<p className="py-2 text-default-inverted">Loading ...</p>
+				<Loader />
 			</div>
 		);
 	}
 
 	if (!loading && !error && isEmpty(data?.getUsers)) {
-		return (
-			<div className="p-2 bg-default rounded-lg mb-4">
-				<p className="py-2 text-default-inverted">
-					There is not content to show
-				</p>
-			</div>
-		);
+		return <EmptyCard />;
 	}
+
 	return (
 		<>
 			{data?.getQuestions &&

@@ -78,6 +78,19 @@ export default mongoose.model("users", {
 		default: false,
 	},
 
+	membership: {
+		startedAt: {
+			type: Date,
+		},
+		expiresAt: {
+			type: Date,
+		},
+		isPaid: {
+			type: Boolean,
+			default: false,
+		},
+	},
+
 	isAdmin: {
 		type: Boolean,
 		default: false,

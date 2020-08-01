@@ -29,6 +29,9 @@ const GET_MY_INFO = gql`
 			followingCount
 			isPrivate
 			link
+			membership {
+				isPaid
+			}
 		}
 	}
 `;
@@ -89,7 +92,7 @@ export default function (): JSX.Element {
 				classNames="swoop-in"
 			>
 				<Modal title="Add Location" controller={addLocationModalController}>
-					<AddHood />
+					{loginState.isLogin ? <AddHood /> : <AuthCard />}
 				</Modal>
 			</CSSTransition>
 
@@ -99,7 +102,7 @@ export default function (): JSX.Element {
 				classNames="swoop-in"
 			>
 				<Modal title="Ask a Question" controller={askQuestionModalController}>
-					<AddQuestion />
+					{loginState.isLogin ? <AddQuestion /> : <AuthCard />}
 				</Modal>
 			</CSSTransition>
 
@@ -117,9 +120,11 @@ export default function (): JSX.Element {
 								? data?.getMyInfo.avatar
 								: "/avatar.svg"
 						}
-						className="w-8 h-8 ml-2 rounded-full border-2 border-default-inverted cursor-pointer"
+						className="ml-2 w-8 h-8 rounded-full border-2 border-default-inverted cursor-pointer"
 					/>
-					<SearchInput placeholder="Search ..." />
+					<div className="ml-3">
+						<SearchInput placeholder="Search ..." />
+					</div>
 				</div>
 
 				<button

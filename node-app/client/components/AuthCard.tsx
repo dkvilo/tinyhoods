@@ -13,8 +13,7 @@ function AuthCard() {
 	return (
 		<>
 			{authViewState ? <Registration /> : <Authentication />}
-
-			<div className="flex f-ull items-center justify-center my-6">
+			<div className="flex items-center justify-center my-6">
 				<Button onClick={switchAuthState}>
 					{authViewState
 						? "Already have an account?"

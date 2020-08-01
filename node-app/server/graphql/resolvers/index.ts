@@ -8,6 +8,8 @@ import updateAccountPrivacy from "./Users/updateAccountPrivacy";
 import getUsers from "./Users/getUsers";
 import createQuestion from "./Questions/create";
 import getQuestions from "./Questions/getQuestions";
+import confirmCheckoutSession from "./Payment/Checkout/confirm";
+import createCheckoutSession from "./Payment/Checkout/create";
 
 const resolvers = {
 	Query: {
@@ -23,6 +25,8 @@ const resolvers = {
 		authenticateUser,
 		updateAccountPrivacy,
 		createQuestion,
+		confirmCheckoutSession,
+		createCheckoutSession,
 	},
 };
 
