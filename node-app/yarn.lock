@@ -1319,10 +1319,6 @@
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.8.0.tgz#100f102d757cd024f94635dba231993554c8cfba"
   integrity sha512-VsIohJw70LIdB4b621RN6pTyw49ZMy+QjB81fl+Psu5X5ppiq/c+rG0F+XKHSVpp4JZRNDkQnsOGeuHow0aluA==
 
-"@types/@stripe/stripe-js":
-  version "1.8.0"
-  resolved "https://codeload.github.com/stripe/stripe-js/tar.gz/89e9e6c9589745dbefb48b9be5352795c3987592"
-
 "@types/accepts@*":
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@types/accepts/-/accepts-1.3.5.tgz#c34bec115cfc746e04fe5a059df4ce7e7b391575"
@@ -1505,6 +1501,13 @@
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.2.tgz#857a118d8634c84bba7ae14088e4508490cd5da5"
   integrity sha512-4kPlzbljFcsttWEq6aBW0OZe6BDajAmyvr2xknBG92tejQnvdGtT9+kXSZ580DqpxY9qG2xeQVF9Dq0ymUTo5Q==
+
+"@types/moment@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
+  integrity sha1-YE69GJvDvDShVIaJQE5hoqSqyJY=
+  dependencies:
+    moment "*"
 
 "@types/mongodb@*":
   version "3.5.25"
@@ -5606,7 +5609,7 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@^2.27.0:
+moment@*, moment@^2.27.0:
   version "2.27.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
   integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
