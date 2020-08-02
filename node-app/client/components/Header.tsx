@@ -31,6 +31,8 @@ const GET_MY_INFO = gql`
 			link
 			membership {
 				isPaid
+				startedAt
+				expiresAt
 			}
 		}
 	}
