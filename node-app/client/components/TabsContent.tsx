@@ -48,7 +48,7 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 							{!loading &&
 								!error &&
 								data.getLocations.map((each: any) => (
-									<div key={each.address}>
+									<div key={each.id}>
 										<Card
 											onSelect={(coordinates: any) => {
 												onFocus(coordinates);

@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import ThemeToggle from "./ThemeToggle";
-import AccountPrivacy from "../forms/user/AccountPrivacy";
-import Button from "./Button";
+import moment from "moment";
 import { UserTokenContext } from "../context";
-import SliderInput from "./SliderInput";
 
+import AccountPrivacy from "../forms/user/AccountPrivacy";
+
+import ThemeToggle from "./ThemeToggle";
+import Button from "./Button";
+import SliderInput from "./SliderInput";
 import CheckoutContainer from "./CheckoutContainer";
 
 function EditUserProfileCard({ data }: any) {
@@ -40,6 +42,24 @@ function EditUserProfileCard({ data }: any) {
 					<span className="font-bold">{data.questionsCount}</span> Questions
 				</div>
 			</div>
+
+			{data.membership.isPaid && (
+				<div className="flex my-4 items-center justify-start p-1 bg-primary text-default rounded-md w-full">
+					<img
+						src="/ticket.svg"
+						className="w-16 h-16 p-1"
+						style={{
+							transform: "rotate(-90deg)",
+						}}
+					/>
+					<div className="flex flex-col justify-start">
+						<span className="font-bold text-md">Membership Expire Date</span>
+						<span className="font-bold text-sm rounded">
+							{moment(data.membership.expiresAt).format("LLLL")}
+						</span>
+					</div>
+				</div>
+			)}
 
 			<div className="flex flex-col w-full bg-default rounded-md ">
 				<div className="my-2">

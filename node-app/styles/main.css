@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root body {
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+  position: fixed;
+}
+
 :root {
 	--color-background: theme("colors.gray.100");
 	--color-primary: rgb(0, 98, 240);
@@ -11,8 +17,6 @@
   --color-default-inverted: theme("colors.gray.700");
   --color-warning: theme("colors.orange.500");
   /* font-family: JetBrainsMono; */
-  user-select: none;
-  -webkit-overflow-scrolling: touch;
 }
 
 .theme-dark {

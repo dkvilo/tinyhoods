@@ -14,6 +14,7 @@ import getLocationService from "../client/services/geoLocation";
 const GET_LOCATIONS = gql`
 	query getLocations($data: GetLocationInputData!) {
 		getLocations(data: $data) {
+			id
 			name
 			address
 			description
