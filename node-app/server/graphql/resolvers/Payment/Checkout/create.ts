@@ -23,9 +23,7 @@ export default async function createCheckout(
 	try {
 		const { checkout } = config.externalServices.stripe;
 		const session = await stripeClient.checkout.sessions.create({
-			payment_method_types: (checkout.paymentMethods as string).split(",") as [
-
-			],
+			payment_method_types: ["card", "ideal", "bancontact", "giropay", "p24"],
 			mode: "payment",
 			line_items: [
 				{
