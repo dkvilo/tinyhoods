@@ -29,9 +29,9 @@ function CheckoutContainer(): JSX.Element {
 	const [plan, setPlan] = useState<Number>(0);
 
 	return (
-		<div className="my-4 bg-secondary p-2 rounded-lg">
+		<div className="mt-4 bg-secondary p-2 rounded-lg">
 			<Select
-				placeholder="Select Membership Pass"
+				placeholder="Buy Traveler Membership Pass"
 				onChange={(selectedItem: any) => {
 					const { value } = selectedItem;
 					setPlan(value);

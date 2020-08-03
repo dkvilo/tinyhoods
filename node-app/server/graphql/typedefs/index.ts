@@ -82,14 +82,24 @@ const typeDefs = gql`
 		name: String!
 		address: String!
 		description: String!
+		landform: String
+		keywords: [String]!
 		geometry: GeometryInput
 		cover: String
 		isPrivate: Boolean!
 	}
 
+	type KeyWordsPayload {
+		id: ID!
+		name: String!
+	}
+
 	input GetLocationInputData {
 		coordinates: [Float!]
 		maxDistance: Float = 2.1
+		landform: String = ""
+		keywords: [String]
+		token: String
 	}
 
 	type LocationPayload {
@@ -100,6 +110,8 @@ const typeDefs = gql`
 		geometry: GeometryPayload
 		cover: String
 		explorer: UserPayload
+		landform: LandformPayload
+		keywords: [KeyWordsPayload]!
 	}
 
 	input UserCreateInput {
@@ -182,12 +194,20 @@ const typeDefs = gql`
 		publishedAt: Date
 	}
 
+	type LandformPayload {
+		id: ID!
+		name: String!
+		description: String!
+	}
+
 	type Query {
 		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
 		getUser(username: String!): UserPayload!
 		getUsers(data: TokenAuthenticationInput!): [UserPayload]!
 		getQuestions(data: TokenAuthenticationInput!): [QuestionPayload]!
+		getLandforms: [LandformPayload]!
+		getKeywords: [KeyWordsPayload]!
 	}
 
 	type Mutation {

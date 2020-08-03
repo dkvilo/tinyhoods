@@ -5,10 +5,13 @@ import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 import FormikInput from "../../components/FormikInput";
-import FormAlert from "../../components/ErrorAlert";
 import InputError from "../../components/InputError";
 
-import { GQLErrorContext, LoaderProgressContext } from "../../context";
+import {
+	GQLErrorContext,
+	LoaderProgressContext,
+	AlertMessageContext,
+} from "../../context";
 
 const Registration = () => {
 	const REGISTER_USER = gql`
@@ -43,6 +46,19 @@ const Registration = () => {
 		}
 	}, [loading, loaderDispatcher]);
 
+	const { dispatch: messageDispatcher } = useContext<any>(AlertMessageContext);
+	useEffect(() => {
+		if (!loading && !error && data?.createUser) {
+			messageDispatcher({
+				type: "SET_MESSAGE",
+				payload: {
+					title: "Registration",
+					message: "Registration was successful",
+				},
+			});
+		}
+	}, [data, loading, error]);
+
 	return (
 		<>
 			<Formik
@@ -58,7 +74,7 @@ const Registration = () => {
 					password: Yup.string().required("Password is Required!"),
 					email: Yup.string().required("Email is Required!"),
 				})}
-				onSubmit={async (values: any, { setSubmitting }: any) => {
+				onSubmit={async (values: any, { setSubmitting, resetForm }: any) => {
 					try {
 						await createUser({
 							variables: {
@@ -70,19 +86,13 @@ const Registration = () => {
 								},
 							},
 						});
+						resetForm();
 					} catch (e) {}
 					setSubmitting(false);
 				}}
 			>
 				{({ isSubmitting }: any) => (
 					<Form>
-						{data?.createUser && (
-							<FormAlert
-								title="Registration"
-								message={"Registration was successful"}
-							/>
-						)}
-
 						<div className="flex flex-col mb-4">
 							<FormikInput type="text" placeholder="Full Name" name="name" />
 						</div>

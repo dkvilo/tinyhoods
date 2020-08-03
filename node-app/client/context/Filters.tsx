@@ -2,9 +2,7 @@ import React, { createContext } from "react";
 
 const initialState = {
 	coordinates: [],
-	maxDistance: process.browser
-		? localStorage.getItem("maxDistance") || 100
-		: 100,
+	maxDistance: process.browser ? localStorage.getItem("maxDistance") || 10 : 10,
 };
 
 const storeAndGetMaxDistance = ({ maxDistance }: any) => {

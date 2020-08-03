@@ -1,25 +1,10 @@
 import React from "react";
 
-// import { UserTokenContext } from "../context";
-
-import Button from "./Button";
-// import AuthCard from "./AuthCard";
+import UserBadges from "./UserBadges";
 
 function UserProfileCard({ data }: any) {
-	// const { state: loginState } = useContext<any>(UserTokenContext);
-
 	return (
 		<>
-			{/* {!loginState.isLogin && (
-				<div
-					className="absolute w-screen h-screen top-0 left-0 flex flex-col items-center justify-center"
-					style={{
-						background: "rgba(0, 0, 0, 0.5)",
-					}}
-				>
-					<AuthCard />
-				</div>
-			)} */}
 			<div className="flex flex-col items-center justify-center w-full xs:w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 mx-auto">
 				<img
 					src={data.avatar}
@@ -52,11 +37,13 @@ function UserProfileCard({ data }: any) {
 					</div>
 				</div>
 
-				<div className="flex items-center justify-center p-2">
+				<UserBadges data={data} />
+
+				{/* <div className="flex items-center justify-center p-2">
 					<Button className="px-2 text-default-inverted bg-default border-2 rounded-md hover:bg-primary hover:text-default hover:border-primary">
 						Follow @{data.username}
 					</Button>
-				</div>
+				</div> */}
 
 				{data.isPrivate && (
 					<div className="flex flex-col items-center justify-center m-5">

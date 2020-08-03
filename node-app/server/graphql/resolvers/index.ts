@@ -10,6 +10,8 @@ import createQuestion from "./Questions/create";
 import getQuestions from "./Questions/getQuestions";
 import confirmCheckoutSession from "./Payment/Checkout/confirm";
 import createCheckoutSession from "./Payment/Checkout/create";
+import getLandforms from "./Landforms/get";
+import getKeywords from "./Keywords/get";
 
 const resolvers = {
 	Query: {
@@ -18,6 +20,8 @@ const resolvers = {
 		getUser,
 		getUsers,
 		getQuestions,
+		getLandforms,
+		getKeywords,
 	},
 	Mutation: {
 		createLocation,

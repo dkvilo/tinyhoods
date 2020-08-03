@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { GQLErrorContext } from "../context";
+import { GQLErrorContext, AlertMessageContext } from "../context";
 
 interface IProps {
 	message: string | null;
@@ -8,18 +8,18 @@ interface IProps {
 	title?: string | null;
 }
 
-function ErrorAlert({
+function AlertMessage({
 	message,
 	timeOut = 3000,
 	autoUnmount = true,
 	title,
 }: IProps): React.ReactElement {
-	const { dispatch } = useContext<any>(GQLErrorContext);
+	const { dispatch } = useContext<any>(AlertMessageContext);
 
 	useEffect(() => {
 		if (autoUnmount) {
 			const timer = setTimeout(() => {
-				dispatch({ type: "UNSET_ERROR" });
+				dispatch({ type: "UNSET_MESSAGE" });
 			}, timeOut);
 
 			return () => {
@@ -31,7 +31,7 @@ function ErrorAlert({
 
 	return (
 		<div
-			className="fixed mx-auto w-screen bg-red-500 flex items-center justify-center"
+			className="fixed mx-auto w-screen bg-primary flex items-center justify-center"
 			style={{
 				zIndex: 999999,
 				bottom: 0,
@@ -45,4 +45,4 @@ function ErrorAlert({
 	);
 }
 
-export default ErrorAlert;
+export default AlertMessage;

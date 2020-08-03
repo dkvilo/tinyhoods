@@ -45,6 +45,17 @@ export default mongoose.model("locations", {
 			ref: "questions",
 		},
 	],
+	keywords: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "keywords",
+		},
+	],
+	landform: {
+		type: (mongoose.Schema as any).ObjectId,
+		ref: "landforms",
+		required: [true, "Landform is required"],
+	},
 	description: {
 		type: String,
 	},

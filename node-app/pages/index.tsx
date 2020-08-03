@@ -7,7 +7,12 @@ import { isEmpty } from "ramda";
 
 import Grid from "../client/components/Grid";
 import SEOHeader from "../client/components/SEOHeader";
-import { FiltersContext } from "../client/context";
+
+import {
+	FiltersContext,
+	UserTokenContext,
+	GQLErrorContext,
+} from "../client/context";
 
 import getLocationService from "../client/services/geoLocation";
 
@@ -60,6 +65,8 @@ export default function Home() {
 		FiltersContext
 	);
 
+	const { state: loginState } = useContext<any>(UserTokenContext);
+
 	const { loading, data, error } = useQuery(GET_LOCATIONS, {
 		fetchPolicy: "network-only",
 		variables: {
@@ -69,9 +76,24 @@ export default function Home() {
 					: [],
 				// convert distance (km) to (m)
 				maxDistance: parseFloat(filtersState.maxDistance) * 1000,
+				token: loginState.token,
 			},
 		},
 	});
+
+	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
+
+	useEffect(() => {
+		if (error) {
+			errorDispatcher({
+				type: "SET_ERROR",
+				payload: {
+					title: "Tinyhoods",
+					error: error,
+				},
+			});
+		}
+	}, [error, errorDispatcher]);
 
 	const [activeCoordinates, setActiveCoordinates] = useState(null);
 
