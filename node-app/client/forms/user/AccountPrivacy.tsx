@@ -4,10 +4,11 @@ import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import * as Yup from "yup";
 
-import CheckBox from "../../components/CheckBox";
-import Alert from "../../components/ErrorAlert";
-import InputError from "../../components/InputError";
-import { GQLErrorContext, UserTokenContext } from "../../context";
+import {
+	GQLErrorContext,
+	UserTokenContext,
+	AlertMessageContext,
+} from "../../context";
 import InputSwitch from "../../components/InputSwitch";
 
 interface IProps {
@@ -21,7 +22,7 @@ const AccountPrivacy = ({ isPrivate }: IProps) => {
 		}
 	`;
 
-	const [updateUser, { error, data }] = useMutation(
+	const [updateUser, { error, data, loading }] = useMutation(
 		UPDATE_USER_ACCOUNT_PRIVACY
 	);
 
@@ -53,6 +54,20 @@ const AccountPrivacy = ({ isPrivate }: IProps) => {
 		} catch (e) {}
 	};
 
+	const { dispatch: messageDispatcher } = useContext<any>(AlertMessageContext);
+
+	useEffect(() => {
+		if (!loading && !error && data?.updateAccountPrivacy) {
+			messageDispatcher({
+				type: "SET_MESSAGE",
+				payload: {
+					title: "Account Privacy",
+					message: "Privacy was updated successful",
+				},
+			});
+		}
+	}, [data, loading, error]);
+
 	return (
 		<>
 			<Formik
@@ -69,13 +84,6 @@ const AccountPrivacy = ({ isPrivate }: IProps) => {
 			>
 				{({ isSubmitting, setSubmitting, values, touched }: any) => (
 					<Form className="p-2 bg-secondary w-full rounded-md">
-						{data?.updateAccountPrivacy && (
-							<Alert
-								title="Account Privacy"
-								message={"Privacy was updated successful"}
-							/>
-						)}
-
 						<div className="flex justify-between">
 							<span className="block text-sm text-default-inverted">
 								Make My Account Private

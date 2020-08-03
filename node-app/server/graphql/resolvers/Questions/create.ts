@@ -21,9 +21,16 @@ export default async function createQuestion(
 			author: userId,
 		});
 
-		const userResponse = await UserModel.findOneAndUpdate(userId, {
-			$push: { questions: response._id },
-		});
+		const userResponse = await UserModel.findOneAndUpdate(
+			{
+				_id: userId,
+			},
+			{
+				$push: { questions: response._id },
+			}
+		);
+
+		console.log(userResponse);
 
 		return !!response && !!userResponse;
 	} catch (e) {

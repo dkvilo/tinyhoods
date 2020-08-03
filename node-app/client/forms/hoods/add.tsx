@@ -1,8 +1,10 @@
 import React, { useEffect, useContext } from "react";
 import { Formik } from "formik";
 import { gql } from "apollo-boost";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import * as Yup from "yup";
+import Select from "react-select";
+import { isEmpty } from "ramda";
 
 import Textarea from "../../components/Textarea";
 import FromikInput from "../../components/FormikInput";
@@ -15,7 +17,9 @@ import {
 	LoaderProgressContext,
 	GQLErrorContext,
 	UserTokenContext,
+	AlertMessageContext,
 } from "../../context";
+
 import InputSwitch from "../../components/InputSwitch";
 
 const CREATE_LOCATION = gql`
@@ -24,10 +28,41 @@ const CREATE_LOCATION = gql`
 	}
 `;
 
+const GET_LANDFORM = gql`
+	{
+		getLandforms {
+			description
+			id
+			name
+		}
+	}
+`;
+
+const GET_FREQUENTLY_USED_KEYWORDS = gql`
+	{
+		getKeywords {
+			name
+			id
+		}
+	}
+`;
+
 const AddHood = () => {
 	const [createLocation, { loading, error, data }] = useMutation(
 		CREATE_LOCATION
 	);
+
+	const {
+		loading: landFormLoading,
+		error: landFormError,
+		data: landFormData,
+	} = useQuery(GET_LANDFORM);
+
+	const {
+		loading: keywordsLoading,
+		error: keywordsError,
+		data: keywordsData,
+	} = useQuery(GET_FREQUENTLY_USED_KEYWORDS);
 
 	const { state: loginState } = useContext<any>(UserTokenContext);
 	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
@@ -45,7 +80,6 @@ const AddHood = () => {
 	}, [error, errorDispatcher]);
 
 	const { dispatch: loaderDispatcher } = useContext<any>(LoaderProgressContext);
-
 	useEffect(() => {
 		if (loading) {
 			loaderDispatcher({ type: "START" });
@@ -53,6 +87,19 @@ const AddHood = () => {
 			loaderDispatcher({ type: "STOP" });
 		}
 	}, [loading, loaderDispatcher]);
+
+	const { dispatch: messageDispatcher } = useContext<any>(AlertMessageContext);
+	useEffect(() => {
+		if (!loading && !error && data?.createLocation) {
+			messageDispatcher({
+				type: "SET_MESSAGE",
+				payload: {
+					title: "Location",
+					message: "Location was added Successfully",
+				},
+			});
+		}
+	}, [data, loading, error]);
 
 	return (
 		<div>
@@ -62,7 +109,9 @@ const AddHood = () => {
 					description: "",
 					cover: "",
 					address: "",
+					landform: "",
 					isPrivate: true,
+					keywords: [],
 					coordinates: {
 						latitude: null,
 						longitude: null,
@@ -82,7 +131,7 @@ const AddHood = () => {
 						})
 						.required("Coordinates is required"),
 				})}
-				onSubmit={async (values, { setSubmitting }) => {
+				onSubmit={async (values, { setSubmitting, resetForm }) => {
 					try {
 						setSubmitting(true);
 						const { coordinates, ...withoutCoords } = values;
@@ -100,6 +149,7 @@ const AddHood = () => {
 								},
 							},
 						});
+						resetForm();
 					} catch {}
 
 					setSubmitting(false);
@@ -117,13 +167,6 @@ const AddHood = () => {
 					/* and other goodies */
 				}) => (
 					<form onSubmit={handleSubmit}>
-						<div className="my-4">
-							{!loading && !error && data?.createLocation && (
-								<div className="bg-secondary p-2 rounded-md text-default-inverted">
-									Location Was added Successfully
-								</div>
-							)}
-						</div>
 						<div className="my-4">
 							<FromikInput
 								placeholder="Location Name"
@@ -194,22 +237,6 @@ const AddHood = () => {
 							</Button>
 						</div>
 
-						{/* {values.onMap && (
-							<div className="my-4">
-								<h1>Select Location</h1>
-								<DraggableMapInput
-									onChange={({ lng, lat }: any) => {
-										setFieldValue("coordinates.longitude", lng);
-										setFieldValue("coordinates.latitude", lat);
-									}}
-									activeCoordinates={{
-										longitude: values.coordinates.longitude || 44.7840256,
-										latitude: values.coordinates.latitude || 41.7234944,
-									}}
-								/>
-							</div>
-						)} */}
-
 						<div className="my-4 ">
 							<div className="flex">
 								<FromikInput
@@ -241,6 +268,64 @@ const AddHood = () => {
 								onBlur={handleBlur}
 							/>
 						</div>
+
+						{!values.isPrivate && (
+							<div className="my-4">
+								<Select
+									placeholder="Select Landform"
+									onChange={(selectedItem: any) => {
+										const { value } = selectedItem;
+										setFieldValue("landform", value);
+									}}
+									closeMenuOnSelect
+									noOptionsMessage={() => "Landform not found"}
+									isMulti={false}
+									options={
+										!landFormLoading &&
+										!landFormError &&
+										!isEmpty(landFormData?.getLandforms)
+											? landFormData.getLandforms.map((each: any) => ({
+													value: each.id,
+													label: each.name,
+											  }))
+											: []
+									}
+								/>
+								<div className="mt-2">
+									<InputError name="landform" />
+								</div>
+							</div>
+						)}
+
+						{!values.isPrivate && (
+							<div className="my-4">
+								<Select
+									placeholder="Select Keyword(s)"
+									isMulti
+									onChange={(selectedItem: any) => {
+										setFieldValue(
+											"keywords",
+											selectedItem.map((each: any) => each.value)
+										);
+									}}
+									closeMenuOnSelect
+									noOptionsMessage={() => "Keyword not found"}
+									options={
+										!keywordsLoading &&
+										!keywordsError &&
+										!isEmpty(keywordsData?.getKeywords)
+											? keywordsData.getKeywords.map((each: any) => ({
+													value: each.id,
+													label: each.name,
+											  }))
+											: []
+									}
+								/>
+								<div className="mt-2">
+									<InputError name="landform" />
+								</div>
+							</div>
+						)}
 
 						<div className="my-6 flex">
 							<InputSwitch name="isPrivate" />

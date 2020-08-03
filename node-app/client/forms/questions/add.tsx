@@ -15,6 +15,7 @@ import {
 	GQLErrorContext,
 	LoaderProgressContext,
 	FiltersContext,
+	AlertMessageContext,
 } from "../../context";
 import InputError from "../../components/InputError";
 import InputSwitch from "../../components/InputSwitch";
@@ -82,7 +83,6 @@ const AddQuestion = () => {
 	}, [error, errorDispatcher]);
 
 	const { dispatch: loaderDispatcher } = useContext<any>(LoaderProgressContext);
-
 	useEffect(() => {
 		if (loading) {
 			loaderDispatcher({ type: "START" });
@@ -90,6 +90,19 @@ const AddQuestion = () => {
 			loaderDispatcher({ type: "STOP" });
 		}
 	}, [loading, loaderDispatcher]);
+
+	const { dispatch: messageDispatcher } = useContext<any>(AlertMessageContext);
+	useEffect(() => {
+		if (!loading && !error && data?.createQuestion) {
+			messageDispatcher({
+				type: "SET_MESSAGE",
+				payload: {
+					title: "Question",
+					message: "The Question was added successfully",
+				},
+			});
+		}
+	}, [data, loading, error]);
 
 	return (
 		<div>
@@ -103,7 +116,7 @@ const AddQuestion = () => {
 					content: Yup.string().required("Question Content is Required!"),
 					location: Yup.string().required("Location is Required!"),
 				})}
-				onSubmit={async (values, { setSubmitting }) => {
+				onSubmit={async (values, { setSubmitting, resetForm }) => {
 					try {
 						setSubmitting(true);
 						const response = await createQuestion({
@@ -114,9 +127,8 @@ const AddQuestion = () => {
 								},
 							},
 						});
+						resetForm();
 					} catch {}
-
-					// setSubmitting(false);
 				}}
 			>
 				{({
@@ -130,16 +142,6 @@ const AddQuestion = () => {
 					isSubmitting,
 				}) => (
 					<form onSubmit={handleSubmit}>
-						<div className="my-4">
-							{!loading && !error && data?.createQuestion && (
-								<div className="bg-secondary p-2 rounded-md text-default-inverted">
-									Question{" "}
-									{values.isPublished
-										? "was added Successfully"
-										: "was saved as Draft"}
-								</div>
-							)}
-						</div>
 						<div className="my-4">
 							<Textarea
 								placeholder="Aks or share opinion"

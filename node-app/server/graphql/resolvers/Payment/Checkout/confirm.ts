@@ -57,7 +57,7 @@ export default async function confirmCheckout(
 		// Citizen      price_1HBRPPESEHCrAVLIXEpmLCke
 		const response = await UsersModel.findByIdAndUpdate(user, {
 			membership: {
-				isPaid: true,
+				isPaid: plan === "price_1HBRPPESEHCrAVLIXEpmLCke" ? true : false,
 				startedAt: Date.now(),
 				expiresAt: calculateExpirationDate(plan),
 			},

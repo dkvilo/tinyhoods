@@ -164,7 +164,7 @@ const CheckoutButton = ({ plan }: any) => {
 		<>
 			{loading && !mutationError && <LoaderDots />}
 
-			<div className="lex flex-col max-w-full bg-green-400 rounded-lg shadow-2xl overflow-hidden">
+			<div className="lex flex-col max-w-full bg-green-400 rounded-lg overflow-hidden">
 				<div className="flex items-center justify-start md:h-32 lg:h-32 xl:h-32">
 					<div className="py-2 px-4 text-center w-full">
 						<h2 className="text-default text-2xl font-bold">{state.name}</h2>

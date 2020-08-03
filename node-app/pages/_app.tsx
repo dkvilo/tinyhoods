@@ -10,11 +10,13 @@ import {
 	GQLErrorContextProvider,
 	LoaderProgressContextProvider,
 	FiltersContextProvider,
+	AlertMessageContextProvider,
 } from "../client/context";
 
 import "rc-slider/assets/index.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/main.css";
+import AlertMessageContainer from "../client/components/AlertMessageContainer";
 
 const ErrorContainerCSR = dynamic(
 	() =>
@@ -40,17 +42,20 @@ const App = ({ Component, pageProps, apollo }: any) => {
 	return (
 		<ApolloProvider client={apollo}>
 			<LoaderProgressContextProvider>
-				<GQLErrorContextProvider>
-					<UserTokenContextProvider>
-						<FiltersContextProvider>
-							<>
-								<LoaderContainerCSR />
-								<ErrorContainerCSR />
-								<Component {...pageProps} />
-							</>
-						</FiltersContextProvider>
-					</UserTokenContextProvider>
-				</GQLErrorContextProvider>
+				<AlertMessageContextProvider>
+					<GQLErrorContextProvider>
+						<UserTokenContextProvider>
+							<FiltersContextProvider>
+								<>
+									<LoaderContainerCSR />
+									<AlertMessageContainer />
+									<ErrorContainerCSR />
+									<Component {...pageProps} />
+								</>
+							</FiltersContextProvider>
+						</UserTokenContextProvider>
+					</GQLErrorContextProvider>
+				</AlertMessageContextProvider>
 			</LoaderProgressContextProvider>
 		</ApolloProvider>
 	);

@@ -7,10 +7,10 @@ import typeDefs from "../../server/graphql/typedefs";
 import cfg from "../../shared/config";
 import { randomBytes } from "crypto";
 
-mongoose.set("useCreateIndex", true);
 mongoose.connect(
 	`${(cfg as any).mongo.atlasPath}?retryWrites=true&w=majority`,
 	{
+		useCreateIndex: true,
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: true,

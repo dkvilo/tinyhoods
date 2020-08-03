@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+  },
+  "include": [
+    "./*",
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}
