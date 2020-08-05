@@ -9,14 +9,13 @@ function SliderInput(): JSX.Element {
 	const [value, setValue] = useState(state.maxDistance);
 
 	return (
-		<div className="w-full p-2">
-			<div className="flex items-center justify-between text-default-inverted py-2 text-sm">
-				Visibility Distance (km) <span>{value}</span>
+		<div className="w-full">
+			<div className="flex items-center justify-center text-default-inverted py-2 text-xs">
+				<span className="mr-1 font-bold">{value}</span> Km
 			</div>
 			<SliderF
-				className="p-2 z-0"
 				railStyle={{
-					background: "var(--color-default)",
+					background: "var(--color-secondary)",
 					height: 10,
 				}}
 				trackStyle={{
@@ -29,7 +28,7 @@ function SliderInput(): JSX.Element {
 					outline: "none",
 					height: 25,
 					width: 25,
-					top: 5.2,
+					top: 2.5,
 				}}
 				onAfterChange={(val: any) => {
 					dispatch({
