@@ -70,7 +70,7 @@
     "autoprefixer": "^9.8.4",
     "postcss-cli": "^7.1.1",
     "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^1.4.6",
+    "tailwindcss": "^1.6.0",
     "typescript": "^3.9.5"
   }
 }

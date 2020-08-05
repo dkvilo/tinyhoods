@@ -28,7 +28,7 @@ function UsersList(): JSX.Element {
 		},
 	});
 
-	if (loading && !error) {
+	if (!loading && !error) {
 		return (
 			<div className="p-2 bg-default rounded-lg mb-4">
 				<Loader />

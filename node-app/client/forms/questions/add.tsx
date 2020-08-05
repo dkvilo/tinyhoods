@@ -48,6 +48,7 @@ const AddQuestion = () => {
 		CREATE_QUESTION
 	);
 
+	const { state: loginState } = useContext<any>(UserTokenContext);
 	const { state: filtersState, dispatch: filterDispatcher } = useContext<any>(
 		FiltersContext
 	);
@@ -63,11 +64,11 @@ const AddQuestion = () => {
 					? filtersState.coordinates
 					: [],
 				maxDistance: parseFloat(filtersState.maxDistance) * 1000,
+				token: loginState.token,
 			},
 		},
 	});
 
-	const { state: loginState } = useContext<any>(UserTokenContext);
 	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
 
 	useEffect(() => {

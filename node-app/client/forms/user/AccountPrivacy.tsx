@@ -83,7 +83,7 @@ const AccountPrivacy = ({ isPrivate }: IProps) => {
 				})}
 			>
 				{({ isSubmitting, setSubmitting, values, touched }: any) => (
-					<Form className="p-2 bg-secondary w-full rounded-md">
+					<Form className="py-2 w-full rounded-md">
 						<div className="flex justify-between">
 							<span className="block text-sm text-default-inverted">
 								Make My Account Private
