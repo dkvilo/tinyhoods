@@ -30,8 +30,6 @@ export default async function createQuestion(
 			}
 		);
 
-		console.log(userResponse);
-
 		return !!response && !!userResponse;
 	} catch (e) {
 		throw new Error(e.message);

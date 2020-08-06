@@ -200,6 +200,11 @@ const typeDefs = gql`
 		description: String!
 	}
 
+	input GetQuestionsOnLocationInputType {
+		location: ID!
+		token: String!
+	}
+
 	type Query {
 		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
@@ -208,6 +213,9 @@ const typeDefs = gql`
 		getQuestions(data: TokenAuthenticationInput!): [QuestionPayload]!
 		getLandforms: [LandformPayload]!
 		getKeywords: [KeyWordsPayload]!
+		getQuestionsOnLocation(
+			data: GetQuestionsOnLocationInputType!
+		): [QuestionPayload]!
 	}
 
 	type Mutation {

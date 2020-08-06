@@ -1,6 +1,11 @@
 import React, { createContext } from "react";
 
 const initialState = {
+	selectedLocationData: {
+		name: null,
+		id: null,
+		address: null,
+	},
 	coordinates: [],
 	maxDistance: process.browser ? localStorage.getItem("maxDistance") || 10 : 10,
 };
@@ -24,6 +29,16 @@ const storeAndGetCoordinates = ({ lng, lat }: any) => {
 
 let reducer = (state: any, action: any) => {
 	switch (action.type) {
+		case "SET_SELECTED_LOCATION":
+			return {
+				...state,
+				selectedLocationData: action.payload,
+			};
+		case "CLEAR_SELECTED_LOCATION":
+			return {
+				...state,
+				selectedLocationData: initialState.selectedLocationData,
+			};
 		case "SET_DISTANCE":
 			return {
 				...state,
