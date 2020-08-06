@@ -8,17 +8,26 @@ import QuestionsList from "./QuestionsList";
 import Container from "./Container";
 import EmptyCard from "./EmptyCard";
 import Loader from "./Loader";
+import QuestionsOnLocationList from "./QuestionsOnLocationList";
 
-import { UserTokenContext } from "../context";
+import {
+	UserTokenContext,
+	FiltersContext,
+	AlertMessageContext,
+} from "../context";
 
 import AuthCard from "./AuthCard";
 
 function TabsContent({ loading, data, error, onFocus }: any) {
 	const { state: loginState } = useContext<any>(UserTokenContext);
+	const { state: filterState } = useContext<any>(FiltersContext);
 
 	return (
 		<div>
-			<Tabs selectedTabClassName="bg-primary text-default">
+			<Tabs
+				selectedTabClassName="bg-primary text-default"
+				disabledTabClassName="bg-secondary text-default-inverted"
+			>
 				<div
 					className="my-4 sticky"
 					style={{
@@ -26,17 +35,14 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 					}}
 				>
 					<TabList className="cursor-pointer flex bg-default shadow-lg justify-start overflow-hidden items-center rounded-full">
-						<Tab
-							selectedClassName=""
-							className="text-lg text-primary text-center mr-3 w-full py-1 px-2"
-						>
+						<Tab className="text-lg text-primary text-center mr-3 w-full py-1 px-2">
 							Hoods
 						</Tab>
 						<Tab className="text-lg text-primary text-center mr-3 w-full py-1 px-2">
 							People
 						</Tab>
 						<Tab className="text-lg text-primary text-center w-full py-1 px-2">
-							Questions
+							Discussion
 						</Tab>
 					</TabList>
 				</div>
@@ -79,7 +85,13 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 				<TabPanel>
 					<Container>
 						{loginState.isLogin ? (
-							<QuestionsList />
+							<>
+								{filterState.selectedLocationData.id ? (
+									<QuestionsOnLocationList />
+								) : (
+									<QuestionsList />
+								)}
+							</>
 						) : (
 							<div className="p-2">
 								<h1 className="mb-4 text-primary text-center">Questions</h1>

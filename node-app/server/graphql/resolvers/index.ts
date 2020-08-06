@@ -12,6 +12,7 @@ import confirmCheckoutSession from "./Payment/Checkout/confirm";
 import createCheckoutSession from "./Payment/Checkout/create";
 import getLandforms from "./Landforms/get";
 import getKeywords from "./Keywords/get";
+import getQuestionsOnLocation from "./Locations/getQuestionsOnLocation";
 
 const resolvers = {
 	Query: {
@@ -22,6 +23,7 @@ const resolvers = {
 		getQuestions,
 		getLandforms,
 		getKeywords,
+		getQuestionsOnLocation,
 	},
 	Mutation: {
 		createLocation,

@@ -8,7 +8,7 @@ function GQLError({ error, title }: any): JSX.Element {
 			{JSON.parse(JSON.stringify(error as any)).graphQLErrors.map(
 				(error: string) => (
 					<ErrorAlert
-						key={error}
+						key={error + Math.random()}
 						timeOut={5000}
 						title={title}
 						message={error}

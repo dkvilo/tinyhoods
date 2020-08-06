@@ -11,6 +11,7 @@ interface IProps {
 }
 
 export default function ({
+	id,
 	name,
 	description,
 	address,
@@ -19,8 +20,9 @@ export default function ({
 	cover,
 	onSelect,
 }: IProps & any): JSX.Element {
-	const { state: filterState } = useContext<any>(FiltersContext);
-
+	const { state: filterState, dispatch: filterDispatcher } = useContext<any>(
+		FiltersContext
+	);
 	const openMap = () => {
 		window.open(
 			`http://maps.google.com/?saddr=${filterState.coordinates[1]},${filterState.coordinates[0]}&daddr=${coordinates[1]},${coordinates[0]}&dirflg=d`,
@@ -32,6 +34,14 @@ export default function ({
 		<div
 			onClick={() => {
 				onSelect(coordinates);
+				filterDispatcher({
+					type: "SET_SELECTED_LOCATION",
+					payload: {
+						name,
+						id,
+						address,
+					},
+				});
 			}}
 			className="p-4 bg-default text-decoration-none text-default-inverted border-b-2 border-secondary hover:bg-secondary"
 		>

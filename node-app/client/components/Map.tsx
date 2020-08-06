@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import mapboxgl from "mapbox-gl";
 import { useThemeSwitch } from "../hooks";
-import { isEmpty, filter } from "ramda";
+import { isEmpty } from "ramda";
 import { FiltersContext } from "../context";
 
 export default function ({ data, activeCoordinates }: any): JSX.Element {
@@ -65,7 +65,7 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 					new mapboxgl.Popup({ offset: 20 }).setHTML(`
             <div class="bg-default shadow-xl rounded-lg overflow-hidden">
               <div class="p-2">
-                <p class="text-xl text-default-inverted">Your Location</p>
+                <p class="text-xl text-default-inverted">That's You!</p>
               </div>
             </div>
           `)
@@ -84,7 +84,7 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 						each.geometry.coordinates[1],
 					])
 					.setPopup(
-						new mapboxgl.Popup({ offset: 20 }).setHTML(
+						new mapboxgl.Popup({ offset: 20, closeButton: false }).setHTML(
 							`
                   <div class="bg-default shadow-xl rounded-lg overflow-hidden">
                     
@@ -111,7 +111,6 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
               `
 						)
 					)
-
 					.addTo(myMap);
 			});
 		}

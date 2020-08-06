@@ -124,7 +124,7 @@ export default function (): JSX.Element {
 						}
 						className="ml-2 w-8 h-8 rounded-full border-2 border-default-inverted cursor-pointer"
 					/>
-					<div className="ml-3">
+					<div className="ml-3 flex flex-col relative">
 						<SearchInput placeholder="Search ..." />
 					</div>
 				</div>
