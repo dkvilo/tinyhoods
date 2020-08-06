@@ -59,6 +59,14 @@
   cursor: pointer;
 }
 
+.user-marker {
+  background-image: url('../public/user.svg');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
 .svg-blend-mode {
 	mix-blend-mode: normal;
 }
