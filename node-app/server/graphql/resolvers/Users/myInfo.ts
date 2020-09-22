@@ -14,6 +14,38 @@ export default async function getMyInfo(parent: any, args: any, context: any) {
 		const response = await UserModel.aggregate([
 			{ $match: { _id: mongoose.Types.ObjectId(userId) } },
 			{
+				$lookup: {
+					from: "users",
+					localField: "following",
+					foreignField: "_id",
+					as: "following",
+				},
+			},
+			{
+				$lookup: {
+					from: "users",
+					localField: "followers",
+					foreignField: "_id",
+					as: "followers",
+				},
+			},
+			{
+				$lookup: {
+					from: "locations",
+					localField: "locations",
+					foreignField: "_id",
+					as: "locations",
+				},
+			},
+			{
+				$lookup: {
+					from: "questions",
+					localField: "questions",
+					foreignField: "_id",
+					as: "questions",
+				},
+			},
+			{
 				$project: {
 					username: 1,
 					name: 1,

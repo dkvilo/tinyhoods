@@ -62,7 +62,7 @@ function EditUserProfileCard({ data }: any) {
 
 			<div className="flex flex-col w-full xs:w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 bg-default rounded-md">
 				<div className="my-2">
-					<div className="flex items-center w-full mb-3 py-3 rounded">
+					<div className="flex items-center w-full mb-3 px-4 py-3">
 						{!isMembershipExpired(data.membership.expiresAt) ? (
 							<SliderInput />
 						) : (

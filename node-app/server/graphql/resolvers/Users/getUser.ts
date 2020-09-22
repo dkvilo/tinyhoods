@@ -8,11 +8,47 @@ export default async function getUser(parent: any, args: any, context: any) {
 		const response = await UserModel.aggregate([
 			{ $match: { username: username } },
 			{
+				$lookup: {
+					from: "users",
+					localField: "following",
+					foreignField: "_id",
+					as: "following",
+				},
+			},
+			{
+				$lookup: {
+					from: "users",
+					localField: "followers",
+					foreignField: "_id",
+					as: "followers",
+				},
+			},
+			{
+				$lookup: {
+					from: "locations",
+					localField: "locations",
+					foreignField: "_id",
+					as: "locations",
+				},
+			},
+			{
+				$lookup: {
+					from: "questions",
+					localField: "questions",
+					foreignField: "_id",
+					as: "questions",
+				},
+			},
+			{
 				$project: {
 					username: 1,
 					name: 1,
 					about: 1,
 					link: 1,
+					followers: 1,
+					following: 1,
+					locations: 1,
+					questions: 1,
 					isPrivate: 1,
 					membership: 1,
 					followingCount: { $size: "$following" },

@@ -4,6 +4,12 @@ import { useThemeSwitch } from "../hooks";
 import { isEmpty } from "ramda";
 import { FiltersContext } from "../context";
 
+function createElementFromHTML(htmlString: string) {
+	var div = document.createElement("div");
+	div.innerHTML = htmlString.trim();
+	return div.firstChild;
+}
+
 export default function ({ data, activeCoordinates }: any): JSX.Element {
 	const map = useRef<any>();
 	const [myMap, setMyMap] = useState<any | null>(null);
@@ -36,7 +42,7 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 
 					zoom: 6,
 					maxZoom: 20,
-					minZoom: 7,
+					minZoom: 10,
 					pitch: 45,
 					bearing: 0,
 					antialias: true,
@@ -49,36 +55,44 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 		if (myMap !== null && activeCoordinates) {
 			myMap.flyTo({
 				center: [activeCoordinates[0], activeCoordinates[1]],
-				zoom: 9,
+				zoom: 16,
 			});
 		}
 	}, [myMap, activeCoordinates]);
 
-	useEffect(() => {
-		if (!isEmpty(filtersState.coordinates) && myMap) {
-			var el = document.createElement("div");
-			el.className = "user-marker";
-			new mapboxgl.Marker(el)
-				.setLngLat(filtersState.coordinates)
-				.addTo(myMap)
-				.setPopup(
-					new mapboxgl.Popup({ offset: 20 }).setHTML(`
-            <div class="bg-default shadow-xl rounded-lg overflow-hidden">
-              <div class="p-2">
-                <p class="text-xl text-default-inverted">That's You!</p>
-              </div>
-            </div>
-          `)
-				);
-		}
-	}, [filtersState.coordinates, myMap]);
+	// useEffect(() => {
+	// 	if (!isEmpty(filtersState.coordinates) && myMap) {
+	// 		var el = document.createElement("div");
+	// 		el.className = "user-marker";
+	// 		new mapboxgl.Marker(el)
+	// 			.setLngLat(filtersState.coordinates)
+	// 			.addTo(myMap)
+	// 			.setPopup(
+	// 				new mapboxgl.Popup({ offset: 20 }).setHTML(`
+	//           <div class="bg-default shadow-xl rounded-lg overflow-hidden">
+	//             <div class="p-2">
+	//               <p class="text-xl text-default-inverted">That's You!</p>
+	//             </div>
+	//           </div>
+	//         `)
+	// 			);
+	// 	}
+	// }, [filtersState.coordinates, myMap]);
 
 	useEffect(() => {
 		if (myMap !== null) {
 			data.forEach((each: any) => {
 				var el = document.createElement("div");
 				el.className = "marker";
-				new mapboxgl.Marker(el)
+				new mapboxgl.Marker(
+					createElementFromHTML(`
+            <div class="pulse-container">
+              <div class="pulse-box">
+                <div class="pulse-css"></div>
+              </div>
+            </div>
+          `) as any
+				)
 					.setLngLat([
 						each.geometry.coordinates[0],
 						each.geometry.coordinates[1],
@@ -101,7 +115,7 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 													each.name
 												}</p>
                         <p class="mt-2 text-default-inverted">${
-													each.description
+													each.description.substring(0, 200) + " ..."
 												}</p>
                     </div>
                    

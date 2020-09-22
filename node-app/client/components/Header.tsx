@@ -122,7 +122,7 @@ export default function (): JSX.Element {
 								? data?.getMyInfo.avatar
 								: "/avatar.svg"
 						}
-						className="ml-2 w-8 h-8 rounded-full border-2 border-default-inverted cursor-pointer"
+						className="ml-2 w-8 h-8 rounded-full border-2 border-default-inverted cursor-pointer transform transition-all duration-300 scale-100 hover:scale-95"
 					/>
 					<div className="ml-3 flex flex-col relative">
 						<SearchInput placeholder="Search ..." />
@@ -131,7 +131,7 @@ export default function (): JSX.Element {
 
 				<button
 					onClick={updateAskQuestionModalState as any}
-					className="outline-none w-12 h-10 ml-2 bg-default shadow-md rounded-full p-2"
+					className="transform transition-all duration-300 scale-100 hover:scale-95 outline-none w-12 h-10 ml-2 bg-default shadow-md rounded-full p-2"
 					style={{
 						outline: "none",
 					}}
@@ -147,7 +147,7 @@ export default function (): JSX.Element {
 				</button>
 				<button
 					onClick={updateAddLocationModalState as any}
-					className="outline-none w-12 h-10 ml-2 bg-default shadow-md rounded-full p-2"
+					className="transform transition-all duration-300 scale-100 hover:scale-95 outline-none w-12 h-10 ml-2 bg-default shadow-md rounded-full p-2"
 					style={{
 						outline: "none",
 					}}

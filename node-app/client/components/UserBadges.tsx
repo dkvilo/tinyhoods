@@ -3,8 +3,8 @@ import { isMembershipExpired } from "../../shared/functions";
 
 function UserBadges({ data }: any): JSX.Element {
 	return (
-		<>
-			<h1 className="text-2xl text-default-inverted font-bold py-2">
+		<div className="flex flex-col items-center justify-center">
+			<h1 className="text-xl text-default-inverted font-bold py-2">
 				Badges And Achievements
 			</h1>
 			<div className="inline-flex items-center justify-start flex-wrap p-2 rounded-md overflow-x-auto">
@@ -28,7 +28,7 @@ function UserBadges({ data }: any): JSX.Element {
 					/>
 				)}
 			</div>
-		</>
+		</div>
 	);
 }
 
