@@ -95,9 +95,6 @@ export default function ({
 								className="w-5 h-5 rounded-full border-2 border-default-inverted mr-1"
 								alt={explorer.username}
 							/>
-							<span className="text-default-inverted text-sm">
-								{explorer.username}
-							</span>
 						</div>
 					)}
 				</div>

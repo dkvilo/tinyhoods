@@ -12,7 +12,8 @@
 
 :root {
 	--color-background: theme("colors.gray.100");
-	--color-primary: rgb(0, 98, 240);
+  --color-primary: rgb(0, 98, 240);
+	/* --color-primary: #ef5777;  */
 	--color-secondary: theme("colors.gray.200");
 	--color-secondary-soft: #e2e8f0;
 	--color-default: theme("colors.white");
@@ -49,14 +50,6 @@
 
 .mapboxgl-popup-close-button {
   display: none !important;
-}
-
-.marker {
-  background-image: url('../public/location.svg');
-  background-size: cover;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
 }
 
 .user-marker {
@@ -268,3 +261,50 @@
   }
 }
 
+/* pulse in CSS */
+.pulse-css {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background: var(--color-default);
+  position: relative;
+  border: 2px solid theme("colors.default");
+}
+
+.pulse-css:before, .pulse-css:after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: var(--color-primary);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  transform: scale(0.5);
+  transform-origin: center center;
+  animation: pulse-me 3s linear infinite;
+}
+
+.pulse-css:after {
+  animation-delay: 2s;
+}
+
+@keyframes pulse-me {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  70% {
+    opacity: 0.09;
+  }
+  100% {
+    transform: scale(5);
+    opacity: 0;
+  }
+}

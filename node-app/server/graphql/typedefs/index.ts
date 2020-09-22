@@ -142,11 +142,14 @@ const typeDefs = gql`
 		link: String
 		following: [UserPayload!]
 		followers: [UserPayload!]
+		locations: [LocationPayload!]
+		questions: [QuestionPayload!]
 		isPrivate: Boolean
 		questionsCount: Int!
 		followersCount: Int!
 		followingCount: Int!
 		locationCount: Int!
+		_following: Boolean!
 		membership: UserMembershipPayload
 	}
 
@@ -205,6 +208,11 @@ const typeDefs = gql`
 		token: String!
 	}
 
+	input FollowUser {
+		username: String!
+		token: String!
+	}
+
 	type Query {
 		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
@@ -219,6 +227,7 @@ const typeDefs = gql`
 	}
 
 	type Mutation {
+		followUser(data: FollowUser!): Boolean!
 		createUser(data: UserCreateInput!): Boolean!
 		authenticateUser(data: UserLoginInput!): AuthPayload!
 		createLocation(data: LocationDataInput!): Boolean!

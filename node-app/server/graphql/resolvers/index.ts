@@ -13,6 +13,7 @@ import createCheckoutSession from "./Payment/Checkout/create";
 import getLandforms from "./Landforms/get";
 import getKeywords from "./Keywords/get";
 import getQuestionsOnLocation from "./Locations/getQuestionsOnLocation";
+import followUser from "./Users/follow";
 
 const resolvers = {
 	Query: {
@@ -33,6 +34,7 @@ const resolvers = {
 		createQuestion,
 		confirmCheckoutSession,
 		createCheckoutSession,
+		followUser,
 	},
 };
 

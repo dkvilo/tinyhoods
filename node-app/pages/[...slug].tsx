@@ -1,5 +1,3 @@
-import dynamic from "next/dynamic";
-
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
@@ -7,6 +5,8 @@ import Grid from "../client/components/Grid";
 import SEOHeader from "../client/components/SEOHeader";
 import { useRouter } from "next/dist/client/router";
 import UserProfileCard from "../client/components/UserProfileCard";
+import Button from "../client/components/Button";
+import Link from "next/link";
 
 const GET_USER = gql`
 	query getUser($username: String!) {
@@ -18,7 +18,18 @@ const GET_USER = gql`
 			locationCount
 			followersCount
 			followingCount
+			followers {
+				username
+				name
+			}
+			following {
+				username
+				name
+			}
 			questionsCount
+			questions {
+				content
+			}
 			membership {
 				isPaid
 				expiresAt
@@ -55,6 +66,13 @@ export default function Home() {
 	return (
 		<div className=" w-full h-screen overflow-x-scroll">
 			<SEOHeader title={`${slug[0]}'s Profile`} description=" - Tinyhoods" />
+			<div className="sticky top-0 p-2 flex items-center justify-start w-full">
+				<Link href="/">
+					<p className="text-primary p-2 bg-secondary-soft rounded-full">
+						Home
+					</p>
+				</Link>
+			</div>
 			<Grid>
 				{!loading && !error && data?.getUser && (
 					<UserProfileCard data={data.getUser} />

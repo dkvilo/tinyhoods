@@ -24,6 +24,12 @@ const GET_LOCATIONS = gql`
 			name
 			address
 			description
+			keywords {
+				name
+			}
+			landform {
+				name
+			}
 			cover
 			explorer {
 				username
@@ -156,7 +162,7 @@ export default function Home() {
 						</div>
 
 						<Button
-							className="p-1 uppercase text-red-500"
+							className="p-1 uppercase text-red-500 transform transition-all duration-300 scale-100 hover:scale-95"
 							onClick={() => {
 								filterDispatcher({
 									type: "CLEAR_SELECTED_LOCATION",
@@ -172,7 +178,7 @@ export default function Home() {
 			<main
 				className="relative mx-auto flex flex-col xs:flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row bg-transparent"
 				style={{
-					top: "70vh",
+					top: "60vh",
 					width: "100%",
 				}}
 			>
