@@ -67,7 +67,10 @@ export default function ({
 	useEffect(() => {
 		if (myMap !== null && filtersState?.coordinates) {
 			myMap.flyTo({
-				center: [filtersState.coordinates[0], filtersState.coordinates[1]],
+				center: [
+					filtersState.coordinates[0] || 0,
+					filtersState.coordinates[1] || 0,
+				],
 				zoom: 16,
 			});
 		}
