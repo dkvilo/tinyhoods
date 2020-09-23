@@ -153,32 +153,34 @@ const AddQuestion = () => {
 							<InputError name="content" />
 						</div>
 
-						<div className="my-4">
-							<Select
-								placeholder="Attach Location"
-								onChange={(selectedItem: any) => {
-									const { value } = selectedItem;
-									setFieldValue("location", value);
-								}}
-								closeMenuOnSelect
-								components={animatedComponents}
-								noOptionsMessage={() => "No Nearby Locations"}
-								isMulti={false}
-								options={
-									!locationLoading &&
-									!locationError &&
-									!isEmpty(locationData?.getLocations)
-										? locationData.getLocations.map((each: any) => ({
-												value: each.id,
-												label: each.name,
-										  }))
-										: []
-								}
-							/>
-							<div className="mt-2">
-								<InputError name="location" />
+						{values.content.length >= 3 && (
+							<div className="my-4">
+								<Select
+									placeholder="Attach Location"
+									onChange={(selectedItem: any) => {
+										const { value } = selectedItem;
+										setFieldValue("location", value);
+									}}
+									closeMenuOnSelect
+									components={animatedComponents}
+									noOptionsMessage={() => "No Nearby Locations"}
+									isMulti={false}
+									options={
+										!locationLoading &&
+										!locationError &&
+										!isEmpty(locationData?.getLocations)
+											? locationData.getLocations.map((each: any) => ({
+													value: each.id,
+													label: each.name,
+											  }))
+											: []
+									}
+								/>
+								<div className="mt-2">
+									<InputError name="location" />
+								</div>
 							</div>
-						</div>
+						)}
 
 						<div className="my-6 flex">
 							<InputSwitch name="isPublished" />
@@ -187,15 +189,17 @@ const AddQuestion = () => {
 							</span>
 						</div>
 
-						<div className="flex justify-center pt-2">
-							<button
-								className="px-4 bg-primary w-full p-3 text-default rounded-full mr-2"
-								type="submit"
-								disabled={isSubmitting}
-							>
-								Post
-							</button>
-						</div>
+						{values.content.length >= 3 && (
+							<div className="flex justify-center pt-2">
+								<button
+									className="px-4 bg-primary w-full p-3 text-default rounded-full mr-2"
+									type="submit"
+									disabled={isSubmitting}
+								>
+									Post
+								</button>
+							</div>
+						)}
 					</form>
 				)}
 			</Formik>

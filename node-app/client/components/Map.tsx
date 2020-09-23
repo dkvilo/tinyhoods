@@ -10,7 +10,11 @@ function createElementFromHTML(htmlString: string) {
 	return div.firstChild;
 }
 
-export default function ({ data, activeCoordinates }: any): JSX.Element {
+export default function ({
+	data,
+	activeCoordinates,
+	focusOnOrigin,
+}: any): JSX.Element {
 	const map = useRef<any>();
 	const [myMap, setMyMap] = useState<any | null>(null);
 	const [theme] = useThemeSwitch(
@@ -60,36 +64,45 @@ export default function ({ data, activeCoordinates }: any): JSX.Element {
 		}
 	}, [myMap, activeCoordinates]);
 
-	// useEffect(() => {
-	// 	if (!isEmpty(filtersState.coordinates) && myMap) {
-	// 		var el = document.createElement("div");
-	// 		el.className = "user-marker";
-	// 		new mapboxgl.Marker(el)
-	// 			.setLngLat(filtersState.coordinates)
-	// 			.addTo(myMap)
-	// 			.setPopup(
-	// 				new mapboxgl.Popup({ offset: 20 }).setHTML(`
-	//           <div class="bg-default shadow-xl rounded-lg overflow-hidden">
-	//             <div class="p-2">
-	//               <p class="text-xl text-default-inverted">That's You!</p>
-	//             </div>
-	//           </div>
-	//         `)
-	// 			);
-	// 	}
-	// }, [filtersState.coordinates, myMap]);
+	useEffect(() => {
+		if (myMap !== null && filtersState?.coordinates) {
+			myMap.flyTo({
+				center: [filtersState.coordinates[0], filtersState.coordinates[1]],
+				zoom: 16,
+			});
+		}
+	}, [focusOnOrigin, myMap]);
+
+	useEffect(() => {
+		if (!isEmpty(filtersState.coordinates) && myMap) {
+			new mapboxgl.Marker(
+				createElementFromHTML(`
+          <div class="user-pulse-box">
+            <div class="user-pulse-css"></div>
+          </div>
+        `) as any
+			)
+				.setLngLat(filtersState.coordinates)
+				.addTo(myMap)
+				.setPopup(
+					new mapboxgl.Popup({ offset: 20 }).setHTML(`
+	          <div class="bg-default shadow-xl rounded-lg overflow-hidden">
+	            <div class="p-2">
+	              <p class="text-xl text-default-inverted">That's You!</p>
+	            </div>
+	          </div>
+	        `)
+				);
+		}
+	}, [filtersState.coordinates, myMap]);
 
 	useEffect(() => {
 		if (myMap !== null) {
 			data.forEach((each: any) => {
-				var el = document.createElement("div");
-				el.className = "marker";
 				new mapboxgl.Marker(
 					createElementFromHTML(`
-            <div class="pulse-container">
-              <div class="pulse-box">
-                <div class="pulse-css"></div>
-              </div>
+            <div class="pulse-box">
+              <div class="pulse-css"></div>
             </div>
           `) as any
 				)

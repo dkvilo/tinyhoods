@@ -262,16 +262,51 @@
 }
 
 /* pulse in CSS */
+.user-pulse-box {
+  z-index: 7777;
+}
+
+.user-pulse-css {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: var(--color-warning);
+  position: relative;
+  border: 2px solid var(--color-default);
+}
+
+.user-pulse-css:after, .user-pulse-css::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: var(--color-warning);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  transform: scale(0.5);
+  transform-origin: center center;
+  animation: pulse-me 3s linear infinite;
+}
+
+.user-pulse-css:after {
+  animation-delay: 2s;
+}
+
+
 .pulse-css {
   width: 30px;
   height: 30px;
   border-radius: 100%;
-  background: var(--color-default);
+  background-color: var(--color-primary);
   position: relative;
   border: 2px solid theme("colors.default");
 }
 
-.pulse-css:before, .pulse-css:after {
+.pulse-css:after, .pulse-css::before {
   content: "";
   width: 30px;
   height: 30px;
