@@ -8,8 +8,8 @@ import Container from "./Container";
 import EmptyCard from "./EmptyCard";
 import Loader from "./Loader";
 
-// import QuestionsList from "./QuestionsList";
-// import QuestionsOnLocationList from "./QuestionsOnLocationList";
+import QuestionsList from "./QuestionsList";
+import QuestionsOnLocationList from "./QuestionsOnLocationList";
 
 import { UserTokenContext, FiltersContext } from "../context";
 
@@ -39,9 +39,9 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 						<Tab className="text-lg text-primary text-center w-full py-1 px-2">
 							People
 						</Tab>
-						{/* <Tab className="text-lg text-primary text-center w-full py-1 px-2">
+						<Tab className="text-lg text-primary text-center w-full py-1 px-2">
 							Discussion
-						</Tab> */}
+						</Tab>
 					</TabList>
 				</div>
 
@@ -74,13 +74,12 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 						) : (
 							<div className="p-2">
 								<h1 className="mb-4 text-primary text-center">People</h1>
-
 								<AuthCard />
 							</div>
 						)}
 					</Container>
 				</TabPanel>
-				{/* <TabPanel>
+				<TabPanel>
 					<Container>
 						{loginState.isLogin ? (
 							<>
@@ -97,7 +96,7 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 							</div>
 						)}
 					</Container>
-				</TabPanel> */}
+				</TabPanel>
 			</Tabs>
 		</div>
 	);

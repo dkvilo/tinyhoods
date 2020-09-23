@@ -121,12 +121,19 @@ export default function Home() {
 		})();
 	}, []);
 
+	const [focusOnOrigin, setFocusOnOrigin] = useState<boolean>(false);
+
+	const focusMyLocationOnMap = () => {
+		setFocusOnOrigin(!focusOnOrigin);
+	};
+
 	return (
 		<div className=" w-full h-screen overflow-x-scroll">
 			<SEOHeader title="TinyHoods" description=" - Explore tiny world" />
 
 			{!loading && !error && (
 				<MapCSR
+					focusOnOrigin={focusOnOrigin}
 					activeCoordinates={activeCoordinates}
 					data={data.getLocations}
 				/>
@@ -188,6 +195,32 @@ export default function Home() {
 						zIndex: 47,
 					}}
 				>
+					<div
+						className="container mx-auto relative"
+						style={{
+							width: 50,
+							zIndex: 8888,
+						}}
+					>
+						<div className="">
+							<Button
+								onClick={focusMyLocationOnMap}
+								className="text-primary p-2 bg-default rounded-full flex shadow-md"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="w-6 h-6 fill-current"
+									viewBox="0 0 24 24"
+								>
+									<g>
+										<rect width="24" height="24" opacity="0" />
+										<path d="M13.67 22h-.06a1 1 0 0 1-.92-.8l-1.54-7.57a1 1 0 0 0-.78-.78L2.8 11.31a1 1 0 0 1-.12-1.93l16-5.33A1 1 0 0 1 20 5.32l-5.33 16a1 1 0 0 1-1 .68z" />
+									</g>
+								</svg>
+							</Button>
+						</div>
+					</div>
+
 					<Grid>
 						<TabsContentCSR
 							{...{ loading, data, error }}

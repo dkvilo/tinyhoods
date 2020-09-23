@@ -55,9 +55,10 @@ export default function Home() {
 	if (!loading && error) {
 		return (
 			<Grid>
-				<div className="m-5 p-4 rounded-md shadow-md bg-default flex flex-col items-center justify-center">
+				<div className="m-5 p-4 rounded-md bg-default flex flex-col items-center justify-center">
 					<h1 className="text-2xl font-bold text-default-inverted">404</h1>
-					<p className="text-lg text-default-inverted">User not found</p>
+					<p className="text-lg text-default-inverted">Not found</p>
+					<img src="/404.svg" alt="not found" />
 				</div>
 			</Grid>
 		);
