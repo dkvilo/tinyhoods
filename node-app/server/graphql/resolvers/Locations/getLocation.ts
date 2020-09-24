@@ -56,7 +56,6 @@ async function registeredUserPayload({
 		const userResponse = await UserModel.findById(userId);
 
 		if (
-			!(userResponse as any).membership.isPaid ||
 			moment({}).diff(
 				moment((userResponse as any).membership.expiresAt).format()
 			) >= 0
