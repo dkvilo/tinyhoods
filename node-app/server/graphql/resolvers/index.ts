@@ -14,6 +14,7 @@ import getLandforms from "./Landforms/get";
 import getKeywords from "./Keywords/get";
 import getQuestionsOnLocation from "./Locations/getQuestionsOnLocation";
 import followUser from "./Users/follow";
+import unfollowUser from "./Users/unfollow";
 
 const resolvers = {
 	Query: {
@@ -35,6 +36,7 @@ const resolvers = {
 		confirmCheckoutSession,
 		createCheckoutSession,
 		followUser,
+		unfollowUser,
 	},
 };
 
