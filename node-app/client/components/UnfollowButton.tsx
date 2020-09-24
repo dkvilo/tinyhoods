@@ -13,24 +13,23 @@ interface IProps {
 	onAction(status: boolean): void;
 }
 
-const FOLLOW_USER = gql`
-	mutation followUser($data: FollowUser!) {
-		followUser(data: $data)
+const UNFOLLOW_USER = gql`
+	mutation unfollowUser($data: FollowUser!) {
+		unfollowUser(data: $data)
 	}
 `;
 
-function FollowButton({ username, onAction }: IProps): JSX.Element {
+function UnfollowButton({ username, onAction }: IProps): JSX.Element {
 	const { state: loginState } = useContext<any>(UserTokenContext);
 
-	const [followUser, { loading, error }] = useMutation(FOLLOW_USER);
-
+	const [unfollowUser, { loading, error }] = useMutation(UNFOLLOW_USER);
 	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
 	useEffect(() => {
 		if (error) {
 			errorDispatcher({
 				type: "SET_ERROR",
 				payload: {
-					title: "Follow User",
+					title: "Unfollow User",
 					error: error,
 				},
 			});
@@ -46,8 +45,8 @@ function FollowButton({ username, onAction }: IProps): JSX.Element {
 		}
 	}, [loading, loaderDispatcher]);
 
-	async function triggerFollow() {
-		const response = await followUser({
+	async function triggerUnfollow() {
+		const response = await unfollowUser({
 			variables: {
 				data: {
 					token: loginState.token,
@@ -56,19 +55,19 @@ function FollowButton({ username, onAction }: IProps): JSX.Element {
 			},
 		});
 
-		if (response.data.followUser) {
-			onAction(true);
+		if (response.data.unfollowUser) {
+			onAction(false);
 		}
 	}
 
 	return (
 		<Button
-			onClick={triggerFollow}
-			className="px-2 text-primary bg-default border-2 rounded-full hover:bg-primary hover:text-default hover:border-primary"
+			onClick={triggerUnfollow}
+			className="px-2 text-red-500 bg-default border-2 rounded-full hover:bg-red-500 hover:text-default hover:border-red-500"
 		>
-			{loading ? "Loading ..." : "Follow"}
+			{loading ? "Loading ..." : "Remove"}
 		</Button>
 	);
 }
 
-export default FollowButton;
+export default UnfollowButton;
