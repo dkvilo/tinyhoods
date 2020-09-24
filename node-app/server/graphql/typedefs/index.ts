@@ -228,6 +228,7 @@ const typeDefs = gql`
 
 	type Mutation {
 		followUser(data: FollowUser!): Boolean!
+		unfollowUser(data: FollowUser!): Boolean!
 		createUser(data: UserCreateInput!): Boolean!
 		authenticateUser(data: UserLoginInput!): AuthPayload!
 		createLocation(data: LocationDataInput!): Boolean!

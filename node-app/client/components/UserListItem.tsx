@@ -1,6 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import FollowButton from "./FollowButton";
+import UnfollowButton from "./UnfollowButton";
 
 interface IProps {
 	username: string;
@@ -18,6 +19,12 @@ function UserListItem({
 	ableToFollow = true,
 	hasGap = false,
 }: IProps) {
+	const [isFollowing, setIsFollowing] = useState<boolean>(_following);
+
+	const handleFollowActionSuccess = (status: boolean) => {
+		setIsFollowing(status);
+	};
+
 	return (
 		<div
 			key={username}
@@ -25,8 +32,8 @@ function UserListItem({
 				hasGap && "mb-2"
 			}`}
 		>
-			<Link href={`/${username}`}>
-				<div className="flex items-center justify-between">
+			<div className="flex items-center justify-between">
+				<Link href={`/${username}`}>
 					<div className="flex items-center">
 						<img
 							src={`/api/avatar/twitter?username=${username}`}
@@ -38,11 +45,24 @@ function UserListItem({
 							<span className="text-default-inverted text-sm">@{username}</span>
 						</div>
 					</div>
-					{ableToFollow && (
-						<FollowButton _following={_following} username={username} />
-					)}
-				</div>
-			</Link>
+				</Link>
+
+				{ableToFollow && (
+					<>
+						{isFollowing ? (
+							<UnfollowButton
+								onAction={handleFollowActionSuccess}
+								username={username}
+							/>
+						) : (
+							<FollowButton
+								onAction={handleFollowActionSuccess}
+								username={username}
+							/>
+						)}
+					</>
+				)}
+			</div>
 		</div>
 	);
 }
