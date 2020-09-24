@@ -1,8 +1,6 @@
 import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
-import FollowButton from "./FollowButton";
-
 import UserBadges from "./UserBadges";
 import UserListItem from "./UserListItem";
 
@@ -47,10 +45,6 @@ function UserProfileCard({ data }: any) {
 							<span className="font-bold">{data.questionsCount}</span> Questions
 						</Tab>
 					</TabList>
-
-					<div className="absolute bottom-0 p-2 flex items-center justify-center bg-red-400 w-full">
-						<FollowButton username={data.username} />
-					</div>
 
 					<TabPanel className="mx-6 container">
 						<>
