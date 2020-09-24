@@ -13,6 +13,7 @@ export default async function getUsers(parent: any, args: any, context: any) {
 		return await UserModel.aggregate([
 			{
 				$match: {
+					_id: { $ne: mongoose.Types.ObjectId(userId) },
 					isDeleted: false,
 					isPrivate: false,
 				},
