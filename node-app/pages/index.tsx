@@ -195,14 +195,14 @@ export default function Home() {
 						zIndex: 47,
 					}}
 				>
-					<div
-						className="container mx-auto relative"
-						style={{
-							width: 50,
-							zIndex: 8888,
-						}}
-					>
-						<div className="">
+					{!loading && !error && (
+						<div
+							className="container mx-auto relative"
+							style={{
+								width: 50,
+								zIndex: 8888,
+							}}
+						>
 							<Button
 								onClick={focusMyLocationOnMap}
 								className="text-primary p-2 bg-default rounded-full flex shadow-md"
@@ -219,7 +219,7 @@ export default function Home() {
 								</svg>
 							</Button>
 						</div>
-					</div>
+					)}
 
 					<Grid>
 						<TabsContentCSR
