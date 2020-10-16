@@ -9,8 +9,8 @@ const get = (username: string, size: string) => {
 		if (cache[username]) resolve(cache[username]);
 		else {
 			request(url, (_: any, __: any, body: any) => {
-				const $ = cheerio.load(body);
-				const url = ($(".avatar img").attr("src") || "").replace(
+				const C = cheerio.load(body);
+				const url = (C(".avatar img").attr("src") || "").replace(
 					"_normal",
 					size
 				);
@@ -46,6 +46,5 @@ export default async (req: any, res: any) => {
 		size = "_200x200";
 	}
 
-	const result = await get(username as string, size);
-	request(result as any).pipe(res);
+	request((await get(username as string, size)) as any).pipe(res);
 };

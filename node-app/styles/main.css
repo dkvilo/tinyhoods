@@ -12,7 +12,7 @@
 
 :root {
 	--color-background: theme("colors.gray.100");
-  --color-primary: rgb(0, 98, 240);
+  --color-primary: #5a67d8;
 	/* --color-primary: #ef5777;  */
 	--color-secondary: theme("colors.gray.200");
 	--color-secondary-soft: #e2e8f0;

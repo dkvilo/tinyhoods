@@ -17,15 +17,24 @@ function EditUserProfileCard({ data }: any) {
 
 	return (
 		<div className="flex flex-col items-center justify-center my-6">
-			<img
-				src={data.avatar}
-				alt={data.username}
-				className="w-20 h-20 rounded-full border-4 border-default-inverted"
-				style={{
-					height: 80,
-					width: 80,
-				}}
-			/>
+			<label className="cursor-pointer">
+				<div className="w-20 h-20 rounded-full border-4 border-default-inverted overflow-hidden">
+					<img
+						src={data.avatar}
+						alt={data.username}
+						className="w-20 h-20"
+						style={{
+							height: 80,
+							width: 80,
+						}}
+					/>
+					<input type="file" className="hidden" />
+				</div>
+			</label>
+
+			<span className="text-base leading-normal px-4 text-default-inverted text-sm">
+				Change Avatar
+			</span>
 
 			<div className="flex flex-col items-center justify-center px-2">
 				{data.name && (

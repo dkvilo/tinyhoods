@@ -13,10 +13,11 @@ import {
 	AlertMessageContextProvider,
 } from "../client/context";
 
+import AlertMessageContainer from "../client/components/AlertMessageContainer";
+
 import "rc-slider/assets/index.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/main.css";
-import AlertMessageContainer from "../client/components/AlertMessageContainer";
 
 const ErrorContainerCSR = dynamic(
 	() =>

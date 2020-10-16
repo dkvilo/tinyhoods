@@ -5,7 +5,7 @@ export default function (
 ): JSX.Element {
 	return (
 		<button
-			className="text-primary p-2 bg-secondary-soft rounded-full"
+			className="text-primary p-1 px-2 bg-default rounded-full"
 			{...props}
 		></button>
 	);
