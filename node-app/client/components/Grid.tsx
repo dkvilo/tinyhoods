@@ -10,5 +10,5 @@ export default function ({
 	children,
 	background = "transparent",
 }: IProps): JSX.Element {
-	return <div className={`m-4 bg-${background}`}>{children}</div>;
+	return <div className={`m-2 bg-${background}`}>{children}</div>;
 }

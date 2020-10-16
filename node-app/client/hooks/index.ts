@@ -1,4 +1,10 @@
-import { useState, useEffect } from "react";
+import {
+	useState,
+	useEffect,
+	SetStateAction,
+	Dispatch,
+	DispatchWithoutAction,
+} from "react";
 
 export function useLocalStorage(key: string, initialValue: any) {
 	const [storedValue, setStoredValue] = useState(() => {
@@ -43,8 +49,11 @@ export function useThemeSwitch(defaultState: boolean | false) {
 	return [theme, switchTheme];
 }
 
-export function useDropToggleState(defaultState: boolean = false) {
+export function useDropToggleState(
+	defaultState: boolean = false
+): [boolean, DispatchWithoutAction] {
 	const [state, setState] = useState<boolean>(defaultState);
+
 	const updateState = () => {
 		setState(!state);
 	};

@@ -21,6 +21,8 @@ const {
 	STRIPE_CHECKOUT_SUCCESS_URL,
 	STRIPE_CHECKOUT_CANCEL_URL,
 	STRIPE_CHECKOUT_PAYMENT_METHODS,
+	IMCARGO_SERVER,
+	IMCARGO_SERVER_UPLOAD,
 } = process.env;
 
 module.exports = {
@@ -38,6 +40,10 @@ module.exports = {
 	shadowVariable: {},
 	internalServices: {},
 	externalServices: {
+		imcargo: {
+			server: IMCARGO_SERVER,
+			ep: IMCARGO_SERVER_UPLOAD,
+		},
 		google: {
 			projectId: GOOGLE_CLOUD_PROJECT_ID,
 			keyFile: GOOGLE_CLOUD_KEYFILE,

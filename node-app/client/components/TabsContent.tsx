@@ -8,12 +8,11 @@ import Container from "./Container";
 import EmptyCard from "./EmptyCard";
 import Loader from "./Loader";
 
+import AuthCard from "./AuthCard";
 import QuestionsList from "./QuestionsList";
 import QuestionsOnLocationList from "./QuestionsOnLocationList";
 
 import { UserTokenContext, FiltersContext } from "../context";
-
-import AuthCard from "./AuthCard";
 
 function TabsContent({ loading, data, error, onFocus }: any) {
 	const { state: loginState } = useContext<any>(UserTokenContext);
@@ -40,7 +39,7 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 							People
 						</Tab>
 						<Tab className="text-lg text-primary text-center w-full py-1 px-2">
-							Discussion
+							Feed
 						</Tab>
 					</TabList>
 				</div>
