@@ -19,6 +19,8 @@ const GET_QUESTIONS = gql`
 			author {
 				name
 				username
+				image
+				avatar
 			}
 		}
 	}

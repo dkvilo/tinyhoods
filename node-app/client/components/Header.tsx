@@ -29,6 +29,7 @@ const GET_MY_INFO = gql`
 			followingCount
 			isPrivate
 			link
+			image
 			membership {
 				isPaid
 				startedAt
@@ -119,7 +120,9 @@ export default function (): JSX.Element {
 						alt="avatar"
 						src={
 							loginState.isLogin && !loading && !error
-								? data?.getMyInfo.avatar
+								? data.getMyInfo.image
+									? `/imcargo/${data.getMyInfo.image}`
+									: data.getMyInfo.avatar
 								: "/avatar.svg"
 						}
 						className="ml-2 w-8 h-8 rounded-full border-2 border-default-inverted cursor-pointer transform transition-all duration-300 scale-100 hover:scale-95"

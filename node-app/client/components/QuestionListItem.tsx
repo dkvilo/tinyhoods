@@ -12,7 +12,11 @@ function QuestionListItem({ content, location, author }: IProps) {
 			<div className="flex items-center justify-between">
 				<div className="flex items-start">
 					<img
-						src={`/api/avatar/twitter?username=${author.username}`}
+						src={
+							author.image
+								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
+								: `/api/avatar/twitter?username=${author.username}`
+						}
 						alt={author.username}
 						className="w-8 h-8 rounded-full border-2 border-default-inverted bg-secondary-soft"
 						style={{

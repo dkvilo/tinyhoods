@@ -17,6 +17,50 @@ services:
         max-file: "3"
     networks:
       - sunset
+  
+  nginx:
+    restart: unless-stopped
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - 80:80
+    links:
+      - node-app
+      - imcargo
+    depends_on:
+      - node-app
+    volumes:
+      - certs:/etc/letsencrypt
+      - certs-data:/data/letsencrypt
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+  imcargo:
+    build: ./imcargo
+    container_name: imcargo
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./imcargo:/go/src/static/avatar
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+volumes:
+  certs:
+  certs-data:
 
 networks:
   sunset:

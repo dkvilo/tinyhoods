@@ -51,6 +51,7 @@ export default async function getMyInfo(parent: any, args: any, context: any) {
 					name: 1,
 					about: 1,
 					link: 1,
+					image: 1,
 					isPrivate: 1,
 					membership: 1,
 					followingCount: { $size: "$following" },

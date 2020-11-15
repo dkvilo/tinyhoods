@@ -45,6 +45,7 @@ export default async function getUser(parent: any, args: any, context: any) {
 					name: 1,
 					about: 1,
 					link: 1,
+					image: 1,
 					followers: 1,
 					following: 1,
 					locations: 1,

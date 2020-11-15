@@ -213,6 +213,17 @@ const typeDefs = gql`
 		token: String!
 	}
 
+	type File {
+		filename: String!
+		mimetype: String!
+		encoding: String!
+	}
+
+	input UserAvatarInput {
+		token: String!
+		avatar: String!
+	}
+
 	type Query {
 		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
@@ -236,6 +247,8 @@ const typeDefs = gql`
 		createQuestion(data: QuestionInputData!): Boolean!
 		confirmCheckoutSession(data: ConfirmCheckoutSessionInput!): Boolean!
 		createCheckoutSession(data: CreateCheckoutSessionInput!): SessionPayload
+		imageUpload(file: Upload!): Boolean!
+		updateAvatar(data: UserAvatarInput!): Boolean!
 	}
 `;
 

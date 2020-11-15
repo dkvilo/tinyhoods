@@ -4,6 +4,7 @@ import LocationModel from "../../../models/locations";
 import UserModel from "../../../models/users";
 import { decryptToken, requireToken } from "../../../utils";
 import moment from "moment";
+import config from "../../../../shared/config";
 
 async function nonRegisteredUserPayload({
 	landform,

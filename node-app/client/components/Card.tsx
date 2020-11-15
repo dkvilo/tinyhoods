@@ -91,7 +91,11 @@ export default function ({
 					{explorer && (
 						<div className="flex items-center">
 							<img
-								src={`/api/avatar/twitter?username=${explorer.username}&size=small`}
+								src={
+									explorer?.image
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${explorer.image}`
+										: `/api/avatar/twitter?username=${explorer.username}&size=small`
+								}
 								className="w-5 h-5 rounded-full border-2 border-default-inverted mr-1"
 								alt={explorer.username}
 							/>

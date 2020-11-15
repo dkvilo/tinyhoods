@@ -15,6 +15,8 @@ import getKeywords from "./Keywords/get";
 import getQuestionsOnLocation from "./Locations/getQuestionsOnLocation";
 import followUser from "./Users/follow";
 import unfollowUser from "./Users/unfollow";
+import imageUpload from "./Storage/imageUpload";
+import updateAvatar from "./Users/updateAvatar";
 
 const resolvers = {
 	Query: {
@@ -37,6 +39,8 @@ const resolvers = {
 		createCheckoutSession,
 		followUser,
 		unfollowUser,
+		imageUpload,
+		updateAvatar,
 	},
 };
 
