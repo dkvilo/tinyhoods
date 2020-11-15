@@ -54,6 +54,8 @@ function TabsContent({ loading, data, error, onFocus }: any) {
 									<div key={each.id}>
 										<Card
 											onSelect={(coordinates: any) => {
+												console.log(each);
+
 												onFocus(coordinates);
 											}}
 											{...each}

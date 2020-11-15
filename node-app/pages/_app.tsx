@@ -13,10 +13,11 @@ import {
 	AlertMessageContextProvider,
 } from "../client/context";
 
+import AlertMessageContainer from "../client/components/AlertMessageContainer";
+
 import "rc-slider/assets/index.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/main.css";
-import AlertMessageContainer from "../client/components/AlertMessageContainer";
 
 const ErrorContainerCSR = dynamic(
 	() =>
@@ -62,7 +63,7 @@ const App = ({ Component, pageProps, apollo }: any) => {
 };
 
 export default withApollo(
-	({ initialState }) =>
+	({ initialState }: any) =>
 		new ApolloClient({
 			uri: `${(process.env as any).app.domain}/api/graphql`,
 			cache: new InMemoryCache().restore(initialState || {}),

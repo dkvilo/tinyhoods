@@ -3,7 +3,6 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
 import UserBadges from "./UserBadges";
 import UserListItem from "./UserListItem";
-import QuestionListItem from "./QuestionListItem";
 
 function UserProfileCard({ data }: any) {
 	return (
@@ -14,7 +13,11 @@ function UserProfileCard({ data }: any) {
 			>
 				<div className="flex flex-col items-center justify-center w-full xs:w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 mx-auto">
 					<img
-						src={data.avatar}
+						src={
+							data?.image
+								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
+								: data.avatar
+						}
 						alt={data.username}
 						className="w-32 h-32 rounded-full border-4 border-default-inverted"
 						style={{
@@ -42,9 +45,9 @@ function UserProfileCard({ data }: any) {
 						<Tab className="p-2 mr-1 text-center">
 							<span className="font-bold">{data.followingCount}</span> Following
 						</Tab>
-						<Tab className="p-2 text-center">
+						{/* <Tab className="p-2 text-center">
 							<span className="font-bold">{data.questionsCount}</span> Questions
-						</Tab>
+						</Tab> */}
 					</TabList>
 
 					<TabPanel className="mx-6 container">
@@ -107,16 +110,16 @@ function UserProfileCard({ data }: any) {
 						</>
 					</TabPanel>
 
-					<TabPanel className="mx-6 container">
+					{/* <TabPanel className="mx-6 container">
 						<>
 							<div className="p-2 flex flex-col bg-indigo-500 w-full rounded-md">
-								{/* {data?.questions &&
+								{data?.questions &&
 									data.questions.map((question: any) => (
 										<QuestionListItem key={question.id} {...question} />
-									))} */}
+									))}
 							</div>
 						</>
-					</TabPanel>
+					</TabPanel> */}
 				</div>
 			</Tabs>
 		</>

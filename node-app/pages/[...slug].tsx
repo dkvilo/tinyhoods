@@ -15,15 +15,20 @@ const GET_USER = gql`
 			name
 			avatar
 			about
+			image
 			locationCount
 			followersCount
 			followingCount
 			followers {
 				username
+				avatar
+				image
 				name
 			}
 			following {
 				username
+				avatar
+				image
 				name
 			}
 			questionsCount

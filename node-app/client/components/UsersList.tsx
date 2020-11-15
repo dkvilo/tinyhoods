@@ -12,6 +12,7 @@ const GET_USERS = gql`
 	query getUsers($data: TokenAuthenticationInput!) {
 		getUsers(data: $data) {
 			name
+			image
 			username
 			following {
 				username

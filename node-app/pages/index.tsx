@@ -33,6 +33,7 @@ const GET_LOCATIONS = gql`
 			cover
 			explorer {
 				username
+				image
 				name
 			}
 			geometry {
@@ -139,7 +140,7 @@ export default function Home() {
 				/>
 			)}
 
-			<div
+			<section
 				className="relative rounded-md top-0 px-4 mt-6"
 				style={{
 					zIndex: 8888,
@@ -180,7 +181,7 @@ export default function Home() {
 						</Button>
 					</div>
 				)}
-			</div>
+			</section>
 
 			<main
 				className="relative mx-auto flex flex-col xs:flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row bg-transparent"

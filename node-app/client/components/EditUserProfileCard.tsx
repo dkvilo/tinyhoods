@@ -5,36 +5,22 @@ import { UserTokenContext } from "../context";
 import { isMembershipExpired } from "../../shared/functions";
 
 import AccountPrivacy from "../forms/user/AccountPrivacy";
-
 import ThemeToggle from "./ThemeToggle";
 import Button from "./Button";
 import SliderInput from "./SliderInput";
 import CheckoutContainer from "./CheckoutContainer";
 import UserBadges from "./UserBadges";
+import Avatar from "./Avatar";
 
 function EditUserProfileCard({ data }: any) {
 	const { dispatch } = useContext<any>(UserTokenContext);
 
 	return (
 		<div className="flex flex-col items-center justify-center my-6">
-			<label className="cursor-pointer">
-				<div className="w-20 h-20 rounded-full border-4 border-default-inverted overflow-hidden">
-					<img
-						src={data.avatar}
-						alt={data.username}
-						className="w-20 h-20"
-						style={{
-							height: 80,
-							width: 80,
-						}}
-					/>
-					<input type="file" className="hidden" />
-				</div>
-			</label>
-
-			<span className="text-base leading-normal px-4 text-default-inverted text-sm">
-				Change Avatar
-			</span>
+			<Avatar
+				username={data.username}
+				src={data.image ? `/imcargo/${data.image}` : data.avatar}
+			/>
 
 			<div className="flex flex-col items-center justify-center px-2">
 				{data.name && (

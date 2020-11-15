@@ -6,6 +6,7 @@ import UnfollowButton from "./UnfollowButton";
 interface IProps {
 	username: string;
 	name: string;
+	image: string;
 	avatar?: string;
 	_following: boolean;
 	ableToFollow: boolean;
@@ -16,6 +17,7 @@ function UserListItem({
 	username,
 	name,
 	_following,
+	image,
 	ableToFollow = true,
 	hasGap = false,
 }: IProps) {
@@ -36,7 +38,11 @@ function UserListItem({
 				<Link href={`/${username}`}>
 					<div className="flex items-center">
 						<img
-							src={`/api/avatar/twitter?username=${username}`}
+							src={`${
+								image
+									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${image}`
+									: `/api/avatar/twitter?username=${username}`
+							}`}
 							alt={username}
 							className="w-12 h-12 rounded-full border-2 border-default-inverted bg-secondary-soft"
 						/>
