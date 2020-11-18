@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect, useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
-import { isEmpty } from "ramda";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
