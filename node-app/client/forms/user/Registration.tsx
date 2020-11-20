@@ -97,11 +97,7 @@ const Registration = () => {
 							<FormikInput type="text" placeholder="Full Name" name="name" />
 						</div>
 						<div className="flex flex-col mb-4">
-							<FormikInput
-								type="text"
-								placeholder="Twitter Username"
-								name="username"
-							/>
+							<FormikInput type="text" placeholder="Username" name="username" />
 							<InputError name={"username"} />
 						</div>
 						<div className="flex flex-col mb-4">
