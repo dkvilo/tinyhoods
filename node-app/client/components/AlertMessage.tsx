@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { GQLErrorContext, AlertMessageContext } from "../context";
+import { AlertMessageContext } from "../context";
 
 interface IProps {
 	message: string | null;
