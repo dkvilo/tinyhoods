@@ -90,7 +90,7 @@ export default function Avatar({
 				);
 				const data = await response.json();
 				if (data?.success) {
-					const { updateAvatar } = (await updateUserAvatar({
+					(await updateUserAvatar({
 						variables: {
 							data: {
 								token: loginState.token,
