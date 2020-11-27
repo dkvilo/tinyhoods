@@ -1,0 +1,31 @@
+const {
+	PORT,
+	NODE_ENV,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_ENDPOINT,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_SECRET,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_SIZE,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_POSTER_SIZE,
+} = process.env;
+
+module.exports = {
+	app: {
+		port: PORT || 3000,
+		env: NODE_ENV || "development",
+	},
+	shadowVariable: {},
+	internalServices: {
+		image: {
+			server: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME,
+			ep: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_ENDPOINT,
+			secret: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_SECRET,
+			avatar: {
+				size: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_SIZE,
+			},
+			poster: {
+				size: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_POSTER_SIZE,
+			},
+		},
+	},
+	externalServices: {},
+};

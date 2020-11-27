@@ -99,7 +99,7 @@ func (ctrl *Controller) Upload(w http.ResponseWriter, r *http.Request, _ httprou
 		}
 	}
 
-	avatarPath, err := functions.SaveImage("static/avatar/", avatar);
+	avatarPath, err := functions.SaveImage("static/", avatar);
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		io.WriteString(w, string(

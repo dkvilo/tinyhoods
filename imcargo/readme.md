@@ -20,7 +20,7 @@ Simple Image processing/storing service
 
 
 
-### [GET] /static/avatar/{name}.jpg
+### [GET] /static/{name}.jpg
 
 ## Example Request
 ```bash
@@ -36,7 +36,7 @@ http://localhost:8080/upload?size=800x800&type=centered&blur=0&accessToken=38fc3
             "width": 800,
             "height": 800
         },
-        "path": "static/avatar/3bb7a3fe-a6fd-4696-8efd-01a3d05b9fee.jpg"
+        "path": "static/3bb7a3fe-a6fd-4696-8efd-01a3d05b9fee.jpg"
     }
 }
 ```

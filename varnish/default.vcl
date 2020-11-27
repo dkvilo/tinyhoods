@@ -13,13 +13,14 @@ sub vcl_recv {
   unset req.http.cookie;
 }
 
-sub vcl_backend_response{
+sub vcl_backend_response { 
 	# Set 2min cache if unset
 	if (beresp.ttl <= 0s) {
-    set beresp.ttl = 120s; # Important, you shouldn't rely on this, SET YOUR HEADERS in the backend
+    set beresp.ttl = 120s;
     set beresp.uncacheable = false;
     return (deliver);
-	 }
+  }
+
 	return (deliver);
 }
 
@@ -40,4 +41,4 @@ sub vcl_deliver {
   } else {
     set resp.http.X-Cache = "MISS";
   }
-} 
+}

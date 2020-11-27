@@ -1,13 +1,30 @@
 version: '3'
 
 services:
-  node-app:
+  api:
     restart: unless-stopped
-    build: ./node-app
+    build: ./api
     env_file:
       - .env
     volumes:
-      - ./node-app:/usr/src/app
+      - ./api:/usr/src/app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+  app:
+    restart: unless-stopped
+    build: ./app
+    env_file:
+      - .env
+    volumes:
+      - ./app:/usr/src/app
+    depends_on:
+      - api
     logging:
       driver: "json-file"
       options:
@@ -23,13 +40,11 @@ services:
     ports:
       - 443:443
     links:
-      - node-app
+      - api
+      - app
       - imcargo
     depends_on:
-      - node-app
-    volumes:
-      - certs:/etc/letsencrypt
-      - certs-data:/data/letsencrypt
+      - api
     logging:
       driver: "json-file"
       options:
@@ -65,7 +80,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./imcargo:/go/src/static/avatar
+      - ./imcargo:/go/src/static
     logging:
       driver: "json-file"
       options:
@@ -73,10 +88,6 @@ services:
         max-file: "3"
     networks:
       - sunset
-
-volumes:
-  certs:
-  certs-data:
 
 networks:
   sunset:
