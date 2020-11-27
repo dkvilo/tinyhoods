@@ -70,22 +70,24 @@ export default function () {
 									</span>
 								</Link>
 							</div>
-							<div className="w-32 mx-1 hover:bg-secondary">
-								<button
-									onClick={updateCreatePostModalState}
-									className="flex items-center leading-normal w-full h-10 text-left font-medium text-default-inverted focus:outline-none"
-								>
-									<svg
-										className="fill-current text-default-inverted w-8 h-8"
-										viewBox="0 0 24 24"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
+							{loginState.isLogin && (
+								<div className="w-32 mx-1 hover:bg-secondary">
+									<button
+										onClick={updateCreatePostModalState}
+										className="flex items-center leading-normal w-full h-10 text-left font-medium text-default-inverted focus:outline-none"
 									>
-										<path d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"></path>
-									</svg>
-									<span className="ml-1">Share Post</span>
-								</button>
-							</div>
+										<svg
+											className="fill-current text-default-inverted w-8 h-8"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"></path>
+										</svg>
+										<span className="ml-1">Share Post</span>
+									</button>
+								</div>
+							)}
 						</div>
 					</div>
 					<ShallowQuery selector="page" default={<Feed />}>
