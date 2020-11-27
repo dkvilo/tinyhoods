@@ -12,6 +12,7 @@ require (
 	github.com/gonum/matrix v0.0.0-20181209220409-c518dec07be9 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/julienschmidt/httprouter v1.3.0
+	github.com/rs/cors v1.7.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/sqs/goreturns v0.0.0-20181028201513-538ac6014518 // indirect
 	go.uber.org/zap v1.16.0 // indirect
