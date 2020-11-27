@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
     "seeder:build": "tsc -p packages/seeder",
