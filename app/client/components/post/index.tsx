@@ -14,7 +14,7 @@ export default function Post({
 	return (
 		<div className="mb-4 rounded p-1">
 			<div className="flex items-center rounded-t py-1">
-				<figure className="w-10 h-10 rounded-full overflow-hidden">
+				<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 					<img
 						src={`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`}
 						alt={author.username}
