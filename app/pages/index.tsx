@@ -111,14 +111,16 @@ export default function () {
 							>
 								Feed
 							</button>
-							<button
-								onClick={() =>
-									router.push("/?page=add-hood", undefined, { shallow: true })
-								}
-								className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
-							>
-								Create Location
-							</button>
+							{loginState.isLogin && (
+								<button
+									onClick={() =>
+										router.push("/?page=add-hood", undefined, { shallow: true })
+									}
+									className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
+								>
+									Create Location
+								</button>
+							)}
 						</div>
 
 						<div className="px-4 mb-4">
