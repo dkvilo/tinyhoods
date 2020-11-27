@@ -82,7 +82,7 @@ export default function (): JSX.Element {
 					controller={authModalController}
 				>
 					{loginState.isLogin && !loading && !error ? (
-						<EditUserProfileCard data={data.getMyInfo} />
+						<EditUserProfileCard />
 					) : (
 						<AuthCard />
 					)}
