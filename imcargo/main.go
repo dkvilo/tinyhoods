@@ -17,6 +17,7 @@ import (
 	"github.com/dkvilo/imcargo/functions"
 	"github.com/dkvilo/imcargo/middleware"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
 )
 
 
@@ -24,6 +25,8 @@ func main() {
 
 	mux := httprouter.New()
 	ctrl := controller.New()
+
+	handler := cors.Default().Handler(mux)
 
 	mux.Handler("GET", "/", http.NotFoundHandler())
 	mux.Handler("GET", "/favicon.ico", http.NotFoundHandler())
@@ -33,7 +36,7 @@ func main() {
 	fmt.Println("accessToken:", functions.GenerateHmac(os.Getenv("HMAC_MESSAGE"), os.Getenv("HMAC_SECRET")))
 
 	mux.ServeFiles("/static/*filepath", http.Dir("static"))
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(":8080", handler))
 }
 
 
