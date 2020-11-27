@@ -26,7 +26,14 @@ func main() {
 	mux := httprouter.New()
 	ctrl := controller.New()
 
-	handler := cors.Default().Handler(mux)
+	c := cors.New(
+		cors.Options{
+			AllowedOrigins: []string{"http://localhost:3000", "http://localhost", "http://localhost:4000"},
+			AllowCredentials: true,
+		},
+	)
+
+	handler := c.Handler(mux)
 
 	mux.Handler("GET", "/", http.NotFoundHandler())
 	mux.Handler("GET", "/favicon.ico", http.NotFoundHandler())
