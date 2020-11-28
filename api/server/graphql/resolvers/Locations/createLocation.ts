@@ -21,7 +21,7 @@ export default async function createLocation(
 
 		if (isPrivate) {
 			const updateReps = await UserModel.findByIdAndUpdate(userId, {
-				$push: { locations: response._id },
+				$push: { locations: response._id } as any,
 			});
 			return !!updateReps && !!response;
 		}

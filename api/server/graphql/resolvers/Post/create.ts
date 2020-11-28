@@ -46,7 +46,7 @@ export default async function createPost(parent: any, args: any, context: any) {
 				_id: userId,
 			},
 			{
-				$push: { posts: response._id },
+				$push: { posts: response._id } as any,
 			}
 		);
 

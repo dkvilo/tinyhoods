@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
-export default mongoose.model("posts", {
+const schema = new mongoose.Schema({
 	content: {
 		type: String,
 	},
@@ -76,3 +77,7 @@ export default mongoose.model("posts", {
 		type: Date,
 	},
 } as any);
+
+schema.plugin(mongoosePaginate);
+
+export default mongoose.model("posts", schema);

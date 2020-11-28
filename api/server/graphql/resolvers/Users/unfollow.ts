@@ -33,7 +33,7 @@ export default async function unfollowUser(
 			{
 				$pull: {
 					followers: userId,
-				},
+				} as any,
 			}
 		);
 
@@ -46,7 +46,7 @@ export default async function unfollowUser(
 			{
 				$pull: {
 					following: response?._id,
-				},
+				} as any,
 			}
 		);
 

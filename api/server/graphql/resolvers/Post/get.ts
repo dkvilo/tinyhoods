@@ -1,23 +1,30 @@
-import mongoose from "mongoose";
-// import UserModel from "../../../models/users";
+// import mongoose from "mongoose";
 import PostsModel from "../../../models/posts";
-// import { decryptToken, requireToken } from "../../../utils";
 
 export default async function getPosts(parent: any, args: any, context: any) {
-	// const { token } = args.data;
-	// requireToken(token);
+	const { page } = args.data;
 
-	// const userId = (decryptToken(token) as any).id;
-
+	// this is not efficient we need to use cursor
 	try {
-		return await PostsModel.find({
-			isDeleted: false,
-			isPublished: true,
-		})
-			.populate({
-				path: "author",
-			})
-			.sort({ publishedAt: -1 });
+		return await PostsModel.paginate(
+			{ isDeleted: false, isPublished: true },
+			{
+				page: page,
+				sort: { publishedAt: -1 },
+				limit: 10,
+				populate: "author",
+			}
+		);
+
+		// .find({
+		// 	isDeleted: false,
+		// 	isPublished: true,
+		// })
+		// 	.populate({
+		// 		path: "author",
+		// 	})
+		// 	.sort({ publishedAt: -1 })
+		// 	.limit(page);
 
 		// return await UserModel.aggregate([
 		// 	{

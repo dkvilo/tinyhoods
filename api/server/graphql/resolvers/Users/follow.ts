@@ -29,7 +29,7 @@ export default async function followUser(parent: any, args: any, context: any) {
 			{
 				$push: {
 					followers: userId,
-				},
+				} as any,
 			}
 		);
 
@@ -42,7 +42,7 @@ export default async function followUser(parent: any, args: any, context: any) {
 			{
 				$push: {
 					following: response?._id,
-				},
+				} as any,
 			}
 		);
 

@@ -26,7 +26,7 @@ export default async function createQuestion(
 				_id: userId,
 			},
 			{
-				$push: { questions: response._id },
+				$push: { questions: response._id } as any,
 			}
 		);
 

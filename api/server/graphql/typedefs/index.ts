@@ -242,13 +242,30 @@ const typeDefs = gql`
 		index: Int
 	}
 
-	type PostsPayload {
+	type PostDocumentType {
 		id: ID!
 		author: UserPayload!
 		images: [ImagePayloadType]!
 		content: String
 		isPublished: Boolean
 		publishedAt: Date
+	}
+
+	type PostsPayload {
+		docs: [PostDocumentType]!
+		totalDocs: Int!
+		limit: Int!
+		page: Int!
+		totalPages: Int!
+		nextPage: Int
+		prevPage: Int
+		pagingCounter: Int!
+		hasPrevPage: Boolean!
+		hasNextPage: Boolean!
+	}
+
+	input GetPostsInput {
+		page: Int = 1
 	}
 
 	type Query {
@@ -262,7 +279,7 @@ const typeDefs = gql`
 		getQuestionsOnLocation(
 			data: GetQuestionsOnLocationInputType!
 		): [QuestionPayload]!
-		getPosts: [PostsPayload]!
+		getPosts(data: GetPostsInput!): PostsPayload!
 	}
 
 	type Mutation {
