@@ -11,7 +11,11 @@ export default function PostImageContent({
 				<div key={imageIndex} className="cursor-pointer px-1 ">
 					<img
 						className="rounded-md shadow-md"
-						src={each.src}
+						src={
+							process.env.NODE_ENV === "development"
+								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}${each.src}`
+								: each.src
+						}
 						width={1080}
 						height={1080}
 						onClick={onImageClick({

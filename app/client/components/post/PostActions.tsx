@@ -2,7 +2,7 @@ export default function PostActions(): JSX.Element {
 	return (
 		<div className="flex items-center py-2 justify-start rounded-b">
 			<div className="flex items-center">
-				<button className="bg-default p-2 rounded-full hover:bg-secondary focus:outline-none">
+				<button className="p-2 rounded-full hover:bg-secondary-soft focus:outline-none">
 					<svg
 						viewBox="0 0 23 23"
 						strokeWidth="2"
@@ -20,7 +20,7 @@ export default function PostActions(): JSX.Element {
 				<span className="mx-1 text-default-inverted">100k</span>
 			</div>
 			<div className="flex items-center ml-1">
-				<button className="bg-default p-2 rounded-full hover:bg-secondary focus:outline-none">
+				<button className="p-2 rounded-full hover:bg-secondary-soft focus:outline-none">
 					<svg
 						viewBox="0 0 24 24"
 						fill="none"
@@ -38,7 +38,7 @@ export default function PostActions(): JSX.Element {
 				</button>
 			</div>
 			<div className="flex items-start justify-start text-default-inverted text-sm">
-				<button className="text-left bg-default p-2 rounded-full ml-1 focus:outline-none hover:text-primary">
+				<button className="text-left p-2 rounded-full ml-1 focus:outline-none hover:text-primary">
 					Add a Comment ...
 				</button>
 			</div>

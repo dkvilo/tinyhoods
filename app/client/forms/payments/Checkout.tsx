@@ -5,7 +5,6 @@ import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
 import Button from "../../components/Button";
-import LoaderDots from "../../components/Loader";
 import { UserTokenContext } from "../../context";
 
 const stripePromise = loadStripe(
@@ -161,8 +160,6 @@ const CheckoutButton = ({ plan }: any) => {
 
 	return (
 		<>
-			{loading && !mutationError && <LoaderDots />}
-
 			<div className="max-w-full bg-green-400 rounded-lg overflow-hidden">
 				<div className="flex items-center justify-start md:h-32 lg:h-32 xl:h-32">
 					<div className="py-2 px-4 text-center w-full">

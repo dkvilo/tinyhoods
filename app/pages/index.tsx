@@ -22,7 +22,6 @@ export async function getStaticProps() {
 
 	return addApolloState(apolloClient, {
 		props: {},
-		// unstable_revalidate: 1,
 	});
 }
 
@@ -43,7 +42,7 @@ export default function () {
 				timeout={300}
 				classNames="swoop-in"
 			>
-				<Modal title="Create Post" controller={createPostModalStateController}>
+				<Modal title="Share Post" controller={createPostModalStateController}>
 					{/* Close Modal when post will be published */}
 					<AddPost onSuccess={updateCreatePostModalState} />
 				</Modal>
@@ -60,7 +59,7 @@ export default function () {
 				{/* [/Left] */}
 
 				{/* Content */}
-				<div className="w-full min-h-screen xs:w-full sm:w-full md:w-full lg:w-2/3 xl:w-2/4 shadow-md p-2 bg-default xs:mb-6 sm:mb-6 md:mb-6">
+				<div className="w-full min-h-screen xs:w-full sm:w-full md:w-full lg:w-2/3 xl:w-2/4 shadow-md p-2 bg-default mb-20 xs:mb-20 sm:mb-20 md:mb-20 lg:mb-2 xl:mb-2">
 					<div className="hidden xs:hidden sm:hidden md:hidden lg:block xl:block w-full bg-default px-2">
 						<div className="flex flex-col flex-wrap -mx-3">
 							<div>
@@ -90,7 +89,7 @@ export default function () {
 							)}
 						</div>
 					</div>
-					<ShallowQuery selector="page" default={<Feed />}>
+					<ShallowQuery selector="tab" default={<Feed />}>
 						<Router on="feed" component={<Feed />} />
 						<Router on="add-hood" component={<AddHood />} />
 					</ShallowQuery>
@@ -103,7 +102,7 @@ export default function () {
 						<div className="flex flex-col p-4 mt-1">
 							<button
 								onClick={() =>
-									router.push("/?page=feed", undefined, {
+									router.push("/?tab=feed", undefined, {
 										shallow: true,
 									})
 								}
@@ -114,33 +113,39 @@ export default function () {
 							{loginState.isLogin && (
 								<button
 									onClick={() =>
-										router.push("/?page=add-hood", undefined, { shallow: true })
+										router.push("/?tab=add-hood", undefined, { shallow: true })
 									}
 									className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
 								>
 									Create Location
 								</button>
 							)}
+							<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">
+								<Link href="/map">Map</Link>
+							</p>
 						</div>
 
 						<div className="px-4 mb-4">
-							<p className="text-default-inverted font-bold text-sm mb-1">
-								Sponsored
-							</p>
+							<div className="mb-1 flex items-center">
+								<Link href="/ads">
+									<p className="cursor-pointer hover:text-primary text-default-inverted font-bold text-sm">
+										Sponsored
+									</p>
+								</Link>
+							</div>
 							<div className="flex items-center justify-center bg-secondary rounded-md w-full h-64"></div>
 						</div>
-						{/* <UsersList /> */}
 					</div>
 				</div>
 				{/* [/Content] */}
 			</div>
 
 			{/* Mobile Menu */}
-			<div className="p-4 w-full bg-default fixed bottom-0 block xs:block sm:block md:block lg:hidden xl:hidden">
-				<div className="px-2 py-1 rounded-full bg-secondary text-default">
+			<div className="p-3 w-full bg-default fixed bottom-0 block xs:block sm:block md:block lg:hidden xl:hidden">
+				<div className="px-1 py-1 rounded-full bg-secondary text-default">
 					<div className="flex items-center justify-evenly">
 						{/* Home Button */}
-						<button className="p-2 rounded-full focus:outline-none">
+						<button className="p-1 rounded-full focus:outline-none">
 							<svg
 								className=" fill-current text-default-inverted w-8 h-8"
 								viewBox="0 0 48 48"
@@ -157,7 +162,7 @@ export default function () {
 						{/* Add Post */}
 						<button
 							onClick={updateCreatePostModalState as any}
-							className="p-2 rounded-full focus:outline-none bg-secondary-soft"
+							className="p-1 rounded-full focus:outline-none bg-secondary-soft"
 						>
 							<svg
 								className=" fill-current text-default-inverted w-8 h-8"
@@ -170,7 +175,7 @@ export default function () {
 						</button>
 
 						{/* Search */}
-						<button className="p-2 rounded-full focus:outline-none">
+						<button className="p-1 rounded-full focus:outline-none">
 							<svg
 								className=" fill-current text-default-inverted w-8 h-8"
 								viewBox="0 0 24 24"

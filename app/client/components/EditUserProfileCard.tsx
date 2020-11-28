@@ -8,8 +8,6 @@ import AccountPrivacy from "../forms/user/AccountPrivacy";
 import ThemeToggle from "./ThemeToggle";
 import Button from "./Button";
 import CheckoutContainer from "./CheckoutContainer";
-import SliderInput from "./SliderInput";
-import UserBadges from "./UserBadges";
 import Avatar from "./Avatar";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -49,7 +47,7 @@ function EditUserProfileCard() {
 		},
 	});
 
-	if (!loading && !error && data?.getMyInfo)
+	if (!loading && !error && data?.getMyInfo) {
 		return (
 			<div className="flex flex-col items-center justify-center mt-2">
 				<Avatar
@@ -166,9 +164,10 @@ function EditUserProfileCard() {
 				</div>
 			</div>
 		);
+	}
 
 	return (
-		<div className="flex flex-col items-center mt-2">
+		<div className="flex flex-col justify-center items-center mt-2">
 			<div className="w-20 h-20 bg-secondary-soft rounded-full lazy__boy"></div>
 			<div className="w-64 h-6 mt-3 bg-secondary-soft rounded lazy__boy"></div>
 			<div className="w-32 h-2 mt-3 bg-secondary-soft rounded lazy__boy"></div>

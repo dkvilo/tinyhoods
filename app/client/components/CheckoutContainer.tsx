@@ -26,12 +26,12 @@ const prices = [
 ];
 
 function CheckoutContainer(): JSX.Element {
-	const [plan, setPlan] = useState<Number>(4);
+	const [plan, setPlan] = useState<Number>(0);
 
 	return (
 		<div className="rounded">
-			{/* <Select
-				placeholder="Buy Traveler Membership Pass"
+			<Select
+				placeholder="Upgrade to Traveler Pass"
 				onChange={(selectedItem: any) => {
 					const { value } = selectedItem;
 					setPlan(value);
@@ -40,7 +40,7 @@ function CheckoutContainer(): JSX.Element {
 				noOptionsMessage={() => "No Nearby Locations"}
 				isMulti={false}
 				options={prices}
-			/> */}
+			/>
 			<div className="mt-2">
 				<CheckoutButton plan={plan} />
 			</div>
