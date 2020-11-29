@@ -1,15 +1,8 @@
 import mongoose from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
-export default mongoose.model("comments", {
-	// POST or COMMENT
-	asType: {
-		type: String,
-		required: true,
-		enum: ["POST", "COMMENT"],
-		default: "POST",
-	},
-
-	on: {
+const schema = new mongoose.Schema({
+	onModelSelector: {
 		type: (mongoose.Schema as any).ObjectId,
 		required: true,
 		refPath: "onModel",
@@ -42,10 +35,12 @@ export default mongoose.model("comments", {
 			ref: "comments",
 		},
 	],
+
 	recentReplies: {
 		type: (mongoose.Schema as any).ObjectId,
 		ref: "Comments",
 	},
+
 	repliesCount: {
 		type: Number,
 		default: 0,
@@ -97,3 +92,7 @@ export default mongoose.model("comments", {
 		type: Date,
 	},
 } as any);
+
+schema.plugin(mongoosePaginate);
+
+export default mongoose.model("comments", schema);

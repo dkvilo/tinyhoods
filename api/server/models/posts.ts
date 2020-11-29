@@ -31,7 +31,7 @@ const schema = new mongoose.Schema({
 	],
 	recentComment: {
 		type: (mongoose.Schema as any).ObjectId,
-		ref: "Comments",
+		ref: "comments",
 	},
 	commentsCount: {
 		type: Number,

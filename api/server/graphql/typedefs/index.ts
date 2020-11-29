@@ -237,6 +237,13 @@ const typeDefs = gql`
 		isPublished: Boolean
 	}
 
+	input CreateCommentInput {
+		token: String!
+		content: String!
+		isPublished: Boolean
+		postId: ID!
+	}
+
 	type ImagePayloadType {
 		src: String
 		index: Int
@@ -246,6 +253,8 @@ const typeDefs = gql`
 		id: ID!
 		author: UserPayload!
 		images: [ImagePayloadType]!
+		comments: [CommentDocumentType]!
+		recentComment: CommentDocumentType
 		content: String
 		isPublished: Boolean
 		publishedAt: Date
@@ -253,6 +262,27 @@ const typeDefs = gql`
 
 	type PostsPayload {
 		docs: [PostDocumentType]!
+		totalDocs: Int!
+		limit: Int!
+		page: Int!
+		totalPages: Int!
+		nextPage: Int
+		prevPage: Int
+		pagingCounter: Int!
+		hasPrevPage: Boolean!
+		hasNextPage: Boolean!
+	}
+
+	type CommentDocumentType {
+		id: ID!
+		author: UserPayload!
+		content: String
+		isPublished: Boolean
+		publishedAt: Date
+	}
+
+	type CommentPayload {
+		docs: [CommentDocumentType]!
 		totalDocs: Int!
 		limit: Int!
 		page: Int!
@@ -280,6 +310,8 @@ const typeDefs = gql`
 			data: GetQuestionsOnLocationInputType!
 		): [QuestionPayload]!
 		getPosts(data: GetPostsInput!): PostsPayload!
+		getPost(id: ID!): PostDocumentType!
+		getComments(id: ID!, page: Int!): CommentPayload
 	}
 
 	type Mutation {
@@ -294,6 +326,7 @@ const typeDefs = gql`
 		createCheckoutSession(data: CreateCheckoutSessionInput!): SessionPayload
 		updateAvatar(data: UserAvatarInput!): Boolean!
 		createPost(data: CreatePostInput!): Boolean!
+		createComment(data: CreateCommentInput!): Boolean!
 	}
 `;
 

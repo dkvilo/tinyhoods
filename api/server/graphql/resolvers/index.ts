@@ -18,6 +18,9 @@ import unfollowUser from "./Users/unfollow";
 import updateAvatar from "./Users/updateAvatar";
 import createPost from "./Post/create";
 import getPosts from "./Post/get";
+import getPost from "./Post/getPost";
+import createComment from "./Comment/create";
+import getComments from "./Comment/getComments";
 
 const resolvers = {
 	Query: {
@@ -30,6 +33,8 @@ const resolvers = {
 		getKeywords,
 		getQuestionsOnLocation,
 		getPosts,
+		getPost,
+		getComments,
 	},
 	Mutation: {
 		createLocation,
@@ -43,6 +48,7 @@ const resolvers = {
 		unfollowUser,
 		updateAvatar,
 		createPost,
+		createComment,
 	},
 };
 

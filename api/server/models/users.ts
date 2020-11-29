@@ -59,6 +59,13 @@ export default mongoose.model("users", {
 		},
 	],
 
+	comments: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "comments",
+		},
+	],
+
 	followers: [
 		{
 			type: (mongoose.Schema as any).ObjectId,
