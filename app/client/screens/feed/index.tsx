@@ -73,29 +73,23 @@ export default function Feed(): JSX.Element {
 	return (
 		<>
 			<h1 className="text-default-inverted font-bold text-2xl px-1 my-2">
-				{/* <span className="mr-1" role="image">
-					🔥
-				</span>{" "} */}
 				Today, {moment().format("LL")}
 			</h1>
 			<div>
-				{!loading &&
-					!error &&
-					!isEmpty(posts) &&
-					(posts as any).map((item: any, index: number) => {
-						if ((posts as any).length === index + 1) {
-							return (
-								<div key={item.id} ref={lastPostElementRef}>
-									<Post {...item} onImageClick={openLightBox} />
-								</div>
-							);
-						}
+				{(posts as any).map((item: any, index: number) => {
+					if ((posts as any).length === index + 1) {
 						return (
-							<div key={item.id}>
+							<div key={item.id} ref={lastPostElementRef}>
 								<Post {...item} onImageClick={openLightBox} />
 							</div>
 						);
-					})}
+					}
+					return (
+						<div key={item.id}>
+							<Post {...item} onImageClick={openLightBox} />
+						</div>
+					);
+				})}
 				{!loading &&
 					!error &&
 					!isEmpty(posts) &&

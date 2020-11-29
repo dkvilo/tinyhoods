@@ -6,6 +6,8 @@ export interface IProps {
 	publishedAt: string;
 	content: string;
 	images: any;
+	comments: any;
+	recentComment: any;
 	onImageClick({
 		post,
 		imageIndex,

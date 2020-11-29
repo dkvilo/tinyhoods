@@ -5,7 +5,6 @@ import Grid from "../client/components/Grid";
 import SEOHeader from "../client/components/SEOHeader";
 import { useRouter } from "next/dist/client/router";
 import UserProfileCard from "../client/components/UserProfileCard";
-import Button from "../client/components/Button";
 import Link from "next/link";
 
 const GET_USER = gql`

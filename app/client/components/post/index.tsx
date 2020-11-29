@@ -12,12 +12,13 @@ export default function Post({
 	author,
 	publishedAt,
 	content,
+	recentComment,
 	id,
 	images,
 	onImageClick,
 }: IProps): JSX.Element {
 	return (
-		<div className="mb-4 rounded p-1 hover:bg-secondary">
+		<div className="mb-4 rounded p-1 hover:bg-background">
 			<div className="flex items-center rounded-t py-1">
 				<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 					<img
@@ -35,7 +36,7 @@ export default function Post({
 					</span>
 					<Link href={`/post/${id}`}>
 						<span
-							className="text-default-inverted opacity-75 text-xs ml-1 italic relative"
+							className="hover:text-primary w-32 hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
 							style={{
 								top: -4,
 							}}
@@ -66,9 +67,18 @@ export default function Post({
 				)}
 			</div>
 			<PostActions />
-			<div className="flex flex-col items-start px-2">
-				<PostFooter />
-			</div>
+			{recentComment && (
+				<div className="my-2">
+					<h1 className="px-1 py-1 text-default-inverted text-lg font-bold">
+						Recent Comments
+					</h1>
+					<Link href={`/post/${id}`}>
+						<div className="flex flex-col items-start px-1 cursor-pointer">
+							<PostFooter comments={[recentComment]} />
+						</div>
+					</Link>
+				</div>
+			)}
 		</div>
 	);
 }

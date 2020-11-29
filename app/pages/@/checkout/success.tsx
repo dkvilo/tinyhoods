@@ -1,19 +1,18 @@
 import React, { useEffect, useContext } from "react";
 import Link from "next/link";
+import { useRouter } from "next/dist/client/router";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 import SEOHeader from "../../../client/components/SEOHeader";
 import Grid from "../../../client/components/Grid";
+import Loader from "../../../client/components/Loader";
 
-import { useRouter } from "next/dist/client/router";
 import {
 	UserTokenContext,
 	LoaderProgressContext,
 	GQLErrorContext,
 } from "../../../client/context";
-import Loader from "../../../client/components/Loader";
-import Button from "../../../client/components/Button";
 
 const CONFIRM_CHECKOUT_SESSION = gql`
 	mutation confirmCheckoutSession($data: ConfirmCheckoutSessionInput!) {

@@ -1,4 +1,8 @@
-export default function PostActions(): JSX.Element {
+export default function PostActions({
+	isDetailed = false,
+}: {
+	isDetailed?: boolean;
+}): JSX.Element {
 	return (
 		<div className="flex items-center py-2 justify-start rounded-b">
 			<div className="flex items-center">
@@ -37,11 +41,13 @@ export default function PostActions(): JSX.Element {
 					</svg>
 				</button>
 			</div>
-			<div className="flex items-start justify-start text-default-inverted text-sm">
-				<button className="text-left p-2 rounded-full ml-1 focus:outline-none hover:text-primary">
-					Add a Comment ...
-				</button>
-			</div>
+			{!isDetailed && (
+				<div className="flex items-start justify-start text-default-inverted text-sm">
+					<button className="text-left p-2 rounded-full ml-1 focus:outline-none hover:text-primary">
+						Add a Comment ...
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }

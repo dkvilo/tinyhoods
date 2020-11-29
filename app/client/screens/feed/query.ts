@@ -12,6 +12,15 @@ export const GET_POSTS = gql`
 				images {
 					src
 				}
+				recentComment {
+					id
+					content
+					publishedAt
+					author {
+						image
+						username
+					}
+				}
 				content
 				publishedAt
 			}
