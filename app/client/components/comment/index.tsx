@@ -5,9 +5,14 @@ export default function Comment({
 	content,
 	publishedAt,
 	author,
+	isClickable = false,
 }: IProps): JSX.Element {
 	return (
-		<div className="border-b-2 border-secondary p-1 hover:bg-secondary-soft w-full rounded-md">
+		<div
+			className={`border-secondary p-1 ${
+				isClickable ? "hover:bg-secondary rounded-md" : ""
+			} w-full`}
+		>
 			<div className="flex items-center justify-between">
 				<div className="flex items-start">
 					<img
@@ -29,7 +34,7 @@ export default function Comment({
 								{author.username}
 							</span>
 						</div>
-						<p className="px-2 py-2 rounded-b-lg rounded-r-lg bg-primary text-sm text-default w-auto">
+						<p className="px-2 py-2 rounded-b-lg rounded-r-lg border-2 bg-default text-sm text-default-inverted w-auto">
 							{content}
 						</p>
 						<div className="flex items-center text-default-inverted opacity-75 text-xs mt-1">

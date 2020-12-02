@@ -16,9 +16,10 @@ export default function Post({
 	id,
 	images,
 	onImageClick,
+	onPostShallowClick,
 }: IProps): JSX.Element {
 	return (
-		<div className="mb-4 rounded p-1 hover:bg-background">
+		<div className="rounded-b-2 p-1 border bg-default hover:bg-secondary">
 			<div className="flex items-center rounded-t py-1">
 				<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 					<img
@@ -30,53 +31,55 @@ export default function Post({
 						alt={author.username}
 					/>
 				</figure>
-				<div className="flex flex-1 flex-col">
-					<span className="text-default-inverted ml-1 font-bold opacity-75">
-						{author.username}
-					</span>
-					<Link href={`/post/${id}`}>
-						<span
-							className="hover:text-primary w-32 hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
-							style={{
-								top: -4,
-							}}
-						>
-							{moment(publishedAt).calendar()}
+				<div className="flex flex-1 items-center justify-between">
+					<div className="flex flex-col">
+						<span className="text-default-inverted ml-1 font-bold opacity-75">
+							{author.username}
 						</span>
-					</Link>
-				</div>
-				<div>
-					<button className="p-2 hover:bg-secondary rounded-full focus:outline-none">
-						<svg
-							className="fill-current h-5 w-5 text-default-inverted"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 23 23"
-						>
-							<circle cx="12" cy="12" r="2"></circle>
-							<circle cx="19" cy="12" r="2"></circle>
-							<circle cx="5" cy="12" r="2"></circle>{" "}
-						</svg>
-					</button>
+						<Link href={`/post/${id}`}>
+							<span
+								className="hover:text-primary w-auto hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
+								style={{
+									top: -4,
+								}}
+							>
+								{moment(publishedAt).calendar()}
+							</span>
+						</Link>
+					</div>
+					<div>
+						<button className="p-2 hover:bg-secondary rounded-full focus:outline-none">
+							<svg
+								className="fill-current h-5 w-5 text-default-inverted"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 23 23"
+							>
+								<circle cx="12" cy="12" r="2"></circle>
+								<circle cx="19" cy="12" r="2"></circle>
+								<circle cx="5" cy="12" r="2"></circle>{" "}
+							</svg>
+						</button>
+					</div>
 				</div>
 			</div>
-
-			<div className="py-2 rounded-md">
+			<div className="py-1">
 				{content && <PostTextContent content={content} />}
 				{images && (
 					<PostImageContent images={images} onImageClick={onImageClick} />
 				)}
 			</div>
-			<PostActions />
+			<PostActions onPostShallowClick={onPostShallowClick} />
 			{recentComment && (
-				<div className="my-2">
-					<h1 className="px-1 py-1 text-default-inverted text-lg font-bold">
+				<div className="mb-2">
+					<h1 className="px-1 text-default-inverted text-lg font-bold">
 						Recent Comments
 					</h1>
-					<Link href={`/post/${id}`}>
-						<div className="flex flex-col items-start px-1 cursor-pointer">
-							<PostFooter comments={[recentComment]} />
-						</div>
-					</Link>
+					<div
+						onClick={onPostShallowClick}
+						className="flex flex-col items-start px-1 cursor-pointer"
+					>
+						<PostFooter comments={[recentComment]} />
+					</div>
 				</div>
 			)}
 		</div>

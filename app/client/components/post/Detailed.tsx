@@ -82,7 +82,7 @@ export default function Detailed({
 			<h1 className="text-default-inverted font-bold text-2xl px-1 my-2">
 				{moment(publishedAt).format("LL [at] HH:MM")}
 			</h1>
-			<div className="mb-4 rounded p-1">
+			<div className="mb-4 rounded p-1 border-2 bg-default">
 				<div className="flex items-center rounded-t py-1">
 					<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 						<img
@@ -127,7 +127,7 @@ export default function Detailed({
 				<div className="py-2 rounded-md">
 					{content && <PostTextContent content={content} />}
 					{images && (
-						<PostImageContent images={images} onImageClick={onImageClick} />
+						<PostImageContent images={images} onImageClick={() => {}} />
 					)}
 				</div>
 				<PostActions isDetailed />

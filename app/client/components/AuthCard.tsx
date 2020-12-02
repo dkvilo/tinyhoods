@@ -11,7 +11,7 @@ function AuthCard() {
 	}, [authViewState, setAuthViewState]);
 
 	return (
-		<div className="my-1 py-5 px-4">
+		<div className="">
 			{authViewState ? <Registration /> : <Authentication />}
 			<div className="flex items-center justify-center my-2">
 				<Button

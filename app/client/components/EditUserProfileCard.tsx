@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import moment from "moment";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+
+import Button from "./Button";
+import Avatar from "./Avatar";
+import ThemeToggle from "./ThemeToggle";
+import SliderInput from "./SliderInput";
+import CheckoutContainer from "./CheckoutContainer";
+
+import AccountPrivacy from "../forms/user/AccountPrivacy";
 
 import { UserTokenContext } from "../context";
 import { isMembershipExpired } from "../../shared/functions";
-
-import AccountPrivacy from "../forms/user/AccountPrivacy";
-import ThemeToggle from "./ThemeToggle";
-import Button from "./Button";
-import CheckoutContainer from "./CheckoutContainer";
-import Avatar from "./Avatar";
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 
 const GET_MY_INFO = gql`
 	query getMyInfo($data: TokenAuthenticationInput!) {
@@ -35,10 +37,10 @@ const GET_MY_INFO = gql`
 	}
 `;
 
-function EditUserProfileCard() {
+function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 	const { state: loginState, dispatch } = useContext<any>(UserTokenContext);
 
-	const { loading, data, error, refetch } = useQuery(GET_MY_INFO, {
+	const { loading, data, error } = useQuery(GET_MY_INFO, {
 		fetchPolicy: "network-only",
 		variables: {
 			data: {
@@ -49,7 +51,7 @@ function EditUserProfileCard() {
 
 	if (!loading && !error && data?.getMyInfo) {
 		return (
-			<div className="flex flex-col items-center justify-center mt-2">
+			<div className="flex flex-col items-center justify-center">
 				<Avatar
 					username={data.getMyInfo.username}
 					src={
@@ -80,18 +82,47 @@ function EditUserProfileCard() {
 					)}
 				</div>
 
-				<div className="flex justify-center bg-default rounded-md shadow my-2 p-2 text-default-inverted">
-					<div className="px-1 rounded mr-1 text-center">
-						<span className="font-bold">{data.getMyInfo.followersCount}</span>{" "}
-						Followers
+				<div className="w-full flex justify-center justify-evenly bg-default border-2 rounded-md my-2 text-default-inverted">
+					<div className="flex flex-col items-center px-1 rounded text-center cursor-pointer hover:text-primary">
+						<span className="font-bold text-lg">
+							{data.getMyInfo.followersCount}
+						</span>
+						<span
+							style={{
+								position: "relative",
+								top: -5,
+							}}
+						>
+							Followers
+						</span>
 					</div>
-					<div className="px-1 rounded mr-1 text-center">
-						<span className="font-bold">{data.getMyInfo.followingCount}</span>{" "}
-						Following
+					<div className="flex flex-col items-center px-1 rounded text-center cursor-pointer hover:text-primary">
+						<span className="font-bold text-lg">
+							{data.getMyInfo.followingCount}
+						</span>
+						<span
+							style={{
+								position: "relative",
+								top: -5,
+							}}
+						>
+							Following
+						</span>
 					</div>
-					<div className="px-1 rounded text-center">
-						<span className="font-bold">{data.getMyInfo.questionsCount}</span>{" "}
-						Questions
+					<div className="flex flex-col items-center px-1 rounded text-center cursor-pointer hover:text-primary">
+						<span className="font-bold text-lg">
+							{data.getMyInfo.questionsCount}
+						</span>
+						<span
+							style={{
+								position: "relative",
+								top: -5,
+							}}
+						>
+							Projects
+						</span>
+						{/* <span className="font-bold">{data.getMyInfo.questionsCount}</span>{" "}
+						Questions */}
 					</div>
 				</div>
 
@@ -100,28 +131,28 @@ function EditUserProfileCard() {
 				)}
 
 				<div className="flex flex-col w-full">
-					{/* <div className="my-2">
-					<div className="flex items-center w-full mb-3 ">
-						{!isMembershipExpired(data.getMyInfo.membership.expiresAt) ? (
-							<SliderInput />
-						) : (
-							<div className="flex flex-col items-center justify-center text-center w-full p-2">
-								<span className="text-default-inverted text-2xl font-bold">
-									10km
-								</span>
-								<span className="text-primary text-md">
-									Visibility Distance is Locked by default
-								</span>
-								<span className="text-primary text-sm">
-									Upgrade Your membership by joining the Travelers Club and
-									unlock unlimited features
-								</span>
+					{fromMap && (
+						<div className="my-2">
+							<div className="flex items-center w-full mb-3 ">
+								{!isMembershipExpired(data.getMyInfo.membership.expiresAt) ? (
+									<SliderInput />
+								) : (
+									<div className="flex flex-col items-center justify-center text-center w-full p-2">
+										<span className="text-default-inverted text-2xl font-bold">
+											10km
+										</span>
+										<span className="text-primary text-md">
+											Visibility Distance is Locked by default
+										</span>
+										<span className="text-primary text-sm">
+											Upgrade Your membership by joining the Travelers Club and
+											unlock unlimited features
+										</span>
+									</div>
+								)}
 							</div>
-						)}
-					</div>
-				</div> */}
-
-					{/* <UserBadges data={data} /> */}
+						</div>
+					)}
 
 					<h1 className="text-xl text-default-inverted font-bold py-2">
 						User Settings
@@ -168,7 +199,7 @@ function EditUserProfileCard() {
 
 	return (
 		<div className="flex flex-col justify-center items-center mt-2">
-			<div className="w-20 h-20 bg-secondary-soft rounded-full lazy__boy"></div>
+			{/* <div className="w-20 h-20 bg-secondary-soft rounded-full lazy__boy"></div> */}
 			<div className="w-64 h-6 mt-3 bg-secondary-soft rounded lazy__boy"></div>
 			<div className="w-32 h-2 mt-3 bg-secondary-soft rounded lazy__boy"></div>
 			<div className="mt-6 flex flex-col items-center justify-evenly">

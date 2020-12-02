@@ -47,8 +47,10 @@ export default function () {
 			<SEOHeader title="TinyHoods" description=" - Explore tiny world" />
 			<Layout
 				left={
-					<div className="sticky top-0 rounded w-auto">
-						{loginState.isLogin ? <EditUserProfileCard /> : <AuthCard />}
+					<div className="w-full mt-4">
+						<div className="sticky" style={{ top: 20 }}>
+							{loginState.isLogin ? <EditUserProfileCard /> : <AuthCard />}
+						</div>
 					</div>
 				}
 				center={
@@ -77,44 +79,47 @@ export default function () {
 					</>
 				}
 				right={
-					<div className="sticky top-0 rounded w-auto">
-						<div className="flex flex-col p-4 mt-1">
-							<button
-								onClick={() =>
-									router.push("/?tab=feed", undefined, {
-										shallow: true,
-									})
-								}
-								className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
-							>
-								Feed
-							</button>
-							{loginState.isLogin && (
+					<div className="w-full mt-4">
+						<div className="sticky" style={{ top: 20 }}>
+							<div className="flex flex-col">
 								<button
 									onClick={() =>
-										router.push("/?tab=add-hood", undefined, { shallow: true })
+										router.push("/?tab=feed", undefined, {
+											shallow: true,
+										})
 									}
 									className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
 								>
-									Create Location
+									Home Page
 								</button>
-							)}
-							<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">
-								<Link href="/map">
-									<span>Map</span>
-								</Link>
-							</p>
-						</div>
-
-						<div className="px-4 mb-4">
-							<div className="mb-1 flex items-center">
-								<Link href="/ads">
-									<p className="cursor-pointer hover:text-primary text-default-inverted font-bold text-sm">
-										Sponsored
-									</p>
-								</Link>
+								{loginState.isLogin && (
+									<button
+										onClick={() =>
+											router.push("/?tab=add-hood", undefined, {
+												shallow: true,
+											})
+										}
+										className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
+									>
+										Create Location
+									</button>
+								)}
+								<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">
+									<Link href="/map">
+										<span>Map</span>
+									</Link>
+								</p>
 							</div>
-							<div className="flex items-center justify-center bg-secondary rounded-md w-full h-64"></div>
+							<div className="">
+								<div className="mb-1 flex items-center">
+									<Link href="/ads">
+										<p className="cursor-pointer hover:text-primary text-default-inverted font-bold text-sm">
+											Sponsored
+										</p>
+									</Link>
+								</div>
+								<div className="flex items-center justify-center border bg-secondary rounded-md w-full h-64"></div>
+							</div>
 						</div>
 					</div>
 				}

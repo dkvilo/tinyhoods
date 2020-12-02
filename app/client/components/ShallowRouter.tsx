@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import Loader from "./Loader";
 
 function Router(props: { on: string; component: JSX.Element }) {
 	return props.component;
@@ -33,4 +34,12 @@ function ShallowQuery({
 	);
 }
 
-export { Router, ShallowQuery };
+function ShallowRedirect({ href }: { href: string }): JSX.Element {
+	const router = useRouter();
+	useEffect(() => {
+		router.push(href);
+	}, [router]);
+	return <Loader />;
+}
+
+export { Router, ShallowQuery, ShallowRedirect };

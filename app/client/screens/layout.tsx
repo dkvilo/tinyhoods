@@ -12,19 +12,19 @@ export default function ({ left, right, center, mobile }: IProps): JSX.Element {
 		<>
 			<div className="flex container mx-auto">
 				{/* Left */}
-				<div className="w-1/4 hidden xs:hidden sm:hidden md:hidden lg:flex xl:flex flex-col items-center px-5">
+				<div className="w-1/4 hidden xs:hidden sm:hidden md:hidden lg:flex xl:flex px-5">
 					{left}
 				</div>
 				{/* [/Left] */}
 
 				{/* Content */}
-				<div className="w-full min-h-screen xs:w-full sm:w-full md:w-full lg:w-2/3 xl:w-2/4 shadow-md p-2 bg-default mb-20 xs:mb-20 sm:mb-20 md:mb-20 lg:mb-2 xl:mb-2">
+				<div className="w-full xs:w-full sm:w-full md:w-full lg:w-2/3 xl:w-2/4  mb-20 xs:mb-20 sm:mb-20 md:mb-20 lg:mb-2 xl:mb-2">
 					{center}
 				</div>
 				{/* [/Content]  */}
 
 				{/* Right */}
-				<div className="w-1/4 hidden xs:hidden sm:hidden md:hidden lg:flex xl:flex flex-col px-2">
+				<div className="w-1/4 hidden xs:hidden sm:hidden md:hidden lg:flex xl:flex px-5">
 					{right}
 				</div>
 				{/* [/Right] */}

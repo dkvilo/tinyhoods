@@ -60,7 +60,7 @@ const Registration = () => {
 	}, [data, loading, error]);
 
 	return (
-		<div className="w-64">
+		<div>
 			<Formik
 				initialValues={{
 					username: "",

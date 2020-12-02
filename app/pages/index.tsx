@@ -1,34 +1,25 @@
 import React, { useContext } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { CSSTransition } from "react-transition-group";
 import { UserTokenContext } from "../client/context";
 
-import SEOHeader from "../client/components/SEOHeader";
-import EditUserProfileCard from "../client/components/EditUserProfileCard";
-import AuthCard from "../client/components/AuthCard";
-import { useDropToggleState } from "../client/hooks";
-import Modal from "../client/components/Modal";
-import AddPost from "../client/forms/post/add";
 import { Router, ShallowQuery } from "../client/components/ShallowRouter";
+import Modal from "../client/components/Modal";
+import EditUserProfileCard from "../client/components/EditUserProfileCard";
+import SEOHeader from "../client/components/SEOHeader";
+import AuthCard from "../client/components/AuthCard";
+import AddPost from "../client/forms/post/add";
 import AddHood from "../client/forms/hoods/add";
 import Feed from "../client/screens/feed";
-
-import { initializeApollo, addApolloState } from "../libs/apolloClient";
-
 import Layout from "../client/screens/layout";
 
-export async function getStaticProps() {
-	const apolloClient = initializeApollo();
-	return addApolloState(apolloClient, {
-		props: {},
-	});
-}
+import { useDropToggleState } from "../client/hooks";
 
 export default function () {
-	const { state: loginState } = useContext<any>(UserTokenContext);
 	const router = useRouter();
+	const { state: loginState } = useContext<any>(UserTokenContext);
 
 	const createPostModalStateController = useDropToggleState(false as any);
 	const [
@@ -53,80 +44,75 @@ export default function () {
 
 			<Layout
 				left={
-					<div className="sticky top-0 rounded w-auto">
-						{loginState.isLogin ? <EditUserProfileCard /> : <AuthCard />}
+					<div className="w-full mt-4">
+						<div className="sticky" style={{ top: 20 }}>
+							{loginState.isLogin ? <EditUserProfileCard /> : <AuthCard />}
+						</div>
 					</div>
 				}
 				right={
-					<div className="sticky top-0 rounded w-auto">
-						<div className="flex flex-col p-4 mt-1">
-							<button
-								onClick={() =>
-									router.push("/?tab=feed", undefined, {
-										shallow: true,
-									})
-								}
-								className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
-							>
-								Feed
-							</button>
-							{loginState.isLogin && (
+					<div className="w-full mt-4">
+						<div className="sticky" style={{ top: 20 }}>
+							<div className="flex flex-col">
 								<button
 									onClick={() =>
-										router.push("/?tab=add-hood", undefined, { shallow: true })
+										router.push("/?tab=feed", undefined, {
+											shallow: true,
+										})
 									}
 									className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
 								>
-									Create Location
+									Home Page
 								</button>
-							)}
-							<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">
-								<Link href="/map">
-									<span>Map</span>
-								</Link>
-							</p>
-						</div>
-
-						<div className="px-4 mb-4">
-							<div className="mb-1 flex items-center">
-								<Link href="/ads">
-									<p className="cursor-pointer hover:text-primary text-default-inverted font-bold text-sm">
-										Sponsored
-									</p>
-								</Link>
+								{loginState.isLogin && (
+									<button
+										onClick={() =>
+											router.push("/?tab=add-hood", undefined, {
+												shallow: true,
+											})
+										}
+										className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
+									>
+										Create Location
+									</button>
+								)}
+								<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">
+									<Link href="/map">
+										<span>Map</span>
+									</Link>
+								</p>
 							</div>
-							<div className="flex items-center justify-center bg-secondary rounded-md w-full h-64"></div>
+							<div className="">
+								<div className="mb-1 flex items-center">
+									<Link href="/ads">
+										<p className="cursor-pointer hover:text-primary text-default-inverted font-bold text-sm">
+											Sponsored
+										</p>
+									</Link>
+								</div>
+								<div className="flex items-center justify-center border bg-secondary rounded-md w-full h-64"></div>
+							</div>
 						</div>
 					</div>
 				}
 				center={
 					<>
-						<div className="hidden xs:hidden sm:hidden md:hidden lg:block xl:block w-full bg-default px-2">
+						<div className="hidden xs:hidden sm:hidden md:hidden lg:block xl:block w-full px-2">
 							<div className="flex flex-col flex-wrap -mx-3">
 								<div>
 									<Link href="/">
-										<span className="px-2 cursor-pointer pt-3 pb-2 text-default-inverted text-2xl font-bold">
+										<span className="hover:text-primary px-2 cursor-pointer pt-3 pb-2 text-default-inverted text-2xl font-bold">
 											TINYHOODS
 										</span>
 									</Link>
 								</div>
 								{loginState.isLogin && (
-									<div className="w-32 mx-1 hover:bg-secondary">
-										<button
-											onClick={updateCreatePostModalState}
-											className="flex items-center leading-normal w-full h-10 text-left font-medium text-default-inverted focus:outline-none"
-										>
-											<svg
-												className="fill-current text-default-inverted w-8 h-8"
-												viewBox="0 0 24 24"
-												fill="none"
-												xmlns="http://www.w3.org/2000/svg"
-											>
-												<path d="M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z"></path>
-											</svg>
-											<span className="ml-1">Share Post</span>
-										</button>
-									</div>
+									<button
+										onClick={updateCreatePostModalState}
+										className="mt-2 mx-2 flex items-center focus:outline-none text-default-inverted hover:text-primary w-32"
+									>
+										<span>Create Post</span>
+									</button>
 								)}
 							</div>
 						</div>

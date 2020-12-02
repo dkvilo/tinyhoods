@@ -8,6 +8,7 @@ export interface IProps {
 	images: any;
 	comments: any;
 	recentComment: any;
+	onPostShallowClick(): (event: FormEvent<any>) => void;
 	onImageClick({
 		post,
 		imageIndex,

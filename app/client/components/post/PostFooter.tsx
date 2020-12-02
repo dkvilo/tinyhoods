@@ -10,7 +10,7 @@ export default function PostFooter({
 		<>
 			{comments.map((each: any, index: number) => (
 				<Fragment key={each.id + index}>
-					<Comment {...each} />
+					<Comment {...each} isClickable />
 				</Fragment>
 			))}
 		</>

@@ -1,5 +1,6 @@
 export interface IProps {
 	content: string;
 	author: any;
-	publishedAt: String;
+	publishedAt: string;
+	isClickable?: boolean;
 }

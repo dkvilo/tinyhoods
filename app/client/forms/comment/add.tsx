@@ -93,7 +93,7 @@ const AddComment = ({ postId, onSuccess }: IProps) => {
 					isSubmitting,
 				}) => (
 					<form onSubmit={handleSubmit}>
-						<div className="flex bg-secondary rounded-md">
+						<div className="flex flex-col xs:flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row bg-secondary rounded-md">
 							<Textarea
 								rows={1}
 								placeholder="Write a comment ..."
@@ -102,9 +102,9 @@ const AddComment = ({ postId, onSuccess }: IProps) => {
 								onBlur={handleBlur}
 							/>
 							{!!errors && values.content.length >= 1 && (
-								<div className="flex items-center mr-1">
+								<div className="flex p-2">
 									<button
-										className="focus:outline-none bg-green-500 px-2 py-1 text-default rounded-full"
+										className="focus:outline-none bg-green-500 px-5 py-1 text-default rounded-md w-full"
 										type="submit"
 										disabled={isSubmitting}
 									>

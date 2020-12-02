@@ -65,7 +65,7 @@ const Authentication = () => {
 	}, [loading, loaderDispatcher]);
 
 	return (
-		<div className="w-64">
+		<div>
 			<Formik
 				initialValues={{
 					email: "",
