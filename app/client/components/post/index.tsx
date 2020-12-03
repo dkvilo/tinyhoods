@@ -77,7 +77,7 @@ export default function Post({
 							timeout={300}
 							classNames="swoop-in"
 						>
-							<div className="absolute" style={{ right: 5 }}>
+							<div className="absolute" style={{ right: 5, zIndex: 8888 }}>
 								{isSettingsOpen && <SettingsPanel />}
 							</div>
 						</CSSTransition>
