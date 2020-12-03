@@ -7,6 +7,7 @@ export const GET_POSTS = gql`
 				id
 				author {
 					username
+					avatar
 					image
 				}
 				images {
@@ -17,6 +18,7 @@ export const GET_POSTS = gql`
 					content
 					publishedAt
 					author {
+						avatar
 						image
 						username
 					}

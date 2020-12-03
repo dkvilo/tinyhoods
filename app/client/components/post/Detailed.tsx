@@ -18,6 +18,7 @@ export const GET_COMMENTS_BY_POST_ID = gql`
 				content
 				publishedAt
 				author {
+					avatar
 					username
 					image
 				}
@@ -86,11 +87,11 @@ export default function Detailed({
 				<div className="flex items-center rounded-t py-1">
 					<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 						<img
-							src={`${
-								process.env.NODE_ENV === "development"
-									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo`
-									: process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME
-							}/${author.image}`}
+							src={
+								author.image
+									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+									: author.avatar
+							}
 							alt={author.username}
 						/>
 					</figure>

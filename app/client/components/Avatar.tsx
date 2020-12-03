@@ -129,11 +129,7 @@ export default function Avatar({
 			<label className="cursor-pointer">
 				<div className="flex items-center w-20 h-20 rounded-full border-default-inverted overflow-hidden">
 					<img
-						src={
-							file?.preview || process.env.NODE_ENV === "development"
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}${src}`
-								: src
-						}
+						src={file?.preview ? file?.preview : src}
 						alt={username}
 						className="w-20 h-20"
 						style={{

@@ -56,7 +56,7 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 					username={data.getMyInfo.username}
 					src={
 						data.getMyInfo.image
-							? `/imcargo/${data.getMyInfo.image}`
+							? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${data.getMyInfo.image}`
 							: data.getMyInfo.avatar
 					}
 				/>

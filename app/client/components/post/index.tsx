@@ -5,8 +5,12 @@ import PostActions from "./PostActions";
 import PostFooter from "./PostFooter";
 import PostImageContent from "./PostImageContent";
 import PostTextContent from "./PostTextContent";
+import SettingsPanel from "./SettingsPanel";
 
+import { useDropToggleState } from "../../hooks";
 import { IProps } from "./types";
+import React from "react";
+import { CSSTransition } from "react-transition-group";
 
 export default function Post({
 	author,
@@ -18,16 +22,18 @@ export default function Post({
 	onImageClick,
 	onPostShallowClick,
 }: IProps): JSX.Element {
+	const [isSettingsOpen, toggleIsSettingsState] = useDropToggleState(false);
+
 	return (
 		<div className="rounded-b-2 p-1 border bg-default hover:bg-secondary">
 			<div className="flex items-center rounded-t py-1">
 				<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 					<img
-						src={`${
-							process.env.NODE_ENV === "development"
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo`
-								: process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME
-						}/${author.image}`}
+						src={
+							author.image
+								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+								: author.avatar
+						}
 						alt={author.username}
 					/>
 				</figure>
@@ -47,8 +53,11 @@ export default function Post({
 							</span>
 						</Link>
 					</div>
-					<div>
-						<button className="p-2 hover:bg-secondary rounded-full focus:outline-none">
+					<div className="relative">
+						<button
+							onClick={toggleIsSettingsState}
+							className="p-2 hover:bg-secondary rounded-full focus:outline-none"
+						>
 							<svg
 								className="fill-current h-5 w-5 text-default-inverted"
 								xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +68,15 @@ export default function Post({
 								<circle cx="5" cy="12" r="2"></circle>{" "}
 							</svg>
 						</button>
+						<CSSTransition
+							in={isSettingsOpen as boolean}
+							timeout={300}
+							classNames="swoop-in"
+						>
+							<div className="absolute" style={{ right: 5 }}>
+								{isSettingsOpen && <SettingsPanel />}
+							</div>
+						</CSSTransition>
 					</div>
 				</div>
 			</div>

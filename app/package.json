@@ -1,10 +1,7 @@
 {
-  "name": "tinyhoods",
+  "name": "tinyhoods-app",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
