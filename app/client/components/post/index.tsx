@@ -30,8 +30,12 @@ export default function Post({
 				<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 					<img
 						src={
-							author.image
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+							process.env.NODE_ENV === "development"
+								? author.image
+									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+									: author.avatar
+								: author.image
+								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
 								: author.avatar
 						}
 						alt={author.username}

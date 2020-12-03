@@ -25,8 +25,12 @@ export default function Comment({
 				<div className="flex items-start">
 					<img
 						src={
-							author.image
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+							process.env.NODE_ENV === "development"
+								? author.image
+									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+									: author.avatar
+								: author.image
+								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
 								: author.avatar
 						}
 						alt={author.username}
