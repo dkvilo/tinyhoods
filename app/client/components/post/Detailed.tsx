@@ -99,33 +99,35 @@ export default function Detailed({
 							alt={author.username}
 						/>
 					</figure>
-					<div className="flex flex-col">
-						<span className="text-default-inverted ml-1 font-bold opacity-75">
-							{author.username}
-						</span>
-						<Link href={`/post/${id}`}>
-							<span
-								className="hover:text-primary w-auto hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
-								style={{
-									top: -4,
-								}}
-							>
-								{moment(publishedAt).calendar()}
+					<div className="flex flex-1 items-center justify-between">
+						<div className="flex flex-col">
+							<span className="text-default-inverted ml-1 font-bold opacity-75">
+								{author.username}
 							</span>
-						</Link>
-					</div>
-					<div>
-						<button className="p-2 hover:bg-secondary rounded-full focus:outline-none">
-							<svg
-								className="fill-current h-5 w-5 text-default-inverted"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 23 23"
-							>
-								<circle cx="12" cy="12" r="2"></circle>
-								<circle cx="19" cy="12" r="2"></circle>
-								<circle cx="5" cy="12" r="2"></circle>{" "}
-							</svg>
-						</button>
+							<Link href={`/post/${id}`}>
+								<span
+									className="hover:text-primary w-auto hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
+									style={{
+										top: -4,
+									}}
+								>
+									{moment(publishedAt).calendar()}
+								</span>
+							</Link>
+						</div>
+						<div>
+							<button className="p-2 hover:bg-secondary rounded-full focus:outline-none">
+								<svg
+									className="fill-current h-5 w-5 text-default-inverted"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 23 23"
+								>
+									<circle cx="12" cy="12" r="2"></circle>
+									<circle cx="19" cy="12" r="2"></circle>
+									<circle cx="5" cy="12" r="2"></circle>{" "}
+								</svg>
+							</button>
+						</div>
 					</div>
 				</div>
 
