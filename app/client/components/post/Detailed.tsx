@@ -99,13 +99,13 @@ export default function Detailed({
 							alt={author.username}
 						/>
 					</figure>
-					<div className="flex flex-1 flex-col">
+					<div className="flex flex-col">
 						<span className="text-default-inverted ml-1 font-bold opacity-75">
 							{author.username}
 						</span>
 						<Link href={`/post/${id}`}>
 							<span
-								className="hover:text-primary w-32 hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
+								className="hover:text-primary w-auto hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
 								style={{
 									top: -4,
 								}}
