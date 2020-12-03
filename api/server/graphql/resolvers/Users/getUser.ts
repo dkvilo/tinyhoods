@@ -46,6 +46,7 @@ export default async function getUser(parent: any, args: any, context: any) {
 					about: 1,
 					link: 1,
 					image: 1,
+					avatar: 1,
 					followers: 1,
 					following: 1,
 					locations: 1,
@@ -64,10 +65,7 @@ export default async function getUser(parent: any, args: any, context: any) {
 			throw new Error("User not found, Invalid Token");
 		}
 
-		return {
-			...response[0],
-			avatar: `/api/avatar/twitter?username=${(response[0] as any).username}`,
-		};
+		return response[0];
 	} catch (error) {
 		const { message } = error;
 		throw new Error(message);

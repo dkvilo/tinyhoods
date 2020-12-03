@@ -5,6 +5,10 @@ export default mongoose.model("users", {
 		type: String,
 	},
 
+	avatar: {
+		type: String,
+	},
+
 	name: {
 		type: String,
 		required: true,

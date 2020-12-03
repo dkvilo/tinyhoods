@@ -1,10 +1,23 @@
-FROM node:12.16.1-slim
+FROM ubuntu:latest
 
-COPY package.json yarn.lock entrypoint.sh /
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install curl \
+  build-essential pkg-config libcairo2-dev python libpango1.0-dev \
+  libjpeg-dev libgif-dev librsvg2-dev -y
+
+RUN curl -sL https://deb.nodesource.com/setup_current.x | bash -
+RUN apt-get install -y nodejs
+
+RUN npm install -g yarn
+
+RUN mkdir /usr/src/cache
+WORKDIR /usr/src/cache
+
+COPY package.json yarn.lock ./
 RUN yarn
 
-COPY . /usr/src/app
-
+RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
 EXPOSE 4000

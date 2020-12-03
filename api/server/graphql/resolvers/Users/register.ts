@@ -42,10 +42,9 @@ export default async function createUser(parent: any, args: any, context: any) {
 			password: encrypt(password, (config as any).app.secrets.password),
 			name,
 			emailActivateHash: emailActivationCode,
-			avatar: {
-				data: await generateAvatar(username),
-				contentType: "png",
-			},
+			avatar: `data:image/png;base64,${(
+				await generateAvatar(username)
+			).toString("base64")}`,
 		});
 
 		return !!response;
