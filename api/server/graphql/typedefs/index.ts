@@ -117,7 +117,7 @@ const typeDefs = gql`
 	input UserCreateInput {
 		email: String!
 		password: String!
-		name: String!
+		name: String
 		username: String!
 	}
 
