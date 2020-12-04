@@ -70,9 +70,10 @@ const Registration = () => {
 					accept: false,
 				}}
 				validationSchema={Yup.object().shape({
-					username: Yup.string().required("Username is Required!"),
-					password: Yup.string().required("Password is Required!"),
-					email: Yup.string().required("Email is Required!"),
+					username: Yup.string().required("Username is required!"),
+					password: Yup.string().required("Password is required!"),
+					name: Yup.string().required("Name is required!"),
+					email: Yup.string().required("Email is required!"),
 				})}
 				onSubmit={async (values: any, { setSubmitting, resetForm }: any) => {
 					try {
