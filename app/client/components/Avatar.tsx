@@ -81,7 +81,7 @@ export default function Avatar({
 			formdata.append("image", file);
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_ENDPOINT}?accessToken=${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_SECRET}&size=${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_SIZE}`,
+					`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_ENDPOINT}?accessToken=${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_SECRET}&size=${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_SIZE}&type=${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_CROP_TYPE}`,
 					{
 						mode: "no-cors",
 						method: "POST",
