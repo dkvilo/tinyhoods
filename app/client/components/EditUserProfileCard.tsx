@@ -203,7 +203,6 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 
 	return (
 		<div className="flex flex-col justify-center items-center mt-2">
-			{/* <div className="w-20 h-20 bg-secondary-soft rounded-full lazy__boy"></div> */}
 			<div className="w-64 h-6 mt-3 bg-secondary-soft rounded lazy__boy"></div>
 			<div className="w-32 h-2 mt-3 bg-secondary-soft rounded lazy__boy"></div>
 			<div className="mt-6 flex flex-col items-center justify-evenly">
