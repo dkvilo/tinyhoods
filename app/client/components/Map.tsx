@@ -21,7 +21,8 @@ export default function ({
 
 	useEffect(() => {
 		if (map?.current) {
-			mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_TOKEN as string;
+			mapboxgl.accessToken =
+				"pk.eyJ1IjoidHJ1eGEiLCJhIjoiY2s3eG81Z2s3MGRlcjNsczh3azFiMmhxNCJ9.UB2Wh6rWuC8D0aMRowgU9Q";
 			setMyMap(
 				new mapboxgl.Map({
 					container: map.current.id,
