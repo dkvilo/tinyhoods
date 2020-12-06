@@ -224,71 +224,40 @@ const AddHood = () => {
 						</div>
 
 						<div className="my-4">
-							<Button
-								onClick={(event: any) => {
-									event.preventDefault();
-									// (async () => {
-									// 	const {
-									// 		coords: { latitude, longitude },
-									// 	}: any = await getLocationService({
-									// 		watch: false,
-									// 		enableHighAccuracy: true,
-									// 	} as any);
-									// 	if (longitude && latitude) {
-									setFieldValue(
-										"coordinates.longitude",
-										filterState.coordinates[0]
-									);
-									setFieldValue(
-										"coordinates.latitude",
-										filterState.coordinates[1]
-									);
-									// 	}
-									// })();
-								}}
-							>
-								<span className="flex items-center">
-									<svg
-										className="w-4 h-4 mr-1"
-										version="1.1"
-										id="Capa_1"
-										x="0px"
-										y="0px"
-										viewBox="0 0 425.963 425.963"
-									>
-										<path
-											d="M213.285,0h-0.608C139.114,0,79.268,59.826,79.268,133.361c0,48.202,21.952,111.817,65.246,189.081   c32.098,57.281,64.646,101.152,64.972,101.588c0.906,1.217,2.334,1.934,3.847,1.934c0.043,0,0.087,0,0.13-0.002   c1.561-0.043,3.002-0.842,3.868-2.143c0.321-0.486,32.637-49.287,64.517-108.976c43.03-80.563,64.848-141.624,64.848-181.482   C346.693,59.825,286.846,0,213.285,0z M274.865,136.62c0,34.124-27.761,61.884-61.885,61.884   c-34.123,0-61.884-27.761-61.884-61.884s27.761-61.884,61.884-61.884C247.104,74.736,274.865,102.497,274.865,136.62z"
-											className="active-path"
-											fill="var(--color-default-inverted)"
-										/>
-									</svg>{" "}
-									Use My current locations
-								</span>
-							</Button>
+							<p className="text-default-inverted text-sm mb-2">
+								Drag marker to select the place
+							</p>
+							{filterState?.coordinates[0] && filterState?.coordinates[1] ? (
+								<DraggableMapInput
+									activeCoordinates={filterState.coordinates}
+									onChange={({ lng, lat }: any) => {
+										setFieldValue("coordinates.longitude", lng);
+										setFieldValue("coordinates.latitude", lat);
+									}}
+								/>
+							) : (
+								<div className="text-default bg-warning rounded p-2">
+									Unable to load map, To use location selection feature, You
+									have to give site permission to access your Geo Location. Or
+									you manually enter location coordinate down below.
+								</div>
+							)}
 						</div>
 
 						<div className="my-4">
-							{filterState?.coordinates[0] && filterState?.coordinates[1] && (
-								<DraggableMapInput
-									activeCoordinates={filterState.coordinates}
-									onChange={(coords: any) => {
-										console.log(coords);
-									}}
-								/>
-							)}
 							<div className="flex">
 								<FromikInput
 									disabled
+									value={values.coordinates.latitude}
 									placeholder="Latitude"
 									type="text"
-									name="coordinates.latitude"
 								/>
 								<div className="w-6" />
 								<FromikInput
 									disabled
+									value={values.coordinates.longitude}
 									placeholder="Longitude"
 									type="text"
-									name="coordinates.longitude"
 								/>
 							</div>
 							<div className="flex flex-col">

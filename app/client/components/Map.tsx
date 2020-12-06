@@ -4,11 +4,7 @@ import { useThemeSwitch } from "../hooks";
 import { isEmpty } from "ramda";
 import { FiltersContext } from "../context";
 
-function createElementFromHTML(htmlString: string) {
-	var div = document.createElement("div");
-	div.innerHTML = htmlString.trim();
-	return div.firstChild;
-}
+import { createElementFromHTML } from "../../shared/functions";
 
 export default function ({
 	data,
@@ -25,8 +21,7 @@ export default function ({
 
 	useEffect(() => {
 		if (map?.current) {
-			mapboxgl.accessToken =
-				"pk.eyJ1IjoidHJ1eGEiLCJhIjoiY2s3eG81Z2s3MGRlcjNsczh3azFiMmhxNCJ9.UB2Wh6rWuC8D0aMRowgU9Q";
+			mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAP_BOX_TOKEN as string;
 			setMyMap(
 				new mapboxgl.Map({
 					container: map.current.id,
