@@ -86,7 +86,7 @@ export default function Feed(): JSX.Element {
 				selector="tab"
 				default={
 					<div>
-						<h1 className="text-default-inverted font-bold text-2xl px-1 my-2">
+						<h1 className="text-default-inverted font-bold text-2xl my-2">
 							Today, {moment().format("LL")}
 						</h1>
 						{(posts as any).map((item: any, index: number) => {

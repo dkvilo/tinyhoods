@@ -66,6 +66,14 @@ export default function () {
 								</button>
 								{loginState.isLogin && (
 									<button
+										onClick={updateCreatePostModalState}
+										className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
+									>
+										Create Post
+									</button>
+								)}
+								{loginState.isLogin && (
+									<button
 										onClick={() =>
 											router.push("/?tab=add-hood", undefined, {
 												shallow: true,
@@ -73,12 +81,12 @@ export default function () {
 										}
 										className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
 									>
-										Create Location
+										Add Location
 									</button>
 								)}
 								<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">
-									<Link href="/map">
-										<span>Map</span>
+									<Link href="/traveler">
+										<span>Traveler Mode</span>
 									</Link>
 								</p>
 							</div>
@@ -97,25 +105,6 @@ export default function () {
 				}
 				center={
 					<>
-						<div className="hidden xs:hidden sm:hidden md:hidden lg:block xl:block w-full px-2">
-							<div className="flex flex-col flex-wrap -mx-3">
-								<div>
-									<Link href="/">
-										<span className="hover:text-primary px-2 cursor-pointer pt-3 pb-2 text-default-inverted text-2xl font-bold">
-											TINYHOODS
-										</span>
-									</Link>
-								</div>
-								{loginState.isLogin && (
-									<button
-										onClick={updateCreatePostModalState}
-										className="mt-2 mx-2 flex items-center focus:outline-none text-default-inverted hover:text-primary w-32"
-									>
-										<span>Create Post</span>
-									</button>
-								)}
-							</div>
-						</div>
 						<ShallowQuery selector="tab" default={<Feed />}>
 							<Router on="feed" component={<Feed />} />
 							<Router on="add-hood" component={<AddHood />} />

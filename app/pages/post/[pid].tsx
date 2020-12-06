@@ -55,18 +55,6 @@ export default function () {
 				}
 				center={
 					<>
-						<div className="hidden xs:hidden sm:hidden md:hidden lg:block xl:block w-full bg-default px-2">
-							<div className="flex flex-col flex-wrap -mx-3">
-								<div>
-									<Link href="/">
-										<span className="px-2 cursor-pointer pt-3 pb-2 text-default-inverted text-2xl font-bold">
-											Go back
-										</span>
-									</Link>
-								</div>
-							</div>
-						</div>
-
 						{!loading && !error && data.getPost && (
 							<Detailed {...data.getPost} onImageClick={(img) => {}} />
 						)}
@@ -75,7 +63,11 @@ export default function () {
 							!error &&
 							Array(1)
 								.fill(0)
-								.map((_, index) => <PostLoader key={index} index={index} />)}
+								.map((_, index) => (
+									<div className="my-4" key={index}>
+										<PostLoader index={index} />
+									</div>
+								))}
 					</>
 				}
 				right={

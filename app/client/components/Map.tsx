@@ -115,8 +115,11 @@ export default function ({
                     
                   ${
 										each?.cover
-											? `<div class="bg-cover bg-center h-32 p-2" style="background-image: url(${each.cover})">
-                       
+											? `<div class="bg-cover bg-center h-32 p-2" style="background-image: url(${
+													process.env.NODE_ENV === "development"
+														? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${each.cover}`
+														: `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${each.cover}`
+											  })">
                     </div>`
 											: ""
 									}

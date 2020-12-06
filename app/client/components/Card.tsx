@@ -64,7 +64,14 @@ export default function ({
 				<div className="flex flex-col">
 					{cover && (
 						<div className="rounded-lg my-3 overflow-hidden">
-							<img src={cover} alt={name} />
+							<img
+								src={
+									process.env.NODE_ENV === "development"
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${cover}`
+										: `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${cover}`
+								}
+								alt={name}
+							/>
 						</div>
 					)}
 					<p className="mt-2 text-sm rounded my-2">{description}</p>
@@ -92,9 +99,11 @@ export default function ({
 						<div className="flex items-center">
 							<img
 								src={
-									explorer?.image
+									explorer.image
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${explorer.image}`
+										: explorer.avatar
 										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${explorer.image}`
-										: `/api/avatar/twitter?username=${explorer.username}&size=small`
+										: explorer.avatar
 								}
 								className="w-5 h-5 rounded-full border-2 border-default-inverted mr-1"
 								alt={explorer.username}
