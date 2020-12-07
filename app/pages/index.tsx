@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { CSSTransition } from "react-transition-group";
 import { UserTokenContext } from "../client/context";
 
 import { Router, ShallowQuery } from "../client/components/ShallowRouter";
-import Modal from "../client/components/Modal";
 import EditUserProfileCard from "../client/components/EditUserProfileCard";
 import SEOHeader from "../client/components/SEOHeader";
 import AuthCard from "../client/components/AuthCard";
@@ -14,34 +12,15 @@ import AddPost from "../client/forms/post/add";
 import AddHood from "../client/forms/hoods/add";
 import Feed from "../client/screens/feed";
 import Layout from "../client/screens/layout";
-
-import { useDropToggleState } from "../client/hooks";
+import RSidebar from "../client/components/static/RSidebar";
 
 export default function () {
 	const router = useRouter();
 	const { state: loginState } = useContext<any>(UserTokenContext);
 
-	const createPostModalStateController = useDropToggleState(false as any);
-	const [
-		createPostModalState,
-		updateCreatePostModalState,
-	] = createPostModalStateController;
-
 	return (
 		<>
 			<SEOHeader title="TinyHoods" description=" - Explore tiny world" />
-
-			<CSSTransition
-				in={createPostModalState as boolean}
-				timeout={300}
-				classNames="swoop-in"
-			>
-				<Modal title="Share Post" controller={createPostModalStateController}>
-					{/* Close Modal when post will be published */}
-					<AddPost onSuccess={updateCreatePostModalState} />
-				</Modal>
-			</CSSTransition>
-
 			<Layout
 				left={
 					<div className="w-full mt-4">
@@ -50,64 +29,16 @@ export default function () {
 						</div>
 					</div>
 				}
-				right={
-					<div className="w-full mt-4">
-						<div className="sticky" style={{ top: 20 }}>
-							<div className="flex flex-col">
-								<button
-									onClick={() =>
-										router.push("/?tab=feed", undefined, {
-											shallow: true,
-										})
-									}
-									className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
-								>
-									Home Page
-								</button>
-								{loginState.isLogin && (
-									<button
-										onClick={updateCreatePostModalState}
-										className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
-									>
-										Create Post
-									</button>
-								)}
-								{loginState.isLogin && (
-									<button
-										onClick={() =>
-											router.push("/?tab=add-hood", undefined, {
-												shallow: true,
-											})
-										}
-										className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
-									>
-										Add Location
-									</button>
-								)}
-								<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">
-									<Link href="/traveler">
-										<span>Traveler Mode</span>
-									</Link>
-								</p>
-							</div>
-							<div className="">
-								<div className="mb-1 flex items-center">
-									<Link href="/ads">
-										<p className="cursor-pointer hover:text-primary text-default-inverted font-bold text-sm">
-											Sponsored
-										</p>
-									</Link>
-								</div>
-								<div className="flex items-center justify-center border bg-secondary rounded-md w-full h-64"></div>
-							</div>
-						</div>
-					</div>
-				}
+				right={<RSidebar />}
 				center={
 					<>
 						<ShallowQuery selector="tab" default={<Feed />}>
 							<Router on="feed" component={<Feed />} />
 							<Router on="add-hood" component={<AddHood />} />
+							<Router
+								on="add-post"
+								component={<AddPost onSuccess={() => {}} />}
+							/>
 						</ShallowQuery>
 					</>
 				}
@@ -131,7 +62,11 @@ export default function () {
 							</button>
 							{/* Add Post */}
 							<button
-								onClick={updateCreatePostModalState as any}
+								onClick={() =>
+									router.push("/?tab=add-post", undefined, {
+										shallow: true,
+									})
+								}
 								className="p-1 rounded-full focus:outline-none bg-secondary-soft"
 							>
 								<svg

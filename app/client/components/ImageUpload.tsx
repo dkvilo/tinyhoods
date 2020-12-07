@@ -179,13 +179,13 @@ export default function ImageUpload({
 				<div className="cursor-pointer">
 					<div
 						{...getRootProps({ className: "dropzone" })}
-						className="flex flex-col p-2 bg-secondary border-dashed border-2 border-secondary-soft focus:outline-none hover:bg-default rounded text-default-inverted hover:text-primary h-32 w-32 justify-center items-center"
+						className="flex flex-col p-2 bg-secondary border-dashed border-2 border-secondary-soft focus:outline-none hover:bg-default rounded text-default-inverted hover:text-primary h-10 w-10 justify-center items-center"
 					>
 						<svg
 							className="mx-auto feather feather-image"
 							xmlns="http://www.w3.org/2000/svg"
-							width="60"
-							height="60"
+							width="20"
+							height="20"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"

@@ -80,7 +80,7 @@ export default function Detailed({
 
 	return (
 		<>
-			<h1 className="text-default-inverted font-bold text-2xl my-2">
+			<h1 className="mx-1 text-default-inverted font-bold text-2xl my-2">
 				{moment(publishedAt).format("LL [at] HH:MM")}
 			</h1>
 			<div className="mb-4 rounded p-1 border-2 bg-default">

@@ -49,7 +49,8 @@ const AddPost = ({ onSuccess }: { onSuccess(): void }) => {
 	const { dispatch: messageDispatcher } = useContext<any>(AlertMessageContext);
 
 	return (
-		<div>
+		<div className="p-2 bg-default mt-2 rounded">
+			<h1 className="text-2xl text-default-inverted">New Post</h1>
 			<Formik
 				initialValues={{
 					isPublished: true,
@@ -93,7 +94,7 @@ const AddPost = ({ onSuccess }: { onSuccess(): void }) => {
 					isSubmitting,
 				}) => (
 					<form onSubmit={handleSubmit}>
-						<div className="my-4">
+						<div className="my-2">
 							<Textarea
 								placeholder="What's Happening?"
 								name="content"
@@ -107,12 +108,12 @@ const AddPost = ({ onSuccess }: { onSuccess(): void }) => {
 								size="1080x1080"
 								blur={0}
 							/>
-							<div className="flex justify-center mt-2">
+							<div className="flex justify-center mt-3">
 								<button
-									className="text-lg bg-default w-full text-default-inverted border-2 rounded"
+									className="p-2 text-lg bg-green-500 w-full text-default  rounded-full"
 									disabled={isSubmitting}
 								>
-									Save
+									Publish
 								</button>
 							</div>
 						</div>

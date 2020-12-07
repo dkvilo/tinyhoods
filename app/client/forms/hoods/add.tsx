@@ -126,7 +126,8 @@ const AddHood = () => {
 	}, []);
 
 	return (
-		<div>
+		<div className="p-2 bg-default rounded">
+			<h1 className="text-2xl text-default-inverted">New Location</h1>
 			<Formik
 				initialValues={{
 					name: "",
@@ -356,11 +357,11 @@ const AddHood = () => {
 
 						<div className="flex justify-center pt-2">
 							<button
-								className="px-4 bg-primary w-full p-3 text-default rounded-full mr-2"
+								className="p-2 bg-green-500 w-full text-default rounded-full focus:outline-none"
 								type="submit"
 								disabled={isSubmitting}
 							>
-								Save
+								Publish
 							</button>
 						</div>
 					</form>
