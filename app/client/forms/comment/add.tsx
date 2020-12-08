@@ -14,8 +14,9 @@ import Textarea from "../../components/Textarea";
 
 import { CREATE_COMMENT } from "./query";
 import { IProps } from "./types";
+import { isEmpty } from "ramda";
 
-const AddComment = ({ postId, onSuccess }: IProps) => {
+const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 	const [createComment, { loading, error, data }] = useMutation(CREATE_COMMENT);
 
 	const { state: loginState } = useContext<any>(UserTokenContext);
@@ -55,6 +56,10 @@ const AddComment = ({ postId, onSuccess }: IProps) => {
 		}
 	}, [data, loading, error]);
 
+	useEffect(() => {
+		console.log();
+	}, []);
+
 	return (
 		<div>
 			<Formik
@@ -71,7 +76,9 @@ const AddComment = ({ postId, onSuccess }: IProps) => {
 							variables: {
 								data: {
 									...values,
-									postId,
+									documentId:
+										onReply && !isEmpty(onReply) ? onReply.id : postId,
+									target: onReply && !isEmpty(onReply) ? "comments" : "posts",
 									token: loginState.token,
 								},
 							},
@@ -93,6 +100,13 @@ const AddComment = ({ postId, onSuccess }: IProps) => {
 					isSubmitting,
 				}) => (
 					<form onSubmit={handleSubmit}>
+						{onReply && !isEmpty(onReply) && (
+							<h1 className="p-1 text-default-inverted">
+								Replying{" "}
+								<span className="font-bold">{onReply.author.username}</span>'s
+								Comment
+							</h1>
+						)}
 						<div className="flex flex-col xs:flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row bg-secondary rounded-md">
 							<Textarea
 								rows={1}
@@ -108,7 +122,7 @@ const AddComment = ({ postId, onSuccess }: IProps) => {
 										type="submit"
 										disabled={isSubmitting}
 									>
-										Comment
+										{onReply && !isEmpty(onReply) ? "Reply" : "Comment"}
 									</button>
 								</div>
 							)}

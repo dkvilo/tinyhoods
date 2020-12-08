@@ -1,11 +1,16 @@
 import moment from "moment";
+import { FormEvent } from "react";
+import Button from "../Button";
 import { IProps } from "./types";
 
 export default function Comment({
+	id,
 	content,
 	publishedAt,
 	author,
+	canReply = false,
 	isClickable = false,
+	onReply,
 }: IProps): JSX.Element {
 	const ranges = [
 		"\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]",
@@ -47,13 +52,30 @@ export default function Comment({
 							</span>
 						</div>
 						{isOnlyEmojis(content) && content.length === 2 ? (
-							<p className="mx-4 my-2" style={{ transform: "scale(1.5)" }}>
+							<p className="mx-6 my-2" style={{ transform: "scale(1.5)" }}>
 								{content}
 							</p>
 						) : (
 							<p className="px-2 py-2 rounded-b-lg rounded-r-lg border-2 bg-default text-sm text-default-inverted w-auto">
 								{content}
 							</p>
+						)}
+						{canReply && (
+							<div className="flex m-1">
+								<Button
+									onClick={
+										onReply &&
+										(onReply({
+											author,
+											content,
+											id,
+										} as any) as any)
+									}
+									className="focus:outline-none focus:text-red-400 cursor-pointer underline text-default-inverted hover:text-primary"
+								>
+									Reply
+								</Button>
+							</div>
 						)}
 						<div className="flex items-center text-default-inverted opacity-75 text-xs mt-1">
 							<span className="ml-1">

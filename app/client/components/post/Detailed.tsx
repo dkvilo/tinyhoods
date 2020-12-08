@@ -14,19 +14,25 @@ export const GET_COMMENTS_BY_POST_ID = gql`
 	query getComments($id: ID!, $page: Int!) {
 		getComments(id: $id, page: $page) {
 			docs {
-				id
-				content
-				publishedAt
-				author {
-					avatar
-					username
-					image
+				...commentsFields
+				replies {
+					...commentsFields
 				}
 			}
 			nextPage
 			pagingCounter
 			totalDocs
 			totalPages
+		}
+	}
+	fragment commentsFields on CommentDocumentType {
+		id
+		content
+		publishedAt
+		author {
+			avatar
+			username
+			image
 		}
 	}
 `;
@@ -77,6 +83,11 @@ export default function Detailed({
 			);
 		}
 	}, [loadingComments, commentsError, commentsData]);
+
+	const [onCommentReply, setOnCommentReply] = useState<{} | null>(null);
+	const handleCommentReply = (comment: any) => {
+		setOnCommentReply(comment);
+	};
 
 	return (
 		<>
@@ -143,6 +154,7 @@ export default function Detailed({
 				</h1>
 				<div className="px-1 my-2">
 					<AddComment
+						onReply={onCommentReply as any}
 						postId={id as string}
 						onSuccess={() => {
 							(async () => {
@@ -160,7 +172,7 @@ export default function Detailed({
 				<div className="flex flex-col items-start px-1">
 					{!loadingComments && !commentsError && !isEmpty(comments) && (
 						<>
-							<PostFooter comments={comments} />
+							<PostFooter onReply={handleCommentReply} comments={comments} />
 							{commentsData.getComments.nextPage && (
 								<div className="p-2 w-full flex items-center">
 									<MoreComments
