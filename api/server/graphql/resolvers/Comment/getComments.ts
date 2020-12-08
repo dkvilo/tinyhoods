@@ -13,7 +13,17 @@ export default async function getComments(
 				page: page,
 				sort: { publishedAt: -1 },
 				limit: 10,
-				populate: "author",
+				populate: [
+					{
+						path: "author",
+					},
+					{
+						path: "replies",
+						populate: {
+							path: "author",
+						},
+					},
+				],
 			}
 		);
 	} catch (e) {

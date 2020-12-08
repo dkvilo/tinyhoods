@@ -241,7 +241,8 @@ const typeDefs = gql`
 		token: String!
 		content: String!
 		isPublished: Boolean
-		postId: ID!
+		documentId: ID!
+		target: String! = "posts" # Target only can be posts or comments
 	}
 
 	type ImagePayloadType {
@@ -279,6 +280,7 @@ const typeDefs = gql`
 		content: String
 		isPublished: Boolean
 		publishedAt: Date
+		replies: [CommentDocumentType]!
 	}
 
 	type CommentPayload {

@@ -9,7 +9,7 @@ export default async function createComment(
 	args: any,
 	context: any
 ) {
-	const { token, postId, content, isPublished = true } = args.data;
+	const { token, documentId, target, content, isPublished = true } = args.data;
 
 	requireToken(token);
 	const userId = (decryptToken(token) as any).id;
@@ -18,24 +18,40 @@ export default async function createComment(
 		const response = await CommentModel.create({
 			...args.data,
 			content,
-			onModelSelector: postId,
-			onModel: "posts",
+			onModelSelector: documentId,
+			onModel: target,
 			isPublished,
 			publishedAt: isPublished ? Date.now() : null,
 			author: userId,
 		});
 
-		const postResponse = await PostModel.findOneAndUpdate(
-			{
-				_id: postId as any,
-			},
-			{
-				$push: { comments: response._id } as any,
-				$set: {
-					recentComment: response._id,
-				} as any,
-			}
-		);
+		let targetModifiedResponse;
+
+		if (target === "posts") {
+			targetModifiedResponse = await PostModel.findOneAndUpdate(
+				{
+					_id: documentId as any,
+				},
+				{
+					$push: { comments: response._id } as any,
+					$set: {
+						recentComment: response._id,
+					} as any,
+				}
+			);
+		} else {
+			targetModifiedResponse = await CommentModel.findOneAndUpdate(
+				{
+					_id: documentId as any,
+				},
+				{
+					$push: { replies: response._id } as any,
+					$set: {
+						recentReplies: response._id,
+					} as any,
+				}
+			);
+		}
 
 		const userResponse = await UserModel.findOneAndUpdate(
 			{
@@ -46,7 +62,7 @@ export default async function createComment(
 			}
 		);
 
-		return !!response && !!userResponse && !!postResponse;
+		return !!response && !!userResponse && !!targetModifiedResponse;
 	} catch (e) {
 		throw new Error(e.message);
 	}
