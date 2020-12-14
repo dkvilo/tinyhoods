@@ -2,6 +2,7 @@ import moment from "moment";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { isEmpty } from "ramda";
 
 import PostActions from "./PostActions";
 import PostFooter from "./PostFooter";
@@ -9,38 +10,11 @@ import PostImageContent from "./PostImageContent";
 import PostTextContent from "./PostTextContent";
 import MoreComments from "../comment/MoreComments";
 import AddComment from "../../forms/comment/add";
+import Loader from "../Loader";
 
-export const GET_COMMENTS_BY_POST_ID = gql`
-	query getComments($id: ID!, $page: Int!) {
-		getComments(id: $id, page: $page) {
-			docs {
-				...commentsFields
-				replies {
-					...commentsFields
-				}
-			}
-			nextPage
-			pagingCounter
-			totalDocs
-			totalPages
-		}
-	}
-	fragment commentsFields on CommentDocumentType {
-		id
-		content
-		publishedAt
-		author {
-			avatar
-			username
-			image
-		}
-	}
-`;
+import { GET_COMMENTS_BY_POST_ID } from "./query";
 
 import { IProps } from "./types";
-import { isEmpty } from "ramda";
-import Loader from "../Loader";
-import { gql } from "apollo-boost";
 
 export default function Detailed({
 	author,
@@ -94,7 +68,7 @@ export default function Detailed({
 			<h1 className="mx-1 text-default-inverted font-bold text-2xl my-2">
 				{moment(publishedAt).format("LL [at] HH:MM")}
 			</h1>
-			<div className="mb-4 rounded p-1 border-2 bg-default">
+			<div className="mb-4 rounded p-1 border-2 border-secondary-soft bg-default">
 				<div className="flex items-center rounded-t py-1">
 					<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 						<img

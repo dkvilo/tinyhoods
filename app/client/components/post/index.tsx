@@ -25,7 +25,7 @@ export default function Post({
 	const [isSettingsOpen, toggleIsSettingsState] = useDropToggleState(false);
 
 	return (
-		<div className="rounded-b-2 p-1 border bg-default hover:bg-secondary">
+		<div className="rounded-b-2 p-1 border border-secondary-soft bg-default hover:bg-secondary">
 			<div className="flex items-center rounded-t py-1">
 				<figure className="w-10 h-10 flex rounded-full overflow-hidden">
 					<img

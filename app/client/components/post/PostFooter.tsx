@@ -25,10 +25,7 @@ export default function PostFooter({
 					{each?.replies &&
 						!isEmpty(each.replies) &&
 						each.replies.map((reply: any) => (
-							<div
-								key={reply.id}
-								className="mx-10 mb-2 w-auto border-l-2 border-secondary-soft"
-							>
+							<div key={reply.id} className="mx-10 mb-2 w-auto">
 								<Comment {...reply} />
 							</div>
 						))}

@@ -49,7 +49,7 @@ const AddPost = ({ onSuccess }: { onSuccess(): void }) => {
 	const { dispatch: messageDispatcher } = useContext<any>(AlertMessageContext);
 
 	return (
-		<div className="p-2 bg-default mt-2 rounded">
+		<div className="p-2 bg-default rounded">
 			<h1 className="text-2xl text-default-inverted">New Post</h1>
 			<Formik
 				initialValues={{

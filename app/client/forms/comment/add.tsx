@@ -15,6 +15,7 @@ import Textarea from "../../components/Textarea";
 import { CREATE_COMMENT } from "./query";
 import { IProps } from "./types";
 import { isEmpty } from "ramda";
+import Button from "../../components/Button";
 
 const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 	const [createComment, { loading, error, data }] = useMutation(CREATE_COMMENT);
@@ -56,10 +57,6 @@ const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 		}
 	}, [data, loading, error]);
 
-	useEffect(() => {
-		console.log();
-	}, []);
-
 	return (
 		<div>
 			<Formik
@@ -98,14 +95,26 @@ const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 					handleBlur,
 					handleSubmit,
 					isSubmitting,
+					resetForm,
 				}) => (
 					<form onSubmit={handleSubmit}>
 						{onReply && !isEmpty(onReply) && (
-							<h1 className="p-1 text-default-inverted">
-								Replying{" "}
-								<span className="font-bold">{onReply.author.username}</span>'s
-								Comment
-							</h1>
+							<div className="flex items-center justify-between">
+								<h1 className="py-1 text-default-inverted">
+									Replying on{" "}
+									<span className="font-bold">{onReply.author.username}</span>'s
+									Comment
+								</h1>
+								<Button
+									type="button"
+									onClick={() => {
+										resetForm();
+										onReply = null as any;
+									}}
+								>
+									<span className="text-red-400 underline">Cancel</span>
+								</Button>
+							</div>
 						)}
 						<div className="flex flex-col xs:flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row bg-secondary rounded-md">
 							<Textarea

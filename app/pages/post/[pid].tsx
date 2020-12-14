@@ -1,19 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 import Layout from "../../client/screens/layout";
-import { UserTokenContext } from "../../client/context";
-
 import SEOHeader from "../../client/components/SEOHeader";
-import EditUserProfileCard from "../../client/components/EditUserProfileCard";
-import AuthCard from "../../client/components/AuthCard";
 import Detailed from "../../client/components/post/Detailed";
 import PostLoader from "../../client/components/PostLoader";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import RSidebar from "../../client/components/static/RSidebar";
+import LSidebar from "../../client/components/static/LSidebar";
+import MobileMenu from "../../client/components/MobileMenu";
 
 export const GET_POST_BY_ID = gql`
 	query getPost($id: ID!) {
@@ -33,7 +30,6 @@ export const GET_POST_BY_ID = gql`
 `;
 
 export default function () {
-	const { state: loginState } = useContext<any>(UserTokenContext);
 	const router = useRouter();
 
 	const { loading, data, error } = useQuery(GET_POST_BY_ID, {
@@ -47,13 +43,7 @@ export default function () {
 		<>
 			<SEOHeader title="TinyHoods" description=" - Explore tiny world" />
 			<Layout
-				left={
-					<div className="w-full mt-4">
-						<div className="sticky" style={{ top: 20 }}>
-							{loginState.isLogin ? <EditUserProfileCard /> : <AuthCard />}
-						</div>
-					</div>
-				}
+				left={<LSidebar />}
 				center={
 					<>
 						{!loading && !error && data.getPost && (
@@ -72,6 +62,7 @@ export default function () {
 					</>
 				}
 				right={<RSidebar />}
+				mobile={<MobileMenu />}
 			/>
 		</>
 	);

@@ -47,7 +47,7 @@ export default function Comment({
 					/>
 					<div className="flex flex-col justify-start ml-2">
 						<div className="flex">
-							<span className="text-default-inverted mb-1 font-bold opacity-75">
+							<span className="text-red-400 mb-1 font-bold">
 								{author.username}
 							</span>
 						</div>
@@ -71,7 +71,7 @@ export default function Comment({
 											id,
 										} as any) as any)
 									}
-									className="focus:outline-none focus:text-red-400 cursor-pointer underline text-default-inverted hover:text-primary"
+									className="focus:outline-none focus:text-red-400 cursor-pointer underline text-default-inverted hover:text-primary text-sm"
 								>
 									Reply
 								</Button>

@@ -86,7 +86,7 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 					)}
 				</div>
 
-				<div className="w-full flex justify-center justify-evenly bg-default border-2 rounded-md my-2 text-default-inverted">
+				<div className="w-full flex justify-center justify-evenly bg-default border-2 border-secondary-soft rounded-md my-2 text-default-inverted">
 					<div className="flex flex-col items-center px-1 rounded text-center cursor-pointer hover:text-primary">
 						<span className="font-bold text-lg">
 							{data.getMyInfo.followersCount}

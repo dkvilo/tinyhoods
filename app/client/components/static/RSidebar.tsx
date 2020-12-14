@@ -60,7 +60,7 @@ export default function (): JSX.Element {
 								</p>
 							</Link>
 						</div>
-						<div className="flex items-center justify-center border bg-secondary rounded-md w-full h-64"></div>
+						<div className="flex items-center justify-center border border-secondary-soft bg-secondary rounded-md w-full h-64"></div>
 					</div>
 				</div>
 			</div>

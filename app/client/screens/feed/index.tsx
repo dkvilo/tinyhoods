@@ -125,7 +125,7 @@ export default function Feed(): JSX.Element {
 							!error &&
 							!isEmpty(posts) &&
 							data.getPosts.totalDocs === posts.length && (
-								<div className="p-4 bg-secondary border flex flex-col items-center justify-center">
+								<div className="p-4 bg-secondary border border-secondary-soft flex flex-col items-center justify-center">
 									<span role="image" className="text-2xl">
 										✌
 									</span>
