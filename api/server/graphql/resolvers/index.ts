@@ -21,6 +21,8 @@ import getPosts from "./Post/get";
 import getPost from "./Post/getPost";
 import createComment from "./Comment/create";
 import getComments from "./Comment/getComments";
+import createProject from "./Projects/create";
+import getUserProjects from "./Projects/getUserProjects";
 
 const resolvers = {
 	Query: {
@@ -35,6 +37,7 @@ const resolvers = {
 		getPosts,
 		getPost,
 		getComments,
+		getUserProjects,
 	},
 	Mutation: {
 		createLocation,
@@ -49,6 +52,7 @@ const resolvers = {
 		updateAvatar,
 		createPost,
 		createComment,
+		createProject,
 	},
 };
 

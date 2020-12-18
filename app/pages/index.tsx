@@ -8,6 +8,7 @@ import Layout from "../client/screens/layout";
 import RSidebar from "../client/components/static/RSidebar";
 import LSidebar from "../client/components/static/LSidebar";
 import MobileMenu from "../client/components/MobileMenu";
+import AddProject from "../client/forms/project/add";
 
 export default function () {
 	return (
@@ -21,6 +22,7 @@ export default function () {
 						<ShallowQuery selector="tab" default={<Feed />}>
 							<Router on="feed" component={<Feed />} />
 							<Router on="add-hood" component={<AddHood />} />
+							<Router on="new-project" component={<AddProject />} />
 							<Router
 								on="add-post"
 								component={<AddPost onSuccess={() => {}} />}

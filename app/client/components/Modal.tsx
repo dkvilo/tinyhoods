@@ -25,7 +25,7 @@ export default function ({
 				}}
 			>
 				<div className="fixed w-full h-full z-50 overflow-y-auto">
-					<div className="container mx-auto h-auto text-left p-4 bg-default lg:shadow-md xl:shadow-md">
+					<div className="container mx-auto my-auto h-full text-left p-4 bg-gray-100 lg:shadow-md xl:shadow-md">
 						<div className="flex justify-between items-center pb-2">
 							<p className="text-2xl text-default-inverted font-bold uppercase">
 								{title}

@@ -31,19 +31,19 @@ export default function (): JSX.Element {
 								}
 								className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
 							>
-								Create Post
+								Publish Post
 							</button>
 						)}
 						{loginState.isLogin && (
 							<button
 								onClick={() =>
-									router.push("/?tab=add-hood", undefined, {
+									router.push("/?tab=new-project", undefined, {
 										shallow: true,
 									})
 								}
 								className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
 							>
-								Add Location
+								Create Project
 							</button>
 						)}
 						<p className="flex cursor-pointer items-center justify-center focus:outline-none rounded-full mb-2 p-1 bg-red-500 border-2 border-red-500 font-bold text-default">

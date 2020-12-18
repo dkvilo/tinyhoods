@@ -16,6 +16,9 @@ import { CREATE_COMMENT } from "./query";
 import { IProps } from "./types";
 import { isEmpty } from "ramda";
 import Button from "../../components/Button";
+import { useDropToggleState } from "../../hooks";
+import Modal from "../../components/Modal";
+import AuthCard from "../../components/AuthCard";
 
 const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 	const [createComment, { loading, error, data }] = useMutation(CREATE_COMMENT);
@@ -57,8 +60,13 @@ const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 		}
 	}, [data, loading, error]);
 
+	const alertController = useDropToggleState(!loginState.isLogin);
+
 	return (
 		<div>
+			<Modal controller={alertController} title="">
+				<AuthCard />
+			</Modal>
 			<Formik
 				initialValues={{
 					content: "",
@@ -121,6 +129,12 @@ const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 								rows={1}
 								placeholder="Write a comment ..."
 								name="content"
+								onClick={() => {
+									if (!loginState.isLogin) {
+										alertController[1]() as any;
+									}
+								}}
+								disabled={!loginState.isLogin}
 								onChange={handleChange}
 								onBlur={handleBlur}
 							/>

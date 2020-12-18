@@ -49,10 +49,17 @@ export default mongoose.model("users", {
 		},
 	],
 
+	projects: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "projects",
+		},
+	],
+
 	posts: [
 		{
 			type: (mongoose.Schema as any).ObjectId,
-			ref: "pots",
+			ref: "posts",
 		},
 	],
 

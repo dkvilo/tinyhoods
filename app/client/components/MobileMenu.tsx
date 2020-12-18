@@ -7,19 +7,48 @@ export default function (): JSX.Element {
 		<div className="px-1 py-1 rounded-full bg-secondary text-default">
 			<div className="flex items-center justify-evenly">
 				{/* Home Button */}
-				<button className="p-1 rounded-full focus:outline-none">
+				<button
+					onClick={() => {
+						router.push("/?tab=feed", undefined, {
+							shallow: true,
+						});
+					}}
+					className="p-1 rounded-full focus:outline-none"
+				>
+					{/* <svg
+						className="fill-current text-transparent w-8 h-8"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+						/>
+					</svg> */}
 					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+					</svg>
+					{/* <svg
 						className=" fill-current text-default-inverted w-8 h-8"
 						viewBox="0 0 48 48"
 						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
+						="http://www.w3.org/2000/svg"
 					>
 						<path
-							clipRule="evenodd"
-							d="M24 0C10.8 0 0 10.8 0 24s10.8 24 24 24 24-10.8 24-24S37.2 0 24 0zm0 45C12.4 45 3 35.6 3 24S12.4 3 24 3s21 9.4 21 21-9.4 21-21 21zm10.2-33.2l-14.8 7c-.3.1-.6.4-.7.7l-7 14.8c-.3.6-.2 1.3.3 1.7.3.3.7.4 1.1.4.2 0 .4 0 .6-.1l14.8-7c.3-.1.6-.4.7-.7l7-14.8c.3-.6.2-1.3-.3-1.7-.4-.5-1.1-.6-1.7-.3zm-7.4 15l-5.5-5.5 10.5-5-5 10.5z"
-							fillRule="evenodd"
-						></path>{" "}
-					</svg>
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg> */}
 				</button>
 				{/* Add Post */}
 				<button

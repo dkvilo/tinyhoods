@@ -300,6 +300,37 @@ const typeDefs = gql`
 		page: Int = 1
 	}
 
+	input CreateProjectInput {
+		images: [Image]
+		avatar: String!
+		name: String!
+		description: String!
+		token: String!
+	}
+
+	type ProjectPayloadDocType {
+		name: String
+		description: String
+		avatar: String
+		images: [ImagePayloadType]
+		address: String
+		followers: [UserPayload]
+		posts: [PostsPayload]
+	}
+
+	type ProjectPayload {
+		docs: [ProjectPayloadDocType]!
+		totalDocs: Int!
+		limit: Int!
+		page: Int!
+		totalPages: Int!
+		nextPage: Int
+		prevPage: Int
+		pagingCounter: Int!
+		hasPrevPage: Boolean!
+		hasNextPage: Boolean!
+	}
+
 	type Query {
 		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
@@ -314,6 +345,7 @@ const typeDefs = gql`
 		getPosts(data: GetPostsInput!): PostsPayload!
 		getPost(id: ID!): PostDocumentType!
 		getComments(id: ID!, page: Int!): CommentPayload
+		getUserProjects(id: ID!, page: Int!): ProjectPayload
 	}
 
 	type Mutation {
@@ -329,6 +361,7 @@ const typeDefs = gql`
 		updateAvatar(data: UserAvatarInput!): Boolean!
 		createPost(data: CreatePostInput!): Boolean!
 		createComment(data: CreateCommentInput!): Boolean!
+		createProject(data: CreateProjectInput!): Boolean!
 	}
 `;
 
