@@ -7,7 +7,7 @@ export default async function getComments(
 ) {
 	const { id, page } = args;
 	try {
-		return await CommentsModel.paginate(
+		return await (CommentsModel as any).paginate(
 			{ isDeleted: false, isPublished: true, onModelSelector: id as any },
 			{
 				page: page,

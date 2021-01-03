@@ -23,6 +23,7 @@ import createComment from "./Comment/create";
 import getComments from "./Comment/getComments";
 import createProject from "./Projects/create";
 import getUserProjects from "./Projects/getUserProjects";
+import createToggleLikePost from "./Post/like";
 
 const resolvers = {
 	Query: {
@@ -53,6 +54,7 @@ const resolvers = {
 		createPost,
 		createComment,
 		createProject,
+		createToggleLikePost,
 	},
 };
 

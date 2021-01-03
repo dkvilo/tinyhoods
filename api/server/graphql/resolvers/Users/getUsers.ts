@@ -4,7 +4,7 @@ import UserModel from "../../../models/users";
 import { decryptToken, requireToken } from "../../../utils";
 
 export default async function getUsers(parent: any, args: any, context: any) {
-	const { token } = args.data;
+	const { token, max } = args.data;
 	requireToken(token);
 
 	const userId = (decryptToken(token) as any).id;
@@ -13,8 +13,13 @@ export default async function getUsers(parent: any, args: any, context: any) {
 		return await UserModel.aggregate([
 			{
 				$match: {
+					// Don't Show current user
 					_id: { $ne: mongoose.Types.ObjectId(userId) },
+					// Don't Show users which current user is following
+					followers: { $nin: ["_id", mongoose.Types.ObjectId(userId)] },
+					// Don't Show deactivated users
 					isDeleted: false,
+					// Don't Show users with private account
 					isPrivate: false,
 				},
 			},
@@ -51,6 +56,8 @@ export default async function getUsers(parent: any, args: any, context: any) {
 					as: "questions",
 				},
 			},
+			{ $limit: max },
+			{ $sort: { created_at: -1 } },
 			{
 				$project: {
 					id: "$_id",
@@ -66,6 +73,7 @@ export default async function getUsers(parent: any, args: any, context: any) {
 					questions: 1,
 					following: 1,
 					locations: 1,
+					created_at: 1,
 					questionsCount: 1,
 					followersCount: 1,
 					followingCount: 1,

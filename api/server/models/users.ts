@@ -77,6 +77,20 @@ export default mongoose.model("users", {
 		},
 	],
 
+	likedPosts: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "posts",
+		},
+	],
+
+	likedComments: [
+		{
+			type: (mongoose.Schema as any).ObjectId,
+			ref: "comments",
+		},
+	],
+
 	followers: [
 		{
 			type: (mongoose.Schema as any).ObjectId,

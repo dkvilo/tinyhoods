@@ -42,7 +42,7 @@ const schema = new mongoose.Schema({
 	likes: [
 		{
 			type: (mongoose.Schema as any).ObjectId,
-			ref: "likes",
+			ref: "users",
 		},
 	],
 	likesCount: {

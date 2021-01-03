@@ -67,6 +67,11 @@ const typeDefs = gql`
 		token: String
 	}
 
+	input GetUsersTokenAuthenticationInput {
+		token: String
+		max: Int = 10
+	}
+
 	input GeometryInput {
 		type: String = "Point"
 		coordinates: [Float!]!
@@ -254,6 +259,8 @@ const typeDefs = gql`
 		id: ID!
 		author: UserPayload!
 		images: [ImagePayloadType]!
+		likes: [UserPayload]!
+		likesCount: Int!
 		comments: [CommentDocumentType]!
 		recentComment: CommentDocumentType
 		content: String
@@ -298,6 +305,13 @@ const typeDefs = gql`
 
 	input GetPostsInput {
 		page: Int = 1
+		token: String
+		dataType: String = "private"
+	}
+
+	input ToggleLikePostInput {
+		postId: String!
+		token: String!
 	}
 
 	input CreateProjectInput {
@@ -335,7 +349,7 @@ const typeDefs = gql`
 		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
 		getUser(username: String!): UserPayload!
-		getUsers(data: TokenAuthenticationInput!): [UserPayload]!
+		getUsers(data: GetUsersTokenAuthenticationInput!): [UserPayload]!
 		getQuestions(data: TokenAuthenticationInput!): [QuestionPayload]!
 		getLandforms: [LandformPayload]!
 		getKeywords: [KeyWordsPayload]!
@@ -362,6 +376,7 @@ const typeDefs = gql`
 		createPost(data: CreatePostInput!): Boolean!
 		createComment(data: CreateCommentInput!): Boolean!
 		createProject(data: CreateProjectInput!): Boolean!
+		createToggleLikePost(data: ToggleLikePostInput!): Boolean!
 	}
 `;
 

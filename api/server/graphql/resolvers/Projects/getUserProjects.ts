@@ -7,7 +7,7 @@ export default async function getUserProjects(
 ) {
 	const { id, page } = args;
 	try {
-		return await ProjectsModel.paginate(
+		return await (ProjectsModel as any).paginate(
 			{ isDeleted: false, owner: id },
 			{
 				page: page,
