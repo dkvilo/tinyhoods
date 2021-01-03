@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserTokenContext } from "../context";
 
 interface IProps {
 	left: JSX.Element;
@@ -8,6 +9,8 @@ interface IProps {
 }
 
 export default function ({ left, right, center, mobile }: IProps): JSX.Element {
+	const { state: loginState } = useContext<any>(UserTokenContext);
+
 	return (
 		<>
 			<div className="flex container mx-auto">
@@ -30,7 +33,7 @@ export default function ({ left, right, center, mobile }: IProps): JSX.Element {
 				{/* [/Right] */}
 			</div>
 			{/* Mobile Menu */}
-			{mobile && (
+			{mobile && loginState.isLogin && (
 				<div className="p-3 w-full bg-default fixed bottom-0 block xs:block sm:block md:block lg:hidden xl:hidden">
 					{mobile}
 				</div>

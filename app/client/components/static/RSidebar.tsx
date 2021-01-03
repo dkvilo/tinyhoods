@@ -13,7 +13,7 @@ export default function (): JSX.Element {
 			<div className="w-full mt-4">
 				<div className="sticky" style={{ top: 20 }}>
 					<div className="flex flex-col">
-						{loginState.isLogin && (
+						{loginState.isLogin && router.query.tab !== "feed" && (
 							<button
 								onClick={() =>
 									router.push("/?tab=feed", undefined, {
@@ -22,19 +22,7 @@ export default function (): JSX.Element {
 								}
 								className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
 							>
-								Home Page
-							</button>
-						)}
-						{loginState.isLogin && (
-							<button
-								onClick={() =>
-									router.push("/?tab=new-project", undefined, {
-										shallow: true,
-									})
-								}
-								className="focus:outline-none hover:text-primary hover:border-primary rounded-full mb-2 p-1 bg-default border-2 border-default-inverted font-bold text-default-inverted"
-							>
-								Create Project
+								Go back
 							</button>
 						)}
 					</div>

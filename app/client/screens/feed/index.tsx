@@ -25,6 +25,7 @@ import { GET_POSTS } from "./query";
 import { FiltersContext, UserTokenContext } from "../../context";
 
 import EmptyCard from "../../components/EmptyCard";
+import FeedFilterMenu from "../../components/FeedFilterMenu";
 
 export default function Feed(): JSX.Element {
 	const [page, setPage] = useState(1);
@@ -109,6 +110,9 @@ export default function Feed(): JSX.Element {
 
 	return (
 		<>
+			<div className="p-2 z-30 bg-default border-2 border-secondary-soft rounded-t-md flex items-center sticky top-0">
+				<FeedFilterMenu />
+			</div>
 			<ShallowQuery
 				selector="tab"
 				default={

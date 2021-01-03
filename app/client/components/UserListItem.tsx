@@ -49,7 +49,7 @@ function UserListItem({
 									: avatar
 							}`}
 							alt={username}
-							className="w-12 h-12 rounded-full border-2 border-default-inverted bg-secondary-soft"
+							className="w-12 h-12 rounded-full border-2 border-secondary-soft bg-secondary-soft"
 						/>
 						<div className="flex flex-col ml-2">
 							<span className="text-default-inverted">{name}</span>

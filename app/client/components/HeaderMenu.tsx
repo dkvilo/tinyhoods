@@ -1,20 +1,14 @@
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
-
-import { FiltersContext } from "../context";
+import React from "react";
 import Button from "./Button";
 
 export default function (): JSX.Element {
 	const router = useRouter();
 
-	const { dispatch: filtersDispatcher, state: filtersState } = useContext<any>(
-		FiltersContext
-	);
-
 	return (
 		<div className="flex items-center">
 			<Button
-				className={`focus:outline-none mr-2 border-default-inverted py-1 flex text-default-inverted`}
+				className={`focus:outline-none mr-2 px-2 py-1 rounded-full bg-red-500 py-1 flex text-white items-center`}
 				onClick={() => {
 					router.push("/?tab=add-post", undefined, {
 						shallow: true,
@@ -34,42 +28,13 @@ export default function (): JSX.Element {
 						clipRule="evenodd"
 					/>
 				</svg>
-				<span className="font-bold mr-2 uppercase ml-1">Create Post</span>
-			</Button>
-
-			<Button
-				className={`focus:outline-none border-2 border-default-inverted px-2 py-1 rounded-full flex ${
-					filtersState.feedType === "private"
-						? "bg-green-400 text-white"
-						: "bg-default text-default-inverted"
-				}`}
-				onClick={() => {
-					filtersDispatcher({
-						type: "SET_FEED_TYPE",
-						payload: "private",
-					});
-				}}
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 20 20"
-					className="w-5 h-5"
-					fill="currentColor"
-				>
-					<path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-				</svg>
-				<span className="font-bold mr-2 uppercase ml-1">My Feed</span>
+				<span className="font-bold mr-2 uppercase ml-1">New Post</span>
 			</Button>
 			<Button
-				className={`focus:outline-none ml-3 border-2 border-default-inverted px-2 py-1 rounded-full flex ${
-					filtersState.feedType === "public"
-						? "bg-green-400 text-white"
-						: "bg-default text-default-inverted"
-				}`}
+				className={`focus:outline-none mr-2 px-2 py-1 rounded-full bg-green-500 py-1 flex text-white items-center`}
 				onClick={() => {
-					filtersDispatcher({
-						type: "SET_FEED_TYPE",
-						payload: "public",
+					router.push("/?tab=new-project", undefined, {
+						shallow: true,
 					});
 				}}
 			>
@@ -81,11 +46,11 @@ export default function (): JSX.Element {
 				>
 					<path
 						fillRule="evenodd"
-						d="M9.243 3.03a1 1 0 01.727 1.213L9.53 6h2.94l.56-2.243a1 1 0 111.94.486L14.53 6H17a1 1 0 110 2h-2.97l-1 4H15a1 1 0 110 2h-2.47l-.56 2.242a1 1 0 11-1.94-.485L10.47 14H7.53l-.56 2.242a1 1 0 11-1.94-.485L5.47 14H3a1 1 0 110-2h2.97l1-4H5a1 1 0 110-2h2.47l.56-2.243a1 1 0 011.213-.727zM9.03 8l-1 4h2.938l1-4H9.031z"
+						d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z"
 						clipRule="evenodd"
 					/>
 				</svg>
-				<span className="font-bold mr-2 uppercase">Explore</span>
+				<span className="font-bold mr-2 uppercase ml-1">New Project</span>
 			</Button>
 		</div>
 	);

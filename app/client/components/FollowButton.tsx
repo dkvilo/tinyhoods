@@ -64,9 +64,32 @@ function FollowButton({ username, onAction }: IProps): JSX.Element {
 	return (
 		<Button
 			onClick={triggerFollow}
-			className="px-2 text-primary bg-default border-2 rounded-full hover:bg-primary hover:text-default hover:border-primary"
+			className="px-1 text-primary bg-default border-2 rounded-full hover:bg-green-500 hover:text-default hover:border-green-500"
 		>
-			{loading ? "Loading ..." : "Follow"}
+			{loading ? (
+				<>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						className="w-5 h-5"
+						fill="currentColor"
+					>
+						{" "}
+						<path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+					</svg>
+				</>
+			) : (
+				<>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						className="w-5 h-5"
+						fill="currentColor"
+					>
+						<path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+					</svg>
+				</>
+			)}
 		</Button>
 	);
 }

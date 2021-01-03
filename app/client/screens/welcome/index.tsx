@@ -26,13 +26,19 @@ export default function (): JSX.Element {
 			<hr className="my-3" />
 			<ul className="flex items-center justify-start">
 				<li className="text-default-inverted font-bold mr-2 hover:underline">
-					<Link href="/ads">Advertisement</Link>
+					<Link href="/ads">
+						<a>Advertisement</a>
+					</Link>
 				</li>
 				<li className="text-default-inverted font-bold mr-2 hover:underline">
-					<Link href="/support">Help</Link>
+					<Link href="/support">
+						<a>Help</a>
+					</Link>
 				</li>
 				<li className="text-default-inverted font-bold mr-2 hover:underline">
-					<Link href="/pp">Privacy Policy</Link>
+					<Link href="/pp">
+						<a>Privacy Policy</a>
+					</Link>
 				</li>
 				<li className="text-default-inverted font-bold mr-2 hover:underline">
 					<Link href="/faq">F.A.Q</Link>
