@@ -19,6 +19,7 @@ export const GET_POST_BY_ID = gql`
 			author {
 				username
 				image
+				avatar
 			}
 			images {
 				src

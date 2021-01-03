@@ -18,6 +18,7 @@ function UserListItem({
 	name,
 	_following,
 	image,
+	avatar,
 	ableToFollow = true,
 	hasGap = false,
 }: IProps) {
@@ -39,9 +40,13 @@ function UserListItem({
 					<div className="flex items-center">
 						<img
 							src={`${
-								image
+								process.env.NODE_ENV === "development"
+									? image
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${image}`
+										: avatar
+									: image
 									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${image}`
-									: `/api/avatar/twitter?username=${username}`
+									: avatar
 							}`}
 							alt={username}
 							className="w-12 h-12 rounded-full border-2 border-default-inverted bg-secondary-soft"

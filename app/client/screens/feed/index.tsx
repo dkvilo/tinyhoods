@@ -1,9 +1,15 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
+
 import Carousel, { ModalGateway, Modal as GalleryModal } from "react-images";
 import { useQuery } from "@apollo/react-hooks";
 import { isEmpty } from "ramda";
-import moment from "moment";
 
 import Post from "../../components/post";
 import Detailed from "../../components/post/Detailed";
@@ -16,15 +22,22 @@ import {
 } from "../../components/ShallowRouter";
 
 import { GET_POSTS } from "./query";
+import { FiltersContext, UserTokenContext } from "../../context";
+
+import EmptyCard from "../../components/EmptyCard";
 
 export default function Feed(): JSX.Element {
 	const [page, setPage] = useState(1);
+	const { state: loginState } = useContext<any>(UserTokenContext);
+	const { state: filtersState } = useContext<any>(FiltersContext);
 
-	const { loading, data, error } = useQuery(GET_POSTS, {
+	const { loading, data, error, refetch } = useQuery(GET_POSTS, {
 		fetchPolicy: "network-only",
 		variables: {
 			data: {
 				page,
+				token: loginState.isLogin ? loginState.token : "",
+				dataType: filtersState.feedType,
 			},
 		},
 	});
@@ -78,6 +91,20 @@ export default function Feed(): JSX.Element {
 		}
 	}, [loading, error, data]);
 
+	useEffect(() => {
+		if (loginState.isLogin) {
+			setPosts([]);
+			setPage(1);
+			refetch({
+				data: {
+					page,
+					token: loginState.token,
+					dataType: filtersState.feedType,
+				},
+			});
+		}
+	}, [filtersState.feedType, loginState.isLogin]);
+
 	const router = useRouter();
 
 	return (
@@ -86,15 +113,13 @@ export default function Feed(): JSX.Element {
 				selector="tab"
 				default={
 					<div>
-						<h1 className="mx-1 text-default-inverted font-bold text-2xl my-2">
-							Today, {moment().format("LL")}
-						</h1>
 						{(posts as any).map((item: any, index: number) => {
 							if ((posts as any).length === index + 1) {
 								return (
 									<div key={item.id} ref={lastPostElementRef}>
 										<Post
 											{...item}
+											index={index}
 											onImageClick={openLightBox}
 											onPostShallowClick={() => {
 												setSelectedPost(item);
@@ -110,6 +135,7 @@ export default function Feed(): JSX.Element {
 								<div key={item.id}>
 									<Post
 										{...item}
+										index={index}
 										onImageClick={openLightBox}
 										onPostShallowClick={() => {
 											setSelectedPost(item);
@@ -121,6 +147,7 @@ export default function Feed(): JSX.Element {
 								</div>
 							);
 						})}
+
 						{!loading &&
 							!error &&
 							!isEmpty(posts) &&
@@ -138,6 +165,10 @@ export default function Feed(): JSX.Element {
 									</p>
 								</div>
 							)}
+
+						{!loading && !error && isEmpty(posts) && (
+							<EmptyCard message="You don't have a personalized feed yet, to make tiny hoods feed more personal go to the explore page meet new people, and follow them" />
+						)}
 
 						{loading &&
 							!error &&

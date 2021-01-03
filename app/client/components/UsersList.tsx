@@ -5,14 +5,14 @@ import { UserTokenContext } from "../context";
 import { isEmpty } from "ramda";
 
 import Loader from "./Loader";
-import EmptyCard from "./EmptyCard";
 import UserListItem from "./UserListItem";
 
 const GET_USERS = gql`
-	query getUsers($data: TokenAuthenticationInput!) {
+	query getUsers($data: GetUsersTokenAuthenticationInput!) {
 		getUsers(data: $data) {
 			name
 			image
+			avatar
 			username
 			following {
 				username
@@ -32,6 +32,7 @@ function UsersList(): JSX.Element {
 		fetchPolicy: "network-only",
 		variables: {
 			data: {
+				max: 5,
 				token: loginState.token,
 			},
 		},
@@ -39,14 +40,14 @@ function UsersList(): JSX.Element {
 
 	if (loading && !error) {
 		return (
-			<div className="p-2 bg-default rounded-lg mb-4">
+			<div className="bg-default rounded-lg">
 				<Loader />
 			</div>
 		);
 	}
 
 	if (!loading && !error && isEmpty(data?.getUsers)) {
-		return <EmptyCard />;
+		return <div />;
 	}
 
 	return (

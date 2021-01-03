@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { isEmpty } from "ramda";
 import { Formik } from "formik";
 import { useMutation } from "@apollo/react-hooks";
 import * as Yup from "yup";
@@ -14,7 +15,7 @@ import Textarea from "../../components/Textarea";
 
 import { CREATE_COMMENT } from "./query";
 import { IProps } from "./types";
-import { isEmpty } from "ramda";
+
 import Button from "../../components/Button";
 import { useDropToggleState } from "../../hooks";
 import Modal from "../../components/Modal";

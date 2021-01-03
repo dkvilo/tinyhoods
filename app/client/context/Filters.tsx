@@ -8,6 +8,7 @@ const initialState = {
 	},
 	coordinates: [],
 	maxDistance: process.browser ? localStorage.getItem("maxDistance") || 10 : 10,
+	feedType: "private",
 };
 
 const storeAndGetMaxDistance = ({ maxDistance }: any) => {
@@ -33,6 +34,12 @@ let reducer = (state: any, action: any) => {
 			return {
 				...state,
 				selectedLocationData: action.payload,
+			};
+
+		case "SET_FEED_TYPE":
+			return {
+				...state,
+				feedType: action.payload,
 			};
 		case "CLEAR_SELECTED_LOCATION":
 			return {

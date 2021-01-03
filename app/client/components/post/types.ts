@@ -1,6 +1,7 @@
 import { FormEvent } from "react";
 
 export interface IProps {
+	index?: number;
 	id?: string;
 	author: any;
 	publishedAt: string;
