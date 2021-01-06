@@ -45,7 +45,7 @@ export default function Detailed({
 			});
 	};
 
-	// cache posts in memory
+	// cache comments in memory
 	const [comments, setComments] = useState<[]>([]);
 	useEffect(() => {
 		if (!loadingComments && !commentsError) {
