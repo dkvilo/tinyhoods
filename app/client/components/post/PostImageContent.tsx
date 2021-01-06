@@ -6,7 +6,7 @@ export default function PostImageContent({
 	onImageClick: any;
 }): JSX.Element {
 	return (
-		<figure className="overflow-x-scroll flex flex-1">
+		<figure className="flex flex-1">
 			{images.map((each: any, imageIndex: number) => (
 				<div key={imageIndex} className="cursor-pointer px-1 ">
 					<img
