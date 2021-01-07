@@ -266,6 +266,8 @@ const typeDefs = gql`
 		content: String
 		isPublished: Boolean
 		publishedAt: Date
+		_liked: Boolean
+		_editable: Boolean
 	}
 
 	type PostsPayload {
@@ -305,7 +307,7 @@ const typeDefs = gql`
 
 	input GetPostsInput {
 		page: Int = 1
-		token: String
+		token: String!
 		dataType: String = "private"
 	}
 
