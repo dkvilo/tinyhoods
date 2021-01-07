@@ -4,39 +4,157 @@ import UserModel from "../../../models/users";
 
 import { decryptToken } from "../../../utils";
 
-async function getAllPublicPosts(page) {
-	return await PostsModel.paginate(
-		{ isDeleted: false, isPublished: true },
+/*
+ * @Returns All Posts
+ */
+async function getAllPosts(
+	page: number = 1,
+	userId: string,
+	limit: number = 10,
+	sort: number = -1
+) {
+	const totalDocs = await PostsModel.countDocuments().exec();
+	/* 
+    |b = -1
+    |dln = 15
+    p(n(1) - |b) ->* l(10) -> (|dln - l(10)) = ei(5)
+    p(n(3) - |b) ->* l(10) = ei(20)
+  */
+	const startIndex = (page - 1) * limit;
+	const endIndex = page * limit;
+
+	const response = {
+		docs: [],
+		totalDocs: totalDocs,
+		totalPages: null,
+		prevPage: null,
+		nextPage: null,
+		pagingCounter: null,
+		page: page,
+		endIndex,
+		startIndex,
+	};
+
+	if (endIndex < totalDocs) {
+		response.nextPage = page + 1;
+	}
+
+	if (startIndex > 0) {
+		response.prevPage = page - 1;
+	}
+
+	const results = await PostsModel.aggregate([
 		{
-			page: page,
-			sort: { publishedAt: -1 },
-			limit: 10,
-			populate: [
-				{
-					path: "author",
+			$match: { isDeleted: false, isPublished: true },
+		},
+		{
+			$sort: { publishedAt: sort },
+		},
+		{
+			$skip: startIndex,
+		},
+		{
+			$limit: limit,
+		},
+		{
+			$lookup: {
+				from: "users",
+				localField: "author",
+				foreignField: "_id",
+				as: "author",
+			},
+		},
+		{
+			$unwind: "$author",
+		},
+		{
+			$lookup: {
+				from: "comments",
+				localField: "recentComment",
+				foreignField: "_id",
+				as: "recentComment",
+			},
+		},
+		{
+			$unwind: { path: "$recentComment", preserveNullAndEmptyArrays: true },
+		},
+		{
+			$lookup: {
+				from: "users",
+				localField: "recentComment.author",
+				foreignField: "_id",
+				as: "recentCommentAuthor",
+			},
+		},
+		{
+			$unwind: {
+				path: "$recentCommentAuthor",
+				preserveNullAndEmptyArrays: true,
+			},
+		},
+		{
+			$project: {
+				id: "$_id",
+				images: 1,
+				content: 1,
+				author: {
+					name: "$author.name",
+					username: "$author.username",
+					image: "$author.image",
+					avatar: "$author.avatar",
 				},
-				{
-					path: "likes",
-				},
-				{
-					path: "comments",
-					populate: {
-						path: "author",
+				likesCount: 1,
+				_editable: {
+					$cond: {
+						if: { $eq: ["$author._id", mongoose.Types.ObjectId(userId)] },
+						then: true,
+						else: false,
 					},
 				},
-				{
-					path: "recentComment",
-					populate: {
-						path: "author",
+				_liked: {
+					$cond: {
+						if: { $in: [mongoose.Types.ObjectId(userId), "$likes"] },
+						then: true,
+						else: false,
 					},
 				},
-			],
-		}
-	);
+				recentComment: {
+					$cond: {
+						if: { $not: ["$recentComment._id"] },
+						then: null,
+						else: {
+							id: "$recentComment._id",
+							content: "$recentComment.content",
+							author: {
+								id: "$_id",
+								username: "$recentCommentAuthor.username",
+								name: "$recentCommentAuthor.name",
+								image: "$recentCommentAuthor.image",
+								avatar: "$recentCommentAuthor.avatar",
+							},
+							publishedAt: "$recentComment.publishedAt",
+						},
+					},
+				},
+				publishedAt: 1,
+			},
+		},
+	]);
+
+	response.docs = results;
+
+	return response;
 }
 
-async function getPersonalizedPosts(page, token) {
-	const userId = (decryptToken(token) as any).id;
+/*
+ * @Returns Posts from followings
+ */
+async function getPersonalizedPosts(
+	page: number = 1,
+	userId: string,
+	limit: number = 10,
+	sort: number = -1
+) {
 	const followingsDoc = await UserModel.find({
 		followers: { $in: [mongoose.Types.ObjectId(userId)] },
 	});
@@ -45,46 +163,160 @@ async function getPersonalizedPosts(page, token) {
 		mongoose.Types.ObjectId(d._id)
 	);
 
-	return await PostsModel.paginate(
+	const totalDocs = await PostsModel.countDocuments({
+		isDeleted: false,
+		isPublished: true,
+		author: { $in: [...followingsIds, mongoose.Types.ObjectId(userId)] },
+	}).exec();
+
+	/* 
+    |b = -1
+    |dln = 15
+    p(n(1) - |b) ->* l(10) -> (|dln - l(10)) = ei(5)
+    p(n(3) - |b) ->* l(10) = ei(20)
+  */
+	const startIndex = (page - 1) * limit;
+	const endIndex = page * limit;
+
+	const response = {
+		docs: [],
+		totalDocs: totalDocs,
+		totalPages: null,
+		prevPage: null,
+		nextPage: null,
+		pagingCounter: null,
+		page: page,
+		endIndex,
+		startIndex,
+	};
+
+	if (endIndex < totalDocs) {
+		response.nextPage = page + 1;
+	}
+
+	if (startIndex > 0) {
+		response.prevPage = page - 1;
+	}
+
+	const results = await PostsModel.aggregate([
 		{
-			isDeleted: false,
-			isPublished: true,
-			author: { $in: [...followingsIds, userId] },
+			$match: {
+				isDeleted: false,
+				isPublished: true,
+				author: { $in: [...followingsIds, mongoose.Types.ObjectId(userId)] },
+			},
 		},
 		{
-			page: page,
-			sort: { publishedAt: -1 },
-			limit: 10,
-			populate: [
-				{
-					path: "author",
+			$sort: { publishedAt: sort },
+		},
+		{
+			$skip: startIndex,
+		},
+		{
+			$limit: limit,
+		},
+		{
+			$lookup: {
+				from: "users",
+				localField: "author",
+				foreignField: "_id",
+				as: "author",
+			},
+		},
+		{
+			$unwind: "$author",
+		},
+		{
+			$lookup: {
+				from: "comments",
+				localField: "recentComment",
+				foreignField: "_id",
+				as: "recentComment",
+			},
+		},
+		{
+			$unwind: { path: "$recentComment", preserveNullAndEmptyArrays: true },
+		},
+		{
+			$lookup: {
+				from: "users",
+				localField: "recentComment.author",
+				foreignField: "_id",
+				as: "recentCommentAuthor",
+			},
+		},
+		{
+			$unwind: {
+				path: "$recentCommentAuthor",
+				preserveNullAndEmptyArrays: true,
+			},
+		},
+		{
+			$project: {
+				id: "$_id",
+				images: 1,
+				content: 1,
+				author: {
+					name: "$author.name",
+					username: "$author.username",
+					image: "$author.image",
+					avatar: "$author.avatar",
 				},
-				{
-					path: "likes",
-				},
-				{
-					path: "comments",
-					populate: {
-						path: "author",
+				likesCount: 1,
+				_editable: {
+					$cond: {
+						if: { $eq: ["$author._id", mongoose.Types.ObjectId(userId)] },
+						then: true,
+						else: false,
 					},
 				},
-				{
-					path: "recentComment",
-					populate: {
-						path: "author",
+				_liked: {
+					$cond: {
+						if: { $in: [mongoose.Types.ObjectId(userId), "$likes"] },
+						then: true,
+						else: false,
 					},
 				},
-			],
-		}
-	);
+				recentComment: {
+					$cond: {
+						if: { $not: ["$recentComment._id"] },
+						then: null,
+						else: {
+							id: "$recentComment._id",
+							content: "$recentComment.content",
+							author: {
+								id: "$_id",
+								username: "$recentCommentAuthor.username",
+								name: "$recentCommentAuthor.name",
+								image: "$recentCommentAuthor.image",
+								avatar: "$recentCommentAuthor.avatar",
+							},
+							publishedAt: "$recentComment.publishedAt",
+						},
+					},
+				},
+				publishedAt: 1,
+			},
+		},
+	]);
+
+	response.docs = results;
+	return response;
 }
 
 export default async function getPosts(parent: any, args: any, context: any) {
 	const { page, token, dataType } = args.data;
 
 	try {
-		if (!token || dataType === "public") return await getAllPublicPosts(page);
-		return await getPersonalizedPosts(page, token);
+		const userId = (decryptToken(token) as any).id;
+
+		if (dataType === "public") {
+			return await getAllPosts(page, userId, 10, -1);
+		} else if (dataType === "private") {
+			return await getPersonalizedPosts(page, userId, 10, -1);
+		} else {
+			throw new Error("dataType filter is missing");
+		}
 	} catch (e) {
 		throw new Error(e.message);
 	}
