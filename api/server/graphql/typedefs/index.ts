@@ -261,6 +261,7 @@ const typeDefs = gql`
 		images: [ImagePayloadType]!
 		likes: [UserPayload]!
 		likesCount: Int!
+		commentsCount: Int!
 		comments: [CommentDocumentType]!
 		recentComment: CommentDocumentType
 		content: String

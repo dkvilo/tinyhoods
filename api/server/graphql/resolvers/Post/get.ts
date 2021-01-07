@@ -103,7 +103,20 @@ async function getAllPosts(
 					image: "$author.image",
 					avatar: "$author.avatar",
 				},
-				likesCount: 1,
+				likesCount: {
+					$cond: {
+						if: { $isArray: "$likes" },
+						then: { $size: "$likes" },
+						else: 0,
+					},
+				},
+				commentsCount: {
+					$cond: {
+						if: { $isArray: "$comments" },
+						then: { $size: "$comments" },
+						else: 0,
+					},
+				},
 				_editable: {
 					$cond: {
 						if: { $eq: ["$author._id", mongoose.Types.ObjectId(userId)] },
@@ -262,7 +275,20 @@ async function getPersonalizedPosts(
 					image: "$author.image",
 					avatar: "$author.avatar",
 				},
-				likesCount: 1,
+				likesCount: {
+					$cond: {
+						if: { $isArray: "$likes" },
+						then: { $size: "$likes" },
+						else: 0,
+					},
+				},
+				commentsCount: {
+					$cond: {
+						if: { $isArray: "$comments" },
+						then: { $size: "$comments" },
+						else: 0,
+					},
+				},
 				_editable: {
 					$cond: {
 						if: { $eq: ["$author._id", mongoose.Types.ObjectId(userId)] },
