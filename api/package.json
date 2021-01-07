@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "dev": "yarn run clean && nodemon --ignore './dist/' --exec concurrently -n \"TRANSPILE,API\" -c \"blue,magenta\" \"yarn build\" \"yarn run start:dev\"",
+    "build": "yarn run clean && tsc",
+    "clean": "rm -rf ./dist/index.js",
+    "start:dev": "wait-on ./dist/index.js && micro -l tcp://0.0.0.0:4000 ./dist/index.js",
     "start": "micro -l tcp://0.0.0.0:4000 ./dist/index.js",
     "seeder:build": "tsc -p packages/seeder",
     "seeder:run:landforms": "node dist/packages/seeder/landforms.seed.js",
@@ -48,8 +51,10 @@
     "@types/stripe": "^7.13.24",
     "@types/validator": "^13.1.0",
     "@types/yup": "^0.29.3",
+    "concurrently": "^5.3.0",
     "nodemon": "^2.0.6",
     "ts-node": "^9.0.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "wait-on": "^5.2.1"
   }
 }
