@@ -122,7 +122,8 @@ export default function Detailed({
 						<PostImageContent images={images} onImageClick={() => {}} />
 					)}
 				</div>
-				<PostActions isDetailed />
+				{/* TODO:(dkvilo) update getPost logic */}
+				<PostActions likesCount={0} liked={false} isDetailed />
 				<h1 className="px-1 py-1 text-default-inverted text-lg font-bold">
 					Comments
 				</h1>

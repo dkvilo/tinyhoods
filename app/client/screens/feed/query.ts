@@ -22,6 +22,8 @@ export const GET_POSTS = gql`
 						username
 					}
 				}
+				likesCount
+				commentsCount
 				content
 				publishedAt
 				_liked

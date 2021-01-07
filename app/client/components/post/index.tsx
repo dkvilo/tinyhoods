@@ -19,6 +19,10 @@ export default function Post({
 	recentComment,
 	index,
 	id,
+	likesCount,
+	commentsCount,
+	_liked,
+	_editable,
 	images,
 	onImageClick,
 	onPostShallowClick,
@@ -81,7 +85,7 @@ export default function Post({
 							classNames="swoop-in"
 						>
 							<div className="absolute" style={{ right: 5, zIndex: 8888 }}>
-								{isSettingsOpen && <SettingsPanel />}
+								{isSettingsOpen && <SettingsPanel editable={_editable} />}
 							</div>
 						</CSSTransition>
 					</div>
@@ -93,11 +97,16 @@ export default function Post({
 					<PostImageContent images={images} onImageClick={onImageClick} />
 				)}
 			</div>
-			<PostActions onPostShallowClick={onPostShallowClick} />
+			<PostActions
+				commentsCount={commentsCount}
+				likesCount={likesCount}
+				liked={_liked}
+				onPostShallowClick={onPostShallowClick}
+			/>
 			{recentComment && (
 				<div className="mb-2">
 					<h1 className="px-1 text-default-inverted text-lg font-bold">
-						Recent Comments
+						Recent Comment
 					</h1>
 					<div
 						onClick={onPostShallowClick}

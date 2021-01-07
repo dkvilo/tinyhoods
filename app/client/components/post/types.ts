@@ -8,7 +8,11 @@ export interface IProps {
 	content: string;
 	images: any;
 	comments: any;
+	likesCount: number;
+	commentsCount: number;
 	recentComment: any;
+	_liked: boolean;
+	_editable: boolean;
 	onPostShallowClick(): (event: FormEvent<any>) => void;
 	onImageClick({
 		post,
