@@ -14,7 +14,6 @@ export const GET_POSTS = gql`
 					src
 				}
 				recentComment {
-					id
 					content
 					publishedAt
 					author {
@@ -25,11 +24,11 @@ export const GET_POSTS = gql`
 				}
 				content
 				publishedAt
+				_liked
+				_editable
 			}
 			nextPage
-			pagingCounter
 			totalDocs
-			totalPages
 		}
 	}
 `;
