@@ -1,6 +1,17 @@
-import React, { createContext } from "react";
+import React, { createContext, useReducer } from "react";
 
-const initialState = {
+export enum UserTokenActionTypes {
+	Engage = "ENGAGE_TOKEN",
+	Set = "SET_TOKEN",
+	Unset = "UNSET_TOKEN",
+}
+
+export interface UserTokenContentType {
+	isLogin: boolean;
+	token: string | null;
+}
+
+const initialState: UserTokenContentType = {
 	isLogin: Boolean(process.browser ? localStorage.getItem("token") : null),
 	token: process.browser ? localStorage.getItem("token") || null : null,
 };
@@ -21,28 +32,40 @@ const destroyToken = () => {
 	}
 };
 
-let reducer = (state: any, action: any) => {
+let reducer = (
+	state: UserTokenContentType,
+	action: { type: UserTokenActionTypes; payload: UserTokenContentType }
+) => {
 	switch (action.type) {
-		case "ENGAGE_TOKEN":
+		case UserTokenActionTypes.Engage:
 			return initialState;
-		case "SET_TOKEN":
+		case UserTokenActionTypes.Set:
 			return {
 				...state,
 				isLogin: true,
 				token: storeAndGetToken(action.payload),
 			};
-		case "UNSET_TOKEN":
+		case UserTokenActionTypes.Unset:
 			return { ...state, isLogin: false, token: destroyToken() };
 	}
 };
 
-let UserTokenContext = createContext(initialState);
+let UserTokenContext = createContext<{
+	state: UserTokenContentType;
+	dispatch: React.Dispatch<{
+		type: UserTokenActionTypes;
+		payload: UserTokenContentType;
+	}>;
+}>({
+	state: initialState,
+	dispatch: () => null,
+});
 
 function UserTokenContextProvider(props: any) {
-	let [state, dispatch] = React.useReducer(reducer, initialState);
-	let value = { state, dispatch };
+	let [state, dispatch] = useReducer<any>(reducer, initialState);
+
 	return (
-		<UserTokenContext.Provider value={value as any}>
+		<UserTokenContext.Provider value={{ state, dispatch } as any}>
 			{props.children}
 		</UserTokenContext.Provider>
 	);
