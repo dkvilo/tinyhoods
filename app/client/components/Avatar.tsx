@@ -22,7 +22,7 @@ export default function Avatar({
 	src: string;
 	username: string;
 }): JSX.Element {
-	const { state: loginState } = useContext<any>(UserTokenContext);
+	const { state: loginState } = useContext(UserTokenContext);
 	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
 
 	const [file, setFile] = useState<any>({});

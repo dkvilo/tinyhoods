@@ -29,7 +29,8 @@ import FeedFilterMenu from "../../components/FeedFilterMenu";
 
 export default function Feed(): JSX.Element {
 	const [page, setPage] = useState(1);
-	const { state: loginState } = useContext<any>(UserTokenContext);
+
+	const { state: loginState } = useContext(UserTokenContext);
 	const { state: filtersState } = useContext<any>(FiltersContext);
 
 	const { loading, data, error, refetch } = useQuery(GET_POSTS, {
