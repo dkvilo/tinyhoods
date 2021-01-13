@@ -98,6 +98,7 @@ export default function Post({
 				)}
 			</div>
 			<PostActions
+				postId={id}
 				commentsCount={commentsCount}
 				likesCount={likesCount}
 				liked={_liked}

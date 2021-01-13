@@ -1,7 +1,10 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import Like from "../like/Like";
+import Unlike from "../like/Unlike";
 
 export default function PostActions({
 	isDetailed = false,
+	postId,
 	liked,
 	likesCount,
 	commentsCount,
@@ -11,34 +14,38 @@ export default function PostActions({
 	likesCount: number;
 	commentsCount?: number;
 	isDetailed?: boolean;
+	postId: string | undefined;
 	onPostShallowClick?(): (event: FormEvent<any>) => void;
 }): JSX.Element {
 	const handleShallowClick = (event: FormEvent<any>) => {
 		onPostShallowClick && onPostShallowClick();
 	};
 
+	const [likeActionStatusState, setLikeActionStatusState] = useState<boolean>(
+		liked
+	);
+	const [localLikeCount, setLocalLikeCount] = useState<number>(likesCount);
+
+	const handleLikeActionStateAfterUser = (status: boolean) => {
+		setLikeActionStatusState(status);
+		setLocalLikeCount((prev: number) => (status ? prev + 1 : prev - 1));
+	};
+
+	const handleUnLikeActionStateAfterUser = (status: boolean) => {
+		setLikeActionStatusState(!status);
+		setLocalLikeCount((prev: number) => (status ? prev - 1 : prev + 1));
+	};
+
 	return (
 		<div className="flex items-center my-2 justify-start rounded-b">
 			<div className="flex items-center">
-				<button className="p-1 rounded-full focus:outline-none">
-					<svg
-						viewBox="0 0 23 23"
-						strokeWidth="2"
-						className={`stroke-current h-6 w-6 ${
-							liked ? "text-red-500" : "text-default-inverted"
-						} hover:text-red-400`}
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="3"
-							fill="none"
-							d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-						/>
-					</svg>
-				</button>
+				{!likeActionStatusState ? (
+					<Like onAction={handleLikeActionStateAfterUser} postId={postId} />
+				) : (
+					<Unlike onAction={handleUnLikeActionStateAfterUser} postId={postId} />
+				)}
 				<span className="mx-1 font-bold text-default-inverted">
-					{likesCount}
+					{localLikeCount}
 				</span>
 			</div>
 

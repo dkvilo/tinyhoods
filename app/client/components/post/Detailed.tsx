@@ -123,7 +123,7 @@ export default function Detailed({
 					)}
 				</div>
 				{/* TODO:(dkvilo) update getPost logic */}
-				<PostActions likesCount={0} liked={false} isDetailed />
+				<PostActions postId={id} likesCount={0} liked={false} isDetailed />
 				<h1 className="px-1 py-1 text-default-inverted text-lg font-bold">
 					Comments
 				</h1>
