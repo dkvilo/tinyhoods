@@ -12,16 +12,16 @@ async function likeThePost(userId, postId) {
 		},
 		{
 			$push: {
-				likedPosts: postId,
+				likedPosts: mongoose.Types.ObjectId(postId),
 			} as any,
 		}
 	);
 
 	const updateCauserListResponse = await PostModel.findOneAndUpdate(
-		{ _id: postId },
+		{ _id: mongoose.Types.ObjectId(postId) },
 		{
 			$push: {
-				likes: response?._id,
+				likes: mongoose.Types.ObjectId(response?._id),
 			} as any,
 		}
 	);
@@ -32,11 +32,11 @@ async function likeThePost(userId, postId) {
 async function removeLike(userId, postId) {
 	const response = await UserModel.findOneAndUpdate(
 		{
-			_id: userId,
+			_id: mongoose.Types.ObjectId(userId),
 		},
 		{
 			$pull: {
-				likedPosts: postId,
+				likedPosts: mongoose.Types.ObjectId(postId),
 			} as any,
 		}
 	);
@@ -46,10 +46,10 @@ async function removeLike(userId, postId) {
 	}
 
 	const updateCauserListResponse = await PostModel.findOneAndUpdate(
-		{ _id: postId },
+		{ _id: mongoose.Types.ObjectId(postId) },
 		{
 			$pull: {
-				likes: response?._id,
+				likes: mongoose.Types.ObjectId(response?._id),
 			} as any,
 		}
 	);
@@ -66,7 +66,7 @@ export default async function (parent: any, args: any, context: any) {
 	try {
 		if (
 			await UserModel.findOne({
-				likedPosts: { $in: postId },
+				likedPosts: { $in: mongoose.Types.ObjectId(postId) },
 			})
 		) {
 			// Unlike
