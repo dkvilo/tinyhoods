@@ -312,6 +312,11 @@ const typeDefs = gql`
 		dataType: String = "private"
 	}
 
+	input GetSinglePostInput {
+		token: String
+		id: ID!
+	}
+
 	input ToggleLikePostInput {
 		postId: String!
 		token: String!
@@ -360,7 +365,7 @@ const typeDefs = gql`
 			data: GetQuestionsOnLocationInputType!
 		): [QuestionPayload]!
 		getPosts(data: GetPostsInput!): PostsPayload!
-		getPost(id: ID!): PostDocumentType!
+		getPost(data: GetSinglePostInput!): PostDocumentType!
 		getComments(id: ID!, page: Int!): CommentPayload
 		getUserProjects(id: ID!, page: Int!): ProjectPayload
 	}
