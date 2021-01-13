@@ -1,4 +1,6 @@
 import moment from "moment";
+import { useContext } from "react";
+import { UserTokenContext } from "../../context";
 import Button from "../Button";
 import { IProps } from "./types";
 
@@ -11,6 +13,8 @@ export default function Comment({
 	isClickable = false,
 	onReply,
 }: IProps): JSX.Element {
+	const { state: loginState } = useContext(UserTokenContext);
+
 	const ranges = [
 		"\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]",
 		" ",
@@ -59,7 +63,7 @@ export default function Comment({
 								{content}
 							</p>
 						)}
-						{canReply && (
+						{loginState.isLogin && canReply && (
 							<div className="flex m-1">
 								<Button
 									onClick={

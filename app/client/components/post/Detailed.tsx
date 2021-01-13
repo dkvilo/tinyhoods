@@ -1,6 +1,6 @@
 import moment from "moment";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { isEmpty } from "ramda";
 
@@ -15,6 +15,7 @@ import Loader from "../Loader";
 import { GET_COMMENTS_BY_POST_ID } from "./query";
 
 import { IProps } from "./types";
+import { UserTokenContext } from "../../context";
 
 export default function Detailed({
 	author,
@@ -27,6 +28,7 @@ export default function Detailed({
 	commentsCount,
 	_liked,
 }: IProps): JSX.Element {
+	const { state: loginState } = useContext(UserTokenContext);
 	const [commentsPageNumber, setCommentsPageNumber] = useState(1);
 	const {
 		loading: loadingComments,
@@ -126,13 +128,15 @@ export default function Detailed({
 					)}
 				</div>
 
-				<PostActions
-					postId={id}
-					likesCount={likesCount}
-					commentsCount={commentsCount}
-					liked={_liked}
-					isDetailed
-				/>
+				{loginState.isLogin && (
+					<PostActions
+						postId={id}
+						likesCount={likesCount}
+						commentsCount={commentsCount}
+						liked={_liked}
+						isDetailed
+					/>
+				)}
 
 				<h1 className="px-1 py-1 text-default-inverted text-lg font-bold">
 					Comments
