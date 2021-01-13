@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import Layout from "../../client/screens/layout";
@@ -6,16 +6,20 @@ import SEOHeader from "../../client/components/SEOHeader";
 import Detailed from "../../client/components/post/Detailed";
 import PostLoader from "../../client/components/PostLoader";
 
-import { useQuery } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import RSidebar from "../../client/components/static/RSidebar";
 import LSidebar from "../../client/components/static/LSidebar";
 import MobileMenu from "../../client/components/MobileMenu";
+import { UserTokenContext } from "../../client/context";
+import Loader from "../../client/components/comment/Loader";
 
 export const GET_POST_BY_ID = gql`
-	query getPost($id: ID!) {
-		getPost(id: $id) {
+	query getPost($data: GetSinglePostInput!) {
+		getPost(data: $data) {
 			id
+			likesCount
+			commentsCount
 			author {
 				username
 				image
@@ -26,6 +30,8 @@ export const GET_POST_BY_ID = gql`
 			}
 			content
 			publishedAt
+			_liked
+			_editable
 		}
 	}
 `;
@@ -33,12 +39,26 @@ export const GET_POST_BY_ID = gql`
 export default function () {
 	const router = useRouter();
 
-	const { loading, data, error } = useQuery(GET_POST_BY_ID, {
-		variables: {
-			id: router.query.pid,
-		},
-		fetchPolicy: "network-only",
-	});
+	const { state: loginState } = useContext(UserTokenContext);
+
+	const [getPost, { loading, data, error }] = useLazyQuery(GET_POST_BY_ID);
+
+	useEffect(() => {
+		if (router.query?.pid) {
+			getPost({
+				variables: {
+					data: {
+						id: router.query.pid,
+						token: loginState.token,
+					},
+				},
+			});
+		}
+	}, [router.query]);
+
+	if (!router.query?.pid) {
+		return <Loader />;
+	}
 
 	return (
 		<>
@@ -47,7 +67,7 @@ export default function () {
 				left={<LSidebar />}
 				center={
 					<>
-						{!loading && !error && data.getPost && (
+						{!loading && !error && data?.getPost && (
 							<Detailed {...data.getPost} onImageClick={(img) => {}} />
 						)}
 

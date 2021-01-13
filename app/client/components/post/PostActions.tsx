@@ -49,28 +49,26 @@ export default function PostActions({
 				</span>
 			</div>
 
-			{!isDetailed && (
-				<div className="flex items-center ml-1">
-					<button className="p-1 rounded-full focus:outline-none">
-						<svg
-							viewBox="0 0 23 23"
+			<div className="flex items-center ml-1">
+				<button className="p-1 rounded-full focus:outline-none">
+					<svg
+						viewBox="0 0 23 23"
+						strokeWidth="2"
+						className="stroke-current h-6 w-6 text-default-inverted hover:text-primary"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
 							strokeWidth="2"
-							className="stroke-current h-6 w-6 text-default-inverted hover:text-primary"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								fill="none"
-								d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-							/>
-						</svg>
-					</button>
-					<span className="mx-1 font-bold text-default-inverted">
-						{commentsCount}
-					</span>
-				</div>
-			)}
+							fill="none"
+							d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+						/>
+					</svg>
+				</button>
+				<span className="mx-1 font-bold text-default-inverted">
+					{commentsCount}
+				</span>
+			</div>
 
 			<div className="flex items-center ml-1">
 				<button className="p-1 rounded-full focus:outline-none">

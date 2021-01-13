@@ -23,6 +23,9 @@ export default function Detailed({
 	id,
 	images,
 	onImageClick,
+	likesCount,
+	commentsCount,
+	_liked,
 }: IProps): JSX.Element {
 	const [commentsPageNumber, setCommentsPageNumber] = useState(1);
 	const {
@@ -122,8 +125,15 @@ export default function Detailed({
 						<PostImageContent images={images} onImageClick={() => {}} />
 					)}
 				</div>
-				{/* TODO:(dkvilo) update getPost logic */}
-				<PostActions postId={id} likesCount={0} liked={false} isDetailed />
+
+				<PostActions
+					postId={id}
+					likesCount={likesCount}
+					commentsCount={commentsCount}
+					liked={_liked}
+					isDetailed
+				/>
+
 				<h1 className="px-1 py-1 text-default-inverted text-lg font-bold">
 					Comments
 				</h1>
