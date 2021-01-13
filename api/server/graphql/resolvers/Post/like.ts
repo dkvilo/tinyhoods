@@ -64,11 +64,12 @@ export default async function (parent: any, args: any, context: any) {
 	const userId = (decryptToken(token) as any).id;
 
 	try {
-		if (
-			await UserModel.findOne({
-				likedPosts: { $in: mongoose.Types.ObjectId(postId) },
-			})
-		) {
+		const alreadyLiked = await UserModel.findOne({
+			_id: mongoose.Types.ObjectId(userId),
+			likedPosts: { $in: mongoose.Types.ObjectId(postId) },
+		});
+
+		if (alreadyLiked) {
 			// Unlike
 			return !!(await removeLike(userId, postId));
 		}
