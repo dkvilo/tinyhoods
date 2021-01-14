@@ -15,18 +15,16 @@ export default function (): JSX.Element {
 		<div className="flex flex-1 items-center justify-between">
 			<div className="w-auto hidden xs:hidden sm:hidden md:hidden lg:block xl:block">
 				<div className="flex items-center justify-evenly">
-					<span className="mr-4">
-						<Logo size="small" />
+					<Logo size="small" />
+					<span className="ml-4">
+						<SearchInput placeholder="Search ..." />
 					</span>
-					<SearchInput placeholder="Search ..." />
 				</div>
 			</div>
 			<div className="flex items-center">
 				<Button
-					className={`text-sm focus:outline-none px-1 rounded-full flex ${
-						filtersState.feedType === "private"
-							? "bg-green-400 text-white"
-							: "bg-default text-default-inverted"
+					className={`text-sm focus:outline-none p-2 flex bg-default text-default-inverted ${
+						filtersState.feedType === "private" && "border-b-2 border-red-500"
 					}`}
 					onClick={() => {
 						filtersDispatcher({
@@ -46,10 +44,8 @@ export default function (): JSX.Element {
 					<span className="font-bold uppercase ml-1">My Feed</span>
 				</Button>
 				<Button
-					className={`text-sm focus:outline-none ml-2 px-1 rounded-full flex ${
-						filtersState.feedType === "public"
-							? "bg-green-400 text-white"
-							: "bg-default text-default-inverted"
+					className={`text-sm focus:outline-none ml-2 p-2 flex bg-default text-default-inverted ${
+						filtersState.feedType === "public" && "border-b-2 border-red-500 "
 					}`}
 					onClick={() => {
 						filtersDispatcher({
