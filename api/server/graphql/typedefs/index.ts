@@ -368,6 +368,7 @@ const typeDefs = gql`
 		getPost(data: GetSinglePostInput!): PostDocumentType!
 		getComments(id: ID!, page: Int!): CommentPayload
 		getUserProjects(id: ID!, page: Int!): ProjectPayload
+		getLastRegisteredUsers: [UserPayload]!
 	}
 
 	type Mutation {

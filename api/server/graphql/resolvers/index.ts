@@ -24,6 +24,7 @@ import getComments from "./Comment/getComments";
 import createProject from "./Projects/create";
 import getUserProjects from "./Projects/getUserProjects";
 import createToggleLikePost from "./Post/like";
+import getLastRegisteredUsers from "./Users/getLastRegistered";
 
 const resolvers = {
 	Query: {
@@ -39,6 +40,7 @@ const resolvers = {
 		getPost,
 		getComments,
 		getUserProjects,
+		getLastRegisteredUsers,
 	},
 	Mutation: {
 		createLocation,
