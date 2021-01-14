@@ -27,7 +27,7 @@ export default function (): JSX.Element {
 					key={index}
 					className="flex items-center justify-center relative"
 					style={{
-						left: 2 * data.getLastRegisteredUsers.length,
+						left: 3.5 * data.getLastRegisteredUsers.length,
 					}}
 				>
 					<img
