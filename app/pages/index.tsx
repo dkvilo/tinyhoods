@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Router, ShallowQuery } from "../client/components/ShallowRouter";
 import SEOHeader from "../client/components/SEOHeader";
 import AddPost from "../client/forms/post/add";
@@ -15,14 +15,34 @@ import HeaderMenu from "../client/components/HeaderMenu";
 import AddProject from "../client/forms/project/add";
 
 import { UserTokenContext } from "../client/context";
+import Loader from "../client/components/Loader";
+import Logo from "../client/components/Logo";
 
-export default function ({ loaded }: { loaded: boolean }) {
+export default function () {
 	const { state: loginState } = useContext(UserTokenContext);
+	const [isClient, setIsClient] = useState(false);
+
+	useEffect(() => {
+		if (window !== undefined) {
+			setIsClient(true);
+		}
+	}, [setIsClient]);
+
+	if (!isClient) {
+		return (
+			<div className="flex flex-col items-center justify-center h-screen">
+				<div className="my-2">
+					<Logo />
+				</div>
+				<Loader />;
+			</div>
+		);
+	}
 
 	return (
 		<>
 			<SEOHeader title="TinyHoods" description=" - Explore tiny world" />
-			{loaded && loginState.isLogin ? (
+			{isClient && loginState.isLogin ? (
 				<Layout
 					left={<LSidebar />}
 					right={<RSidebar />}
@@ -55,8 +75,6 @@ export default function ({ loaded }: { loaded: boolean }) {
 
 export async function getStaticProps() {
 	return {
-		props: {
-			loaded: true,
-		},
+		props: {},
 	};
 }
