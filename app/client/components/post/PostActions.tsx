@@ -51,6 +51,7 @@ export default function PostActions({
 			{/* TODO: Make global audio player for app nad pass data using context */}
 			<video controls={false} className="hidden" ref={soundEffect}>
 				<source src="/audio/like_sound_effect.webm" type="video/webm" />
+				<source src="/audio/like_sound_effect.mp4" type="video/mp4" />
 			</video>
 			<div className="flex items-center">
 				{!likeActionStatusState ? (
