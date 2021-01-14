@@ -12,6 +12,7 @@ import {
 	LoaderProgressContext,
 	AlertMessageContext,
 } from "../../context";
+import ActionButton from "../../components/ActionButton";
 
 const Registration = () => {
 	const REGISTER_USER = gql`
@@ -120,13 +121,11 @@ const Registration = () => {
 
 						<div className="flex flex-col">
 							<div className="flex justify-center">
-								<button
-									className="bg-green-500 w-full p-2 text-default rounded-full mr-2 focus:outline-none"
+								<ActionButton
+									text="Sing Up"
 									type="submit"
 									disabled={isSubmitting}
-								>
-									Create An Account
-								</button>
+								/>
 							</div>
 						</div>
 					</Form>

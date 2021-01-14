@@ -17,6 +17,7 @@ import {
 } from "../../context";
 
 import ImageUpload from "../../components/ImageUpload";
+import ActionButton from "../../components/ActionButton";
 
 const CREATE_LOCATION = gql`
 	mutation createLocation($data: LocationDataInput!) {
@@ -155,13 +156,11 @@ const AddProject = () => {
 						</div>
 
 						<div className="flex justify-center pt-2">
-							<button
-								className="p-2 bg-green-500 w-full text-default rounded-full focus:outline-none"
+							<ActionButton
+								text="Create Project"
 								type="submit"
 								disabled={isSubmitting}
-							>
-								Publish
-							</button>
+							/>
 						</div>
 					</form>
 				)}

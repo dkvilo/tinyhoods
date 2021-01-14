@@ -53,7 +53,7 @@ export default function ({ postId, onAction }: IProps): JSX.Element {
 	return (
 		<button
 			onClick={handleUnLikeRequest}
-			className="p-1 rounded-full focus:outline-none"
+			className="p-1 rounded-full focus:outline-none transform hover:scale-125 transition duration-150"
 		>
 			<svg
 				viewBox="0 0 23 23"

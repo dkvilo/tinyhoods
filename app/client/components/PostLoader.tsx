@@ -1,6 +1,6 @@
 export default function PostLoader({ index }: { index: number }) {
 	return (
-		<div className="mb-4 rounded p-1">
+		<div className="mb-4 rounded p-1 border border-secondary-soft">
 			<div className="mb-3 flex items-center">
 				<div className="w-10 h-10 bg-secondary-soft lazy__boy rounded-full"></div>
 				<div className="ml-2">

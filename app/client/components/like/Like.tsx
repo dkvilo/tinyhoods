@@ -6,7 +6,6 @@ import { IProps } from "./types";
 
 export default function ({ postId, onAction }: IProps): JSX.Element {
 	const { state: loginState } = useContext(UserTokenContext);
-
 	const [likePost, { loading, error, data }] = useMutation(TOGGLE_LIKE);
 
 	const { dispatch: errorDispatcher } = useContext<any>(GQLErrorContext);
@@ -50,23 +49,25 @@ export default function ({ postId, onAction }: IProps): JSX.Element {
 	}, [data, loading, error]);
 
 	return (
-		<button
-			onClick={handleLikeRequest}
-			className="p-1 rounded-full focus:outline-none"
-		>
-			<svg
-				viewBox="0 0 23 23"
-				strokeWidth="2"
-				className="stroke-current h-6 w-6 text-default-inverted hover:text-red-400"
+		<>
+			<button
+				onClick={handleLikeRequest}
+				className="p-1 rounded-full focus:outline-none transform hover:scale-125 transition duration-150"
 			>
-				<path
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth="3"
-					fill="none"
-					d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-				/>
-			</svg>
-		</button>
+				<svg
+					viewBox="0 0 23 23"
+					strokeWidth="2"
+					className="stroke-current h-6 w-6 text-default-inverted"
+				>
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						strokeWidth="3"
+						fill="none"
+						d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+					/>
+				</svg>
+			</button>
+		</>
 	);
 }

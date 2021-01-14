@@ -34,7 +34,7 @@ export default function ({ left, right, center, mobile }: IProps): JSX.Element {
 			</div>
 			{/* Mobile Menu */}
 			{mobile && loginState.isLogin && (
-				<div className="p-3 w-full bg-default fixed bottom-0 block xs:block sm:block md:block lg:hidden xl:hidden">
+				<div className="border-t-2 w-full bg-default fixed bottom-0 block xs:block sm:block md:block lg:hidden xl:hidden">
 					{mobile}
 				</div>
 			)}

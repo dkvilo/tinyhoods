@@ -7,7 +7,6 @@ import { UserTokenContext } from "../context";
 import Modal from "./Modal";
 import SearchInput from "./SearchInput";
 
-import AddHood from "../forms/hoods/add";
 import AddQuestion from "../forms/questions/add";
 
 import { useQuery } from "@apollo/react-hooks";

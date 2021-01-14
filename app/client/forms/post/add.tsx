@@ -13,6 +13,7 @@ import {
 } from "../../context";
 
 import ImageUpload from "../../components/ImageUpload";
+import ActionButton from "../../components/ActionButton";
 
 const CREATE_POST = gql`
 	mutation createPost($data: CreatePostInput!) {
@@ -109,12 +110,11 @@ const AddPost = ({ onSuccess }: { onSuccess(): void }) => {
 								blur={0}
 							/>
 							<div className="flex justify-center mt-3">
-								<button
-									className="p-2 text-lg bg-green-500 w-full text-default  rounded-full"
+								<ActionButton
+									text="Publish"
+									type="submit"
 									disabled={isSubmitting}
-								>
-									Publish
-								</button>
+								/>
 							</div>
 						</div>
 					</form>

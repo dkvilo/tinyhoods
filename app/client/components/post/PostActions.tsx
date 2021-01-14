@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Like from "../like/Like";
 import Unlike from "../like/Unlike";
 
@@ -26,18 +26,32 @@ export default function PostActions({
 	);
 	const [localLikeCount, setLocalLikeCount] = useState<number>(likesCount);
 
+	const soundEffect = useRef<any>();
+
+	const playAudio = () => {
+		if (soundEffect?.current) {
+			soundEffect.current.play();
+		}
+	};
+
 	const handleLikeActionStateAfterUser = (status: boolean) => {
 		setLikeActionStatusState(status);
+		playAudio();
 		setLocalLikeCount((prev: number) => (status ? prev + 1 : prev - 1));
 	};
 
 	const handleUnLikeActionStateAfterUser = (status: boolean) => {
 		setLikeActionStatusState(!status);
+		playAudio();
 		setLocalLikeCount((prev: number) => (status ? prev - 1 : prev + 1));
 	};
 
 	return (
 		<div className="flex items-center my-2 justify-start rounded-b">
+			{/* TODO: Make global audio player for app nad pass data using context */}
+			<video controls={false} className="hidden" ref={soundEffect}>
+				<source src="/audio/like_sound_effect.webm" type="video/webm" />
+			</video>
 			<div className="flex items-center">
 				{!likeActionStatusState ? (
 					<Like onAction={handleLikeActionStateAfterUser} postId={postId} />

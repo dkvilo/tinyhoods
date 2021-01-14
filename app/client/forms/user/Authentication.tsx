@@ -13,6 +13,7 @@ import {
 	GQLErrorContext,
 	LoaderProgressContext,
 } from "../../context";
+import ActionButton from "../../components/ActionButton";
 
 const Authentication = () => {
 	const AUTHENTICATE_USER = gql`
@@ -111,13 +112,11 @@ const Authentication = () => {
 
 						<div className="flex flex-col">
 							<div className="flex justify-center">
-								<button
-									className="bg-green-500 w-full p-2 text-default rounded-full mr-2 focus:outline-none"
+								<ActionButton
+									text="Sing In"
 									type="submit"
 									disabled={isSubmitting}
-								>
-									Authenticate
-								</button>
+								/>
 							</div>
 						</div>
 					</Form>

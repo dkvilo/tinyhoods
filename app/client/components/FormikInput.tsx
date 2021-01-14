@@ -8,7 +8,7 @@ function Input(props: any) {
 	return (
 		<div className="flex relative w-full">
 			<Field
-				className="bg-secondary-soft rounded-lg w-full outline-none placeholder-default-inverted text-default-inverted p-2"
+				className="bg-secondary-soft rounded-lg w-full outline-none placeholder-default-inverted text-default-inverted p-2 border-2 focus:border-green-500 hover:bg-secondary transition duration-150"
 				autoComplete={"off"}
 				component={"input"}
 				{...props}

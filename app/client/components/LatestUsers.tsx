@@ -22,32 +22,33 @@ export default function (): JSX.Element {
 
 	return (
 		<div className="flex items-center justify-center mb-3">
-			{data.getLastRegisteredUsers.map((user: any, index: number) => (
-				<figure
-					key={index}
-					className="flex items-center justify-center relative"
-					style={{
-						left: 3.5 * data.getLastRegisteredUsers.length,
-					}}
-				>
-					<img
-						className="w-8 h-8 border-2 rounded-full relative cursor-pointer"
-						src={
-							process.env.NODE_ENV === "development"
-								? user.image
-									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${user.image}`
-									: user.avatar
-								: user.image
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${user.image}`
-								: user.avatar
-						}
-						alt={user.name}
+			{data?.getLastRegisteredUsers &&
+				data.getLastRegisteredUsers.map((user: any, index: number) => (
+					<figure
+						key={index}
+						className="flex items-center justify-center relative"
 						style={{
-							left: -(10 * index),
+							left: 3.5 * data.getLastRegisteredUsers.length,
 						}}
-					/>
-				</figure>
-			))}
+					>
+						<img
+							className="w-8 h-8 border-2 rounded-full relative cursor-pointer"
+							src={
+								process.env.NODE_ENV === "development"
+									? user.image
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${user.image}`
+										: user.avatar
+									: user.image
+									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${user.image}`
+									: user.avatar
+							}
+							alt={user.name}
+							style={{
+								left: -(10 * index),
+							}}
+						/>
+					</figure>
+				))}
 		</div>
 	);
 }
