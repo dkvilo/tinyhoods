@@ -16,9 +16,8 @@ export default function (): JSX.Element {
 					<LatestUsers />
 
 					<p className="text-default-inverted text-sm px-2 mb-2 text-center">
-						Tiny Hoods is a community for Tiny house owners, where you can share
-						your tiny builds, get inspired, gain friends, and explore favorite
-						places to go!
+						Tiny Hoods is a community, where tiny house owners can share their
+						builds, get inspired, gain friends, and explore new places!
 					</p>
 
 					<div className="p-2">
