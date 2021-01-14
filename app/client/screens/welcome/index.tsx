@@ -1,26 +1,43 @@
 import Link from "next/link";
 import React from "react";
+import AuthCard from "../../components/AuthCard";
+import LatestUsers from "../../components/LatestUsers";
+import Logo from "../../components/Logo";
 
 export default function (): JSX.Element {
 	return (
-		<div className="mx-1 my-3">
-			<h1 className="text-default-inverted font-bold text-2xl my-2">
-				Welcome to Tinyhoods.Net
-			</h1>
-			<div className="flex items-center">
-				<figure className="p-2">
-					<img
-						className="w-64 h-64"
-						src="/cabin.svg"
-						alt="Welcome to Tinyhoods.Net"
-						title="Welcome to Tinyhoods.Net"
-					/>
-				</figure>
-				<p className="text-default-inverted text-sm my-2">
-					Tiny Hoods is a Community for Tiny house owners, where you can share
-					your build, get inspired, gain friends and explore favorite places to
-					park!
-				</p>
+		<div className="mx-auto flex flex-col items-center justify-center h-screen bg-secondary">
+			<div className="container flex p-2 bg-default shadow-md rounded-md">
+				<div className="w-full xs:w-full sm:w-full md:w-full lg:w-1/3 xl:w-1/3 mr-2 max-w-md">
+					<div className="flex items-center justify-center my-3">
+						<Logo />
+					</div>
+
+					<LatestUsers />
+
+					<p className="text-default-inverted text-sm px-2 mb-2 text-center">
+						Tiny Hoods is a community for Tiny house owners, where you can share
+						your tiny builds, get inspired, gain friends, and explore favorite
+						places to go!
+					</p>
+
+					<div className="p-2">
+						<AuthCard />
+					</div>
+				</div>
+
+				<div className="w-full hidden xs:hidden sm:hidden md:block lg:block xl:block">
+					<div className="flex flex-col items-center relative">
+						<figure className="object-cover">
+							<img
+								className="rounded-md"
+								src="https://images.unsplash.com/photo-1519981132-08920a1840e2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+								alt="Welcome to Tinyhoods.Net"
+								title="Welcome to Tinyhoods.Net"
+							/>
+						</figure>
+					</div>
+				</div>
 			</div>
 
 			<hr className="my-3" />

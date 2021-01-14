@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { FiltersContext } from "../context";
 
 import Button from "./Button";
+import Logo from "./Logo";
 import SearchInput from "./SearchInput";
 
 export default function (): JSX.Element {
@@ -13,7 +14,12 @@ export default function (): JSX.Element {
 	return (
 		<div className="flex flex-1 items-center justify-between">
 			<div className="w-auto hidden xs:hidden sm:hidden md:hidden lg:block xl:block">
-				<SearchInput placeholder="Search ..." />
+				<div className="flex items-center justify-evenly">
+					<span className="mr-4">
+						<Logo size="small" />
+					</span>
+					<SearchInput placeholder="Search ..." />
+				</div>
 			</div>
 			<div className="flex items-center">
 				<Button

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Router, ShallowQuery } from "../client/components/ShallowRouter";
 import SEOHeader from "../client/components/SEOHeader";
 import AddPost from "../client/forms/post/add";
@@ -11,26 +11,23 @@ import Layout from "../client/screens/layout";
 import RSidebar from "../client/components/static/RSidebar";
 import LSidebar from "../client/components/static/LSidebar";
 import MobileMenu from "../client/components/MobileMenu";
-import AddProject from "../client/forms/project/add";
-
 import HeaderMenu from "../client/components/HeaderMenu";
+import AddProject from "../client/forms/project/add";
 
 import { UserTokenContext } from "../client/context";
 
-export default function () {
-	const { state: loginState } = useContext<any>(UserTokenContext);
+export default function ({ loaded }: { loaded: boolean }) {
+	const { state: loginState } = useContext(UserTokenContext);
 
 	return (
 		<>
 			<SEOHeader title="TinyHoods" description=" - Explore tiny world" />
-			<Layout
-				left={<LSidebar />}
-				right={<RSidebar />}
-				center={
-					<>
-						{!loginState.isLogin ? (
-							<Welcome />
-						) : (
+			{loaded && loginState.isLogin ? (
+				<Layout
+					left={<LSidebar />}
+					right={<RSidebar />}
+					center={
+						<>
 							<>
 								<div className="mx-1 flex items-center my-3">
 									<HeaderMenu />
@@ -45,11 +42,21 @@ export default function () {
 									/>
 								</ShallowQuery>
 							</>
-						)}
-					</>
-				}
-				mobile={<MobileMenu />}
-			/>
+						</>
+					}
+					mobile={<MobileMenu />}
+				/>
+			) : (
+				<Welcome />
+			)}
 		</>
 	);
+}
+
+export async function getStaticProps() {
+	return {
+		props: {
+			loaded: true,
+		},
+	};
 }
