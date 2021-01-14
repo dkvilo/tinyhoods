@@ -34,7 +34,7 @@ export default function () {
 				<div className="my-2">
 					<Logo />
 				</div>
-				<Loader />;
+				<Loader />
 			</div>
 		);
 	}
