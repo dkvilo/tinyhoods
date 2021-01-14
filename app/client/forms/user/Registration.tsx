@@ -122,7 +122,7 @@ const Registration = () => {
 						<div className="flex flex-col">
 							<div className="flex justify-center">
 								<ActionButton
-									text="Sing Up"
+									text="Sign Up"
 									type="submit"
 									disabled={isSubmitting}
 								/>

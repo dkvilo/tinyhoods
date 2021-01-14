@@ -113,7 +113,7 @@ const Authentication = () => {
 						<div className="flex flex-col">
 							<div className="flex justify-center">
 								<ActionButton
-									text="Sing In"
+									text="Sign in"
 									type="submit"
 									disabled={isSubmitting}
 								/>
