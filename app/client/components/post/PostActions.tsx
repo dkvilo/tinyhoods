@@ -49,10 +49,10 @@ export default function PostActions({
 	return (
 		<div className="flex items-center my-2 justify-start rounded-b">
 			{/* TODO: Make global audio player for app nad pass data using context */}
-			<video controls={false} className="hidden" ref={soundEffect}>
-				<source src="/audio/like_sound_effect.webm" type="video/webm" />
-				<source src="/audio/like_sound_effect.mp4" type="video/mp4" />
-			</video>
+			<audio controls={false} className="hidden" ref={soundEffect}>
+				<source src="/audio/like_sound_effect.webm" type="audio/webm" />
+				<source src="/audio/like_sound_effect.mp4" type="audio/mp4" />
+			</audio>
 			<div className="flex items-center">
 				{!likeActionStatusState ? (
 					<Like onAction={handleLikeActionStateAfterUser} postId={postId} />
