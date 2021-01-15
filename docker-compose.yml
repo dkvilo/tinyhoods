@@ -4,6 +4,8 @@ services:
   api:
     restart: unless-stopped
     build: ./api
+    links: 
+      - redis
     env_file:
       - .env
     volumes:
@@ -81,6 +83,20 @@ services:
       - "8080:8080"
     volumes:
       - ./static:/go/src/imcargo/static
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+  
+  redis:
+    restart: unless-stopped
+    build: ./redis
+    container_name: cache
+    ports:
+      - "6374-6379:6379"
     logging:
       driver: "json-file"
       options:
