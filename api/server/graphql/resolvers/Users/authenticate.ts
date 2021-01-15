@@ -3,6 +3,7 @@ import UsersModel from "../../../models/users";
 import { encrypt, signToken } from "../../../utils";
 
 import config from "../../../../shared/config";
+import scheduler from "../../../services/queue/scheduler";
 
 export default async function authenticateUser(
 	parent: any,

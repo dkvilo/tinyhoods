@@ -10,6 +10,7 @@ import {
 } from "../../../utils";
 
 import config from "../../../../shared/config";
+import scheduler from "../../../services/queue/scheduler";
 
 export default async function createUser(parent: any, args: any, context: any) {
 	const { email, password, name, username } = args?.data;
@@ -46,6 +47,22 @@ export default async function createUser(parent: any, args: any, context: any) {
 				await generateAvatar(username)
 			).toString("base64")}`,
 		});
+
+		if (!!response) {
+			scheduler({
+				name: "registration:success",
+				time: 1000,
+				receiver: {
+					to: email,
+					subject: "Tiny Hoods - Registration Completed",
+					params: {
+						username,
+						name,
+						hasAction: false,
+					},
+				},
+			});
+		}
 
 		return !!response;
 	} catch (error) {

@@ -12,9 +12,6 @@ const {
 	DATABASE_ATLAS_PATH,
 	PORT,
 	NODE_ENV,
-	GOOGLE_CLOUD_PROJECT_ID,
-	GOOGLE_CLOUD_KEYFILE,
-	DEFAULT_BUCKET_NAME,
 	PASSWORD_SALT,
 	SESSION_SALT,
 	ACCESS_TOKEN_SALT,
@@ -30,6 +27,17 @@ const {
 	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_SECRET,
 	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_SIZE,
 	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_POSTER_SIZE,
+	REDIS_URI,
+	REDIS_PASSWORD,
+	REDIS_PORT,
+	NO_REPLY_EMAIL,
+	NO_REPLY_EMAIL_PASS,
+	MAILGUN_DOMAIN,
+	MAILGUN_API_KEY,
+	MAILGUN_PORT,
+	MAILGUN_HOST,
+	QUEUE_EMAIL_PREFIX,
+	QUEUE_EMAIL_REDIS_DB,
 } = process.env;
 
 export default {
@@ -46,6 +54,17 @@ export default {
 	},
 	shadowVariable: {},
 	internalServices: {
+		queue: {
+			email: {
+				prefix: QUEUE_EMAIL_PREFIX,
+			},
+		},
+		redis: {
+			uri: REDIS_URI,
+			password: REDIS_PASSWORD,
+			port: REDIS_PORT,
+			queueDefaultDb: QUEUE_EMAIL_REDIS_DB,
+		},
 		image: {
 			server: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME,
 			ep: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_ENDPOINT,
@@ -59,10 +78,17 @@ export default {
 		},
 	},
 	externalServices: {
-		google: {
-			projectId: GOOGLE_CLOUD_PROJECT_ID,
-			keyFile: GOOGLE_CLOUD_KEYFILE,
-			bucketName: DEFAULT_BUCKET_NAME,
+		mailgun: {
+			host: MAILGUN_HOST,
+			port: MAILGUN_PORT,
+			noReplay: {
+				auth: {
+					email: NO_REPLY_EMAIL,
+					password: NO_REPLY_EMAIL_PASS,
+					domain: MAILGUN_DOMAIN,
+					apiKey: MAILGUN_API_KEY,
+				},
+			},
 		},
 		stripe: {
 			publicsKey: STRIPE_PUBLIC_KEY,
