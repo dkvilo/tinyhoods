@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function (
+export default function Input(
 	props: React.InputHTMLAttributes<HTMLInputElement>
 ): JSX.Element {
 	return (

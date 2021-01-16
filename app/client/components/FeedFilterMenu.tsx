@@ -6,25 +6,25 @@ import Button from "./Button";
 import Logo from "./Logo";
 import SearchInput from "./SearchInput";
 
-export default function (): JSX.Element {
+export default function FeedFilterMenu(): JSX.Element {
 	const { dispatch: filtersDispatcher, state: filtersState } = useContext<any>(
 		FiltersContext
 	);
 
 	return (
-		<div className="flex flex-1 items-center justify-between">
+		<div className="md:border-2 lg:border-2 xl:border-2 md:rounded-t-md lg:rounded-t-md xl:rounded-t-md border-secondary-soft flex flex-1 items-center justify-between">
 			<div className="w-auto hidden xs:hidden sm:hidden md:hidden lg:block xl:block">
 				<div className="flex items-center justify-evenly">
-					<Logo size="small" />
-					<span className="ml-4">
+					<div className="flex items-center mx-3">
+						<Logo size="xs" />
 						<SearchInput placeholder="Search ..." />
-					</span>
+					</div>
 				</div>
 			</div>
 			<div className="flex items-center">
 				<Button
-					className={`text-sm focus:outline-none p-2 flex bg-default text-default-inverted ${
-						filtersState.feedType === "private" && "border-b-2 border-red-500"
+					className={`text-sm focus:outline-none p-2 border-b-4 border-transparent flex bg-default text-default-inverted ${
+						filtersState.feedType === "private" && "border-b-4 border-red-500"
 					}`}
 					onClick={() => {
 						filtersDispatcher({
@@ -44,8 +44,8 @@ export default function (): JSX.Element {
 					<span className="font-bold uppercase ml-1">My Feed</span>
 				</Button>
 				<Button
-					className={`text-sm focus:outline-none ml-2 p-2 flex bg-default text-default-inverted ${
-						filtersState.feedType === "public" && "border-b-2 border-red-500 "
+					className={`text-sm focus:outline-none p-2 border-b-4 border-transparent flex bg-default text-default-inverted ${
+						filtersState.feedType === "public" && "border-b-4 border-red-500 "
 					}`}
 					onClick={() => {
 						filtersDispatcher({

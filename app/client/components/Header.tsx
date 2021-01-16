@@ -38,7 +38,7 @@ const GET_MY_INFO = gql`
 	}
 `;
 
-export default function (): JSX.Element {
+export default function Header(): JSX.Element {
 	const askQuestionModalController = useDropToggleState(false);
 	const [
 		askQuestionModalState,

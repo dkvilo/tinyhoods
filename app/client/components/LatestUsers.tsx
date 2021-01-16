@@ -13,7 +13,7 @@ const GET_LAST_REGISTERED_USERS = gql`
 	}
 `;
 
-export default function (): JSX.Element {
+export default function LatestUsers(): JSX.Element {
 	const { data, loading, error } = useQuery(GET_LAST_REGISTERED_USERS);
 
 	if (loading && !error && !data) {

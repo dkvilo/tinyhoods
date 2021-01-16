@@ -10,7 +10,7 @@ interface IProps {
 	cover?: string;
 }
 
-export default function ({
+export default function Card({
 	id,
 	name,
 	description,

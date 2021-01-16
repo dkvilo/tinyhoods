@@ -18,7 +18,7 @@ import { UserTokenContext } from "../client/context";
 import Loader from "../client/components/Loader";
 import Logo from "../client/components/Logo";
 
-export default function () {
+export default function Index() {
 	const { state: loginState } = useContext(UserTokenContext);
 	const [isClient, setIsClient] = useState(false);
 

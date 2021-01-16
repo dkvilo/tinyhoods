@@ -5,4 +5,7 @@ module.exports = {
 	env: {
 		...config,
 	},
+	images: {
+		domains: ["tinyhoods.net"],
+	},
 };

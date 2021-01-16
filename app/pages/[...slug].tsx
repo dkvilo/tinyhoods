@@ -45,7 +45,7 @@ const GET_USER = gql`
 	}
 `;
 
-export default function Home() {
+export default function UserProfile() {
 	const router = useRouter();
 	const slug = router.query.slug || [];
 

@@ -111,7 +111,7 @@ export default function Feed(): JSX.Element {
 
 	return (
 		<>
-			<div className="p-2 z-30 bg-default border-2 border-secondary-soft rounded-t-md flex items-center sticky top-0">
+			<div className="z-30 bg-default flex items-center sticky top-0">
 				<FeedFilterMenu />
 			</div>
 			<ShallowQuery
@@ -219,3 +219,7 @@ export default function Feed(): JSX.Element {
 		</>
 	);
 }
+
+export const config = {
+	amp: true,
+};

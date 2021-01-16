@@ -6,7 +6,7 @@ import { FiltersContext } from "../context";
 
 import { createElementFromHTML } from "../../shared/functions";
 
-export default function ({
+export default function Map({
 	data,
 	activeCoordinates,
 	focusOnOrigin,

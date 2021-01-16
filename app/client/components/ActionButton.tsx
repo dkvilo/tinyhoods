@@ -1,4 +1,4 @@
-export default function (
+export default function ActionButton(
 	props: React.ButtonHTMLAttributes<HTMLButtonElement> & { text: string }
 ): JSX.Element {
 	return (

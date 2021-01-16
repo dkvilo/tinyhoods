@@ -3,7 +3,7 @@ import LSidebar from "../client/components/static/LSidebar";
 import RSidebar from "../client/components/static/RSidebar";
 import Layout from "../client/screens/layout";
 
-export default function (): JSX.Element {
+export default function Privacy(): JSX.Element {
 	return (
 		<>
 			<SEOHeader title="TinyHoods" description=" - Privacy Policy" />

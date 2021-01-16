@@ -31,7 +31,7 @@ export default function Post({
 
 	return (
 		<div
-			className={`p-1 border border-secondary-soft bg-default hover:bg-secondary`}
+			className={`p-2 border border-secondary-soft bg-default hover:bg-secondary`}
 		>
 			<div className="flex items-center rounded-t py-1">
 				<figure className="w-10 h-10 flex rounded-full overflow-hidden">

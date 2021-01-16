@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function (
+export default function Button(
 	props: React.ButtonHTMLAttributes<HTMLButtonElement>
 ): JSX.Element {
 	return (

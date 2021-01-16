@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { UserTokenContext } from "../../context";
 import UsersList from "../UsersList";
 
-export default function (): JSX.Element {
+export default function RSidebar(): JSX.Element {
 	const { state: loginState } = useContext<any>(UserTokenContext);
 	const router = useRouter();
 

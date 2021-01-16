@@ -42,7 +42,6 @@ export default function PostActions({
 
 	const handleUnLikeActionStateAfterUser = (status: boolean) => {
 		setLikeActionStatusState(!status);
-		playAudio();
 		setLocalLikeCount((prev: number) => (status ? prev - 1 : prev + 1));
 	};
 

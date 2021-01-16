@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Button from "./Button";
 
-export default function (): JSX.Element {
+export default function HeaderMenu(): JSX.Element {
 	const router = useRouter();
 
 	return (

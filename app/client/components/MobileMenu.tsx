@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Logo from "./Logo";
 
-export default function (): JSX.Element {
+export default function MobileMenu(): JSX.Element {
 	const router = useRouter();
 
 	return (

@@ -6,7 +6,7 @@ interface IProps {
 	background?: string;
 }
 
-export default function ({
+export default function Grid({
 	children,
 	background = "transparent",
 }: IProps): JSX.Element {

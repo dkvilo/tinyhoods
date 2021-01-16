@@ -1,4 +1,4 @@
-export default function (): JSX.Element {
+export default function CommentLoader(): JSX.Element {
 	return (
 		<div className="flex items-start p-1 mt-2">
 			<div className="flex items-start">

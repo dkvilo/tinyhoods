@@ -10,7 +10,7 @@ export async function getStaticProps() {
 	});
 }
 
-export default function () {
+export default function Ads() {
 	return (
 		<>
 			<div className="flex container mx-auto">

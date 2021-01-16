@@ -3,7 +3,7 @@ import AuthCard from "../AuthCard";
 import { UserTokenContext } from "../../context";
 import { useContext } from "react";
 
-export default function (): JSX.Element {
+export default function LSidebar(): JSX.Element {
 	const { state: loginState } = useContext<any>(UserTokenContext);
 
 	return (

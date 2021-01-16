@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
 
-export default function ({
+export default function MoreComments({
 	count,
 	onClick,
 }: {

@@ -1,6 +1,10 @@
 // TODO:(dkvilo) Add following functionalities [edit, delate, report]
 // Involves Backend and Frontend
-export default function ({ editable }: { editable: boolean }): JSX.Element {
+export default function PostSettingsPanel({
+	editable,
+}: {
+	editable: boolean;
+}): JSX.Element {
 	return (
 		<ul className="flex flex-col items-center justify-center text-default-inverted bg-default w-64 shadow-md rounded overflow-hidden">
 			{editable ? (

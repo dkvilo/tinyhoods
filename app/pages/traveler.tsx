@@ -68,7 +68,7 @@ const TabsContentCSR = dynamic(
 	}
 ) as any;
 
-export default function Home() {
+export default function Traveler() {
 	const { state: filtersState, dispatch: filterDispatcher } = useContext<any>(
 		FiltersContext
 	);

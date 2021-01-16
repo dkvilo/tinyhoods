@@ -2,7 +2,7 @@ import React from "react";
 import { Field } from "formik";
 import { useDropToggleState } from "../hooks";
 
-function Input(props: any) {
+function FormikInput(props: any) {
 	const [state, updateState] = useDropToggleState(false);
 
 	return (
@@ -47,4 +47,4 @@ function Input(props: any) {
 	);
 }
 
-export default Input;
+export default FormikInput;

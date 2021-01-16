@@ -36,7 +36,7 @@ export const GET_POST_BY_ID = gql`
 	}
 `;
 
-export default function () {
+export default function PostDetailed() {
 	const router = useRouter();
 
 	const { state: loginState } = useContext(UserTokenContext);

@@ -4,7 +4,7 @@ import { GQLErrorContext, UserTokenContext } from "../../context";
 import { TOGGLE_LIKE } from "./query";
 import { IProps } from "./types";
 
-export default function ({ postId, onAction }: IProps): JSX.Element {
+export default function Unlike({ postId, onAction }: IProps): JSX.Element {
 	const { state: loginState } = useContext(UserTokenContext);
 
 	const [toggleLikePost, { loading, error, data }] = useMutation(TOGGLE_LIKE);
