@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useState } from "react";
-import Loader from "../Loader";
 
 export default function PostImageContent({
 	images,
@@ -17,7 +16,7 @@ export default function PostImageContent({
 				<div key={imageIndex} className="cursor-pointer p-1">
 					<Image
 						alt="Thumbnail"
-						className="rounded-md bg-background"
+						className="rounded-md bg-secondary shadow-md"
 						src={
 							process.env.NODE_ENV === "development"
 								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}${each.src}`
