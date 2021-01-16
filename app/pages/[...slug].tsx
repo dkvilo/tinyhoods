@@ -1,11 +1,13 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 import Grid from "../client/components/Grid";
 import SEOHeader from "../client/components/SEOHeader";
-import { useRouter } from "next/dist/client/router";
 import UserProfileCard from "../client/components/UserProfileCard";
 import Link from "next/link";
+import React, { useEffect } from "react";
+import Loader from "../client/components/Loader";
+import Logo from "../client/components/Logo";
 
 const GET_USER = gql`
 	query getUser($username: String!) {
@@ -45,16 +47,27 @@ const GET_USER = gql`
 	}
 `;
 
-export default function UserProfile() {
-	const router = useRouter();
-	const slug = router.query.slug || [];
+function UserProfile({ username }: any) {
+	const [getUserInfo, { loading, data, error }] = useLazyQuery(GET_USER);
 
-	const { loading, data, error } = useQuery(GET_USER, {
-		fetchPolicy: "network-only",
-		variables: {
-			username: slug[0],
-		},
-	});
+	useEffect(() => {
+		getUserInfo({
+			variables: {
+				username,
+			},
+		});
+	}, [username]);
+
+	if (loading && !error) {
+		return (
+			<div className="flex flex-col items-center justify-center h-screen">
+				<div className="my-1">
+					<Logo size="big" />
+				</div>
+				<Loader />
+			</div>
+		);
+	}
 
 	if (!loading && error) {
 		return (
@@ -70,7 +83,7 @@ export default function UserProfile() {
 
 	return (
 		<div className=" w-full h-screen overflow-x-scroll">
-			<SEOHeader title={`${slug[0]}'s Profile`} description=" - Tinyhoods" />
+			<SEOHeader title={`${username}'s Profile`} description=" - Tinyhoods" />
 			<div className="sticky top-0 p-2 flex items-center justify-start w-full">
 				<Link href="/">
 					<p className="text-primary p-2 bg-secondary-soft rounded-full">
@@ -86,3 +99,9 @@ export default function UserProfile() {
 		</div>
 	);
 }
+
+UserProfile.getInitialProps = async ({ query }: any) => {
+	return { username: query.slug[0] };
+};
+
+export default UserProfile;
