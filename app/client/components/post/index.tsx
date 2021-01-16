@@ -34,25 +34,29 @@ export default function Post({
 			className={`p-2 border border-secondary-soft bg-default hover:bg-secondary`}
 		>
 			<div className="flex items-center rounded-t py-1">
-				<figure className="w-10 h-10 flex rounded-full overflow-hidden">
-					<img
-						src={
-							process.env.NODE_ENV === "development"
-								? author.image
-									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+				<Link href={`/${author.username}`}>
+					<figure className="cursor-pointer w-10 h-10 flex rounded-full overflow-hidden">
+						<img
+							src={
+								process.env.NODE_ENV === "development"
+									? author.image
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+										: author.avatar
+									: author.image
+									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
 									: author.avatar
-								: author.image
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
-								: author.avatar
-						}
-						alt={author.username}
-					/>
-				</figure>
+							}
+							alt={author.username}
+						/>
+					</figure>
+				</Link>
 				<div className="flex flex-1 items-center justify-between">
 					<div className="flex flex-col">
-						<span className="text-default-inverted ml-1 font-bold opacity-75">
-							{author.username}
-						</span>
+						<Link href={`/${author.username}`}>
+							<span className="cursor-pointer text-default-inverted ml-1 font-bold opacity-75">
+								{author.username}
+							</span>
+						</Link>
 						<Link href={`/post/${id}`}>
 							<span
 								className="hover:text-primary w-auto hover:underline cursor-pointer text-default-inverted opacity-75 text-xs ml-1 italic relative"
