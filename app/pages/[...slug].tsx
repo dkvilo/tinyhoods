@@ -8,6 +8,12 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import Loader from "../client/components/Loader";
 import Logo from "../client/components/Logo";
+import FeedFilterMenu from "../client/components/FeedFilterMenu";
+import Layout from "../client/screens/layout";
+import HeaderMenu from "../client/components/HeaderMenu";
+import UsersList from "../client/components/UsersList";
+import RSidebar from "../client/components/static/RSidebar";
+import LSidebar from "../client/components/static/LSidebar";
 
 const GET_USER = gql`
 	query getUser($username: String!) {
@@ -82,21 +88,22 @@ function UserProfile({ username }: any) {
 	}
 
 	return (
-		<div className=" w-full h-screen overflow-x-scroll">
+		<>
 			<SEOHeader title={`${username}'s Profile`} description=" - Tinyhoods" />
-			<div className="sticky top-0 p-2 flex items-center justify-start w-full">
-				<Link href="/">
-					<p className="text-primary p-2 bg-secondary-soft rounded-full">
-						Home
-					</p>
-				</Link>
-			</div>
-			<Grid>
-				{!loading && !error && data?.getUser && (
-					<UserProfileCard data={data.getUser} />
-				)}
-			</Grid>
-		</div>
+			<Layout
+				left={<LSidebar />}
+				right={<RSidebar />}
+				center={
+					<div className="bg-default h-full shadow">
+						<Grid>
+							{!loading && !error && data?.getUser && (
+								<UserProfileCard data={data.getUser} />
+							)}
+						</Grid>
+					</div>
+				}
+			/>
+		</>
 	);
 }
 

@@ -1,86 +1,100 @@
 import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-
-import UserBadges from "./UserBadges";
+import PostLoader from "./PostLoader";
 import UserListItem from "./UserListItem";
 
 function UserProfileCard({ data }: any) {
 	return (
 		<>
 			<Tabs
-				selectedTabClassName="text-primary"
+				selectedTabClassName="opacity-100 bg-secondary"
 				disabledTabClassName="bg-secondary text-default-inverted"
 			>
-				<div className="flex flex-col items-center justify-center w-full xs:w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/2 mx-auto">
-					<img
-						src={
-							data?.image
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
-								: data.avatar
-						}
-						alt={data.username}
-						className="w-32 h-32 rounded-full border-4 border-default-inverted"
-						style={{
-							height: 128,
-							width: 128,
-						}}
-					/>
+				<div className="flex flex-col items-start">
+					<div className="flex w-full sticky top-0 bg-default z-30 mb-1">
+						<div className="flex items-center w-full my-4">
+							<img
+								src={
+									data?.image
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
+										: data.avatar
+									// process.env.NODE_ENV === "development"
+									// 	? data?.image
+									// 		? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${data.image}`
+									// 		: data.avatar
+									// 	: data.image
+									// 	? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
+									// 	: data.avatar
+								}
+								alt={data.username}
+								className="w-16 h-16 rounded-full shadow-md"
+								style={{
+									height: 64,
+									width: 64,
+								}}
+							/>
 
-					<div className="flex flex-col items-center justify-center p-2">
-						<p className="text-2xl font-bold text-default-inverted">
-							{data.name}
-						</p>
-						<p className="text-md text-default-inverted">@{data.username}</p>
-						<p className="text-sm text-primary p-1">{data.link}</p>
-						<p className="text-sm text-default-inverted p-1">{data.about}</p>
+							<div className="flex flex-col items-start ml-2">
+								<p className="text-2xl font-bold text-default-inverted">
+									{data.name}
+								</p>
+								<p
+									className="italic text-default-inverted opacity-50 relative"
+									style={{
+										top: -8,
+									}}
+								>
+									@{data.username}
+								</p>
+								<p className="text-sm text-red-400">{data.link}</p>
+								<p className="text-sm text-default-inverted">{data.about}</p>
+							</div>
+						</div>
 					</div>
 
-					<TabList className="flex justify-center items-end p-1 text-default-inverted">
-						<Tab className="p-2 mr-1 text-center items-center">
-							<span className="font-bold">About</span>
+					<TabList className="w-full flex justify-center justify-start bg-default border-secondary-soft rounded-md text-default-inverted">
+						<Tab className="mr-1 flex flex-col items-center justify-center px-1 flex-1 rounded text-center cursor-pointer opacity-75 text-default-inverted hover:bg-secondary hover:opacity-100 transition duration-150 easy-in-out">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								className="w-5 h-5"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M13 10V3L4 14h7v7l9-11h-7z"
+								/>
+							</svg>
+							<span className="font-bold capitalize">timeline</span>
 						</Tab>
-						<Tab className="p-2 mr-1 text-center">
-							<span className="font-bold">{data.followersCount}</span> Follower
+						<Tab className="mr-1 flex flex-col items-center justify-center px-1 flex-1 rounded text-center cursor-pointer opacity-75 text-default-inverted hover:border-b-4 border-red-400 hover:opacity-100 transition duration-150 easy-in-out">
+							<span className="font-bold">{data.followersCount}</span>
+							<span className="font-bold capitalize">followers</span>
 						</Tab>
-						<Tab className="p-2 mr-1 text-center">
-							<span className="font-bold">{data.followingCount}</span> Following
+						<Tab className="flex flex-col items-center justify-center px-1 flex-1 rounded text-center cursor-pointer opacity-75 text-default-inverted hover:bg-secondary hover:opacity-100 transition duration-150 easy-in-out ">
+							<span className="font-bold">{data.followingCount}</span>
+							<span className="font-bold capitalize">following</span>
 						</Tab>
-						{/* <Tab className="p-2 text-center">
-							<span className="font-bold">{data.questionsCount}</span> Questions
-						</Tab> */}
 					</TabList>
 
-					<TabPanel className="mx-6 container">
+					<TabPanel className="mx-auto container">
 						<>
-							<div className="flex flex-col flex-1 w-full bg-green-300 p-2 rounded-md">
-								{data.isPrivate && (
-									<div className="flex flex-col items-center justify-center m-5">
-										<svg
-											width="32"
-											height="32"
-											viewBox="0 0 512 512"
-											className="inline-block fill-current h-20 w-20 text-default-inverted"
-										>
-											<path d="m64 496l0-256 48 0 0-80c0-71 57-128 128-128l16 0c71 0 128 57 128 128l0 80 48 0 0 256z m172-131l-12 83 48 0-12-83c12-5 20-17 20-30 0-18-14-32-32-32-18 0-32 14-32 32 0 13 8 25 20 30z m100-197c0-49-39-88-88-88-49 0-88 39-88 88l0 72 176 0z"></path>
-										</svg>
-										<p className="text-md text-default-inverted">
-											Private Profile
-										</p>
-										<p className="text-xs text-default-inverted">
-											@{data.username} doesn't want to share private information
-											to everybody
-										</p>
-									</div>
-								)}
-
-								<UserBadges data={data} />
+							<div className="flex flex-col my-2">
+								<div className="mb-2">
+									{new Array(10).fill(1).map((e, i) => {
+										return <PostLoader border={false} index={i} key={i} />;
+									})}
+								</div>
 							</div>
 						</>
 					</TabPanel>
 
-					<TabPanel className="mx-6 container">
+					<TabPanel className="mx-auto container">
 						<>
-							<div className="flex flex-col flex-1 w-full bg-primary p-2 rounded-md">
+							<div className="flex flex-col my-2">
 								{data?.followers &&
 									data.followers.map((user: any) => (
 										<UserListItem
@@ -94,9 +108,9 @@ function UserProfileCard({ data }: any) {
 						</>
 					</TabPanel>
 
-					<TabPanel className="mx-6 container">
+					<TabPanel className="mx-auto container">
 						<>
-							<div className="p-2 flex flex-col flex-1 bg-warning w-full p-2 rounded-md">
+							<div className="flex flex-col my-2">
 								{data?.following &&
 									data.following.map((user: any) => (
 										<UserListItem
@@ -109,17 +123,6 @@ function UserProfileCard({ data }: any) {
 							</div>
 						</>
 					</TabPanel>
-
-					{/* <TabPanel className="mx-6 container">
-						<>
-							<div className="p-2 flex flex-col bg-indigo-500 w-full rounded-md">
-								{data?.questions &&
-									data.questions.map((question: any) => (
-										<QuestionListItem key={question.id} {...question} />
-									))}
-							</div>
-						</>
-					</TabPanel> */}
 				</div>
 			</Tabs>
 		</>
