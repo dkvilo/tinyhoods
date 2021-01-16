@@ -11,7 +11,7 @@ function UserProfileCard({ data }: any) {
 				disabledTabClassName="bg-secondary text-default-inverted"
 			>
 				<div className="flex flex-col items-start">
-					<div className="flex w-full sticky top-0 bg-default z-30 mb-1">
+					<div className="flex w-full sticky top-0 bg-default border-b-2 border-secondary z-30 mb-2">
 						<div className="flex items-center w-full my-4">
 							<img
 								src={
@@ -27,7 +27,7 @@ function UserProfileCard({ data }: any) {
 									// 	: data.avatar
 								}
 								alt={data.username}
-								className="w-16 h-16 rounded-full shadow-md"
+								className="w-16 h-16 bg-secondary rounded-full shadow-md"
 								style={{
 									height: 64,
 									width: 64,
