@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 import { useContext } from "react";
 import { UserTokenContext } from "../../context";
 import Button from "../Button";
@@ -31,28 +32,35 @@ export default function Comment({
 		>
 			<div className="flex items-center justify-between">
 				<div className="flex items-start">
-					<img
-						src={
-							process.env.NODE_ENV === "development"
-								? author.image
-									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
-									: author.avatar
-								: author.image
-								? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
-								: author.avatar
-						}
-						alt={author.username}
-						className="w-8 h-8 rounded-full bg-secondary-soft"
-						style={{
-							width: 24,
-							height: 24,
-						}}
-					/>
+					<Link href={`/${author.username}`}>
+						<figure>
+							<img
+								src={
+									process.env.NODE_ENV === "development"
+										? author.image
+											? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${author.image}`
+											: author.avatar
+										: author.image
+										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
+										: author.avatar
+								}
+								alt={author.username}
+								className="cursor-pointer w-8 h-8 rounded-full bg-secondary-soft"
+								style={{
+									width: 24,
+									height: 24,
+								}}
+							/>
+						</figure>
+					</Link>
+
 					<div className="flex flex-col justify-start ml-2">
 						<div className="flex">
-							<span className="text-default-inverted mb-1 font-bold opacity-75">
-								{author.username}
-							</span>
+							<Link href={`/${author.username}`}>
+								<span className="cursor-pointer text-default-inverted mb-1 font-bold opacity-75">
+									{author.username}
+								</span>
+							</Link>
 						</div>
 						{isOnlyEmojis(content) && content.length === 2 ? (
 							<p className="mx-6 my-2" style={{ transform: "scale(1.5)" }}>
