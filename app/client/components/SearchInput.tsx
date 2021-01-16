@@ -5,7 +5,7 @@ export default function SearchInput(
 ): JSX.Element {
 	return (
 		<input
-			className="py-1 px-2 outline-none placeholder-default-inverted text-default-inverted font-bold"
+			className="py-1 px-2 bg-transparent outline-none placeholder-default-inverted text-default-inverted font-bold"
 			{...props}
 		/>
 	);
