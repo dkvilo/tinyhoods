@@ -13,6 +13,7 @@ import LSidebar from "../../client/components/static/LSidebar";
 import MobileMenu from "../../client/components/MobileMenu";
 import { UserTokenContext } from "../../client/context";
 import Loader from "../../client/components/comment/Loader";
+import EmptyCard from "../../client/components/EmptyCard";
 
 export const GET_POST_BY_ID = gql`
 	query getPost($data: GetSinglePostInput!) {
@@ -80,6 +81,12 @@ export default function PostDetailed() {
 										<PostLoader index={index} />
 									</div>
 								))}
+
+						{!loading && (error || !data?.getPost) && (
+							<div className="my-5">
+								<EmptyCard message="The link may be broken, or the page may have been removed. Check to see if the link you're trying to open is correct" />
+							</div>
+						)}
 					</>
 				}
 				right={<RSidebar />}
