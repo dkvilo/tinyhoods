@@ -3,6 +3,23 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import PostLoader from "./PostLoader";
 import UserListItem from "./UserListItem";
 
+// Utility function to resolve path of the image
+// TODO: need to have a better and stabile way of image path resolving!!!
+function displayImage(data: any): string {
+	if (process.env.NODE_ENV === "development") {
+		return process.env.NODE_ENV === "development"
+			? data?.image
+				? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${data.image}`
+				: data.avatar
+			: data.image
+			? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
+			: data.avatar;
+	}
+	return data?.image
+		? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
+		: data.avatar;
+}
+
 function UserProfileCard({ data }: any) {
 	return (
 		<>
@@ -14,18 +31,7 @@ function UserProfileCard({ data }: any) {
 					<div className="flex w-full sticky top-0 bg-default border-b-2 border-secondary z-30 mb-2">
 						<div className="flex items-center w-full my-4">
 							<img
-								src={
-									data?.image
-										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
-										: data.avatar
-									// process.env.NODE_ENV === "development"
-									// 	? data?.image
-									// 		? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${data.image}`
-									// 		: data.avatar
-									// 	: data.image
-									// 	? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${data.image}`
-									// 	: data.avatar
-								}
+								src={displayImage(data)}
 								alt={data.username}
 								className="w-16 h-16 bg-secondary rounded-full shadow-md"
 								style={{
