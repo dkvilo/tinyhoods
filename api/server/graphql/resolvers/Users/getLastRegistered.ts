@@ -15,8 +15,8 @@ export default async function getLastRegisteredUsers(
 					isPrivate: false,
 				},
 			},
-			{ $limit: 5 },
 			{ $sort: { created_at: -1 } },
+			{ $limit: 5 },
 			{
 				$project: {
 					id: "$_id",
