@@ -15,7 +15,10 @@ function FormikInput(props: any) {
 				type={!state && props.type === "password" ? "password" : "text"}
 			/>
 			{props.type === "password" && (
-				<div onClick={updateState as any} className="absolute right-0 mt-3 w-8">
+				<div
+					onClick={updateState as any}
+					className="cursor-pointer absolute right-0 mt-3 w-8"
+				>
 					{state ? (
 						<svg
 							className="h-5 text-default-inverted"
