@@ -22,17 +22,21 @@ export default function Like({ postId, onAction }: IProps): JSX.Element {
 	}, [error, errorDispatcher]);
 
 	const handleLikeRequest = async () => {
-		// Put UI on Success Mode, for better user experience
-		onAction(true);
-		// Send the actual like request
-		await likePost({
-			variables: {
-				data: {
-					token: loginState.token,
-					postId,
+		try {
+			// Put UI on Success Mode, for better user experience
+			onAction(true);
+			// Send the actual like request
+			await likePost({
+				variables: {
+					data: {
+						token: loginState.token,
+						postId,
+					},
 				},
-			},
-		});
+			});
+		} catch (e: any) {
+			onAction(false);
+		}
 	};
 
 	useEffect(() => {

@@ -46,18 +46,20 @@ function UnfollowButton({ username, onAction }: IProps): JSX.Element {
 	}, [loading, loaderDispatcher]);
 
 	async function triggerUnfollow() {
-		const response = await unfollowUser({
-			variables: {
-				data: {
-					token: loginState.token,
-					username,
+		try {
+			const response = await unfollowUser({
+				variables: {
+					data: {
+						token: loginState.token,
+						username,
+					},
 				},
-			},
-		});
+			});
 
-		if (response.data.unfollowUser) {
-			onAction(false);
-		}
+			if (response.data.unfollowUser) {
+				onAction(false);
+			}
+		} catch (e: any) {}
 	}
 
 	return (

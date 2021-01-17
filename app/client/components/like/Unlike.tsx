@@ -24,17 +24,21 @@ export default function Unlike({ postId, onAction }: IProps): JSX.Element {
 	}, [error, errorDispatcher]);
 
 	const handleUnLikeRequest = async () => {
-		// Put UI on Success Mode, for better user experience
-		onAction(true);
-		// Send the actual like request
-		await toggleLikePost({
-			variables: {
-				data: {
-					token: loginState.token,
-					postId,
+		try {
+			// Put UI on Success Mode, for better user experience
+			onAction(true);
+			// Send the actual like request
+			await toggleLikePost({
+				variables: {
+					data: {
+						token: loginState.token,
+						postId,
+					},
 				},
-			},
-		});
+			});
+		} catch (e: any) {
+			onAction(false);
+		}
 	};
 
 	useEffect(() => {

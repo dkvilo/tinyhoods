@@ -47,18 +47,19 @@ function FollowButton({ username, onAction }: IProps): JSX.Element {
 	}, [loading, loaderDispatcher]);
 
 	async function triggerFollow() {
-		const response = await followUser({
-			variables: {
-				data: {
-					token: loginState.token,
-					username,
+		try {
+			const response = await followUser({
+				variables: {
+					data: {
+						token: loginState.token,
+						username,
+					},
 				},
-			},
-		});
-
-		if (response.data.followUser) {
-			onAction(true);
-		}
+			});
+			if (response.data?.followUser) {
+				onAction(true);
+			}
+		} catch (e: any) {}
 	}
 
 	return (
