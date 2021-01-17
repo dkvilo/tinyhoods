@@ -365,7 +365,7 @@ const typeDefs = gql`
 			data: GetQuestionsOnLocationInputType!
 		): [QuestionPayload]!
 		getPosts(data: GetPostsInput!): PostsPayload!
-		getPost(data: GetSinglePostInput!): PostDocumentType!
+		getPost(data: GetSinglePostInput!): PostDocumentType
 		getComments(id: ID!, page: Int!): CommentPayload
 		getUserProjects(id: ID!, page: Int!): ProjectPayload
 		getLastRegisteredUsers: [UserPayload]!
