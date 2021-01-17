@@ -25,11 +25,7 @@ export default function Comment({
 	const isOnlyEmojis = (str: any) => !removeEmoji(str).length;
 
 	return (
-		<div
-			className={`border-secondary p-1 ${
-				isClickable ? "hover:bg-secondary rounded-md" : ""
-			} w-full`}
-		>
+		<div className={`border-secondary p-1`}>
 			<div className="flex items-center justify-between">
 				<div className="flex items-start">
 					<Link href={`/${author.username}`}>
@@ -67,7 +63,7 @@ export default function Comment({
 								{content}
 							</p>
 						) : (
-							<p className="px-2 py-2 rounded-b-lg rounded-r-lg border-2 bg-default text-sm text-default-inverted w-auto">
+							<p className="px-2 py-2 rounded-b-lg rounded-r-lg border-2 bg-default text-sm text-default-inverted max-w-md">
 								{content}
 							</p>
 						)}

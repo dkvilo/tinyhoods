@@ -2,7 +2,7 @@ import moment from "moment";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { isEmpty } from "ramda";
+import { isEmpty, remove, uniq } from "ramda";
 
 import PostActions from "./PostActions";
 import PostFooter from "./PostFooter";
@@ -43,11 +43,13 @@ export default function Detailed({
 	});
 
 	const handleCommentsPagination = () => {
-		if (commentsData.getComments.nextPage)
+		if (commentsData.getComments.nextPage) {
+			setCommentsPageNumber(commentsData.getComments.nextPage);
 			refetchComments({
 				id,
 				page: commentsData.getComments.nextPage,
 			});
+		}
 	};
 
 	// cache comments in memory
@@ -56,9 +58,10 @@ export default function Detailed({
 		if (!loadingComments && !commentsError) {
 			setComments(
 				(prevComments) =>
-					[
-						...new Set([...prevComments, ...commentsData.getComments.docs]),
-					] as any
+					uniq([
+						...commentsData.getComments.docs,
+						...prevComments,
+					] as any) as any
 			);
 		}
 	}, [loadingComments, commentsError, commentsData]);
@@ -149,10 +152,15 @@ export default function Detailed({
 							(async () => {
 								const { data } = await refetchComments();
 								setComments(
-									(prevComments) =>
-										[
-											...new Set([...data.getComments.docs, ...prevComments]),
-										] as any
+									(prevComments: any) =>
+										remove(
+											-1,
+											1,
+											uniq([
+												...data.getComments.docs,
+												...prevComments,
+											] as any) as any
+										) as any
 								);
 							})();
 						}}
