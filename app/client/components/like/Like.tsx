@@ -34,7 +34,7 @@ export default function Like({ postId, onAction }: IProps): JSX.Element {
 					},
 				},
 			});
-		} catch (e: any) {
+		} catch (e) {
 			onAction(false);
 		}
 	};

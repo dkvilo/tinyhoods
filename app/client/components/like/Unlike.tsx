@@ -36,7 +36,7 @@ export default function Unlike({ postId, onAction }: IProps): JSX.Element {
 					},
 				},
 			});
-		} catch (e: any) {
+		} catch (e) {
 			onAction(false);
 		}
 	};

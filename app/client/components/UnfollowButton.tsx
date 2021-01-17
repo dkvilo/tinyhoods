@@ -59,7 +59,7 @@ function UnfollowButton({ username, onAction }: IProps): JSX.Element {
 			if (response.data.unfollowUser) {
 				onAction(false);
 			}
-		} catch (e: any) {}
+		} catch (e) {}
 	}
 
 	return (

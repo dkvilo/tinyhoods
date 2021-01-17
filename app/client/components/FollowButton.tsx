@@ -59,7 +59,7 @@ function FollowButton({ username, onAction }: IProps): JSX.Element {
 			if (response.data?.followUser) {
 				onAction(true);
 			}
-		} catch (e: any) {}
+		} catch (e) {}
 	}
 
 	return (
