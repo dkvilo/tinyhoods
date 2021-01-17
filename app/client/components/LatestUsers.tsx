@@ -44,6 +44,8 @@ export default function LatestUsers(): JSX.Element {
 							}
 							alt={user.name}
 							style={{
+								height: 32,
+								width: 32,
 								left: -(10 * index),
 							}}
 						/>
