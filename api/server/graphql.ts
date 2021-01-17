@@ -23,17 +23,18 @@ export const Server = new ApolloServer({
 	formatError: (err: any) => {
 		if (err) {
 			err._id = randomBytes(32).toString("hex");
-			console.log("error", `${JSON.stringify(err, null, 2)}`);
+			if (process.env.NODE_ENV === "development") {
+				console.log("error", `${JSON.stringify(err, null, 2)}`);
+			} else {
+				console.log("error", `${err.message}`);
+			}
 		}
-
 		if (err.message.startsWith("Database Error: ")) {
 			return new Error("Internal server error");
 		}
-
 		if (err.originalError instanceof ApolloError) {
 			return err.message;
 		}
-
 		return err.message;
 	},
 

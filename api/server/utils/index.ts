@@ -82,32 +82,20 @@ export function requireToken(
 	return null;
 }
 
-export async function checkForDeactivatedUser(id: string, username: string) {
+export async function checkForDeactivatedUser(id: string) {
 	try {
+		const messageTemplate = {
+			isDeactivated: true,
+			message: "Access Denied. User was found or Account is deactivated",
+		};
 		const user: any = await UserModel.findById(id);
-		if (user && user.isDeleted) {
-			return {
-				isDeactivated: true,
-				message: "Access Denied. User was found or Account is deactivated",
-			};
-		}
-		if (username) {
-			const user = await UserModel.findOne({
-				username,
-				isDeleted: false,
-			});
-			if (!user) {
-				return {
-					isDeactivated: true,
-					message: "The Account was deactivated by the owner",
-				};
-			}
-		}
+		if (!user) return messageTemplate;
+		else if (user.isDeleted) return messageTemplate;
 	} catch (e) {
 		const { message } = e;
 		throw new Error(message);
 	}
-	return { isDeactivated: false, message: null, decryptedUserID: id };
+	return { isDeactivated: false, message: null };
 }
 
 export async function requestEmailValidation(email: any) {

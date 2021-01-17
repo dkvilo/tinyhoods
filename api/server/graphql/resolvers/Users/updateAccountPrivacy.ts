@@ -1,5 +1,9 @@
 import UserModel from "../../../models/users";
-import { requireToken, decryptToken } from "../../../utils";
+import {
+	requireToken,
+	decryptToken,
+	checkForDeactivatedUser,
+} from "../../../utils";
 
 export default async function updateAccountPrivacy(
 	parent: any,
@@ -12,6 +16,9 @@ export default async function updateAccountPrivacy(
 	const userId = (decryptToken(token) as any).id;
 
 	try {
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
+
 		const user = await UserModel.findByIdAndUpdate(
 			{ _id: userId },
 			{

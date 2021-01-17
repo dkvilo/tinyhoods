@@ -2,7 +2,11 @@ import CommentModel from "../../../models/comment";
 import UserModel from "../../../models/users";
 import PostModel from "../../../models/posts";
 
-import { requireToken, decryptToken } from "../../../utils";
+import {
+	requireToken,
+	decryptToken,
+	checkForDeactivatedUser,
+} from "../../../utils";
 
 export default async function createComment(
 	parent: any,
@@ -15,6 +19,9 @@ export default async function createComment(
 	const userId = (decryptToken(token) as any).id;
 
 	try {
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
+
 		const response = await CommentModel.create({
 			...args.data,
 			content,

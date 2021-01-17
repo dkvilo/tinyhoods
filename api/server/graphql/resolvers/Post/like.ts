@@ -3,7 +3,11 @@ import { isEmpty } from "ramda";
 
 import UserModel from "../../../models/users";
 import PostModel from "../../../models/posts";
-import { decryptToken, requireToken } from "../../../utils";
+import {
+	checkForDeactivatedUser,
+	decryptToken,
+	requireToken,
+} from "../../../utils";
 
 async function likeThePost(userId, postId) {
 	const response = await UserModel.findOneAndUpdate(
@@ -64,6 +68,9 @@ export default async function (parent: any, args: any, context: any) {
 	const userId = (decryptToken(token) as any).id;
 
 	try {
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
+
 		const alreadyLiked = await UserModel.findOne({
 			_id: mongoose.Types.ObjectId(userId),
 			likedPosts: { $in: mongoose.Types.ObjectId(postId) },

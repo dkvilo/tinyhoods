@@ -1,7 +1,11 @@
 import ProjectModel from "../../../models/project";
 import UserModel from "../../../models/users";
 
-import { requireToken, decryptToken } from "../../../utils";
+import {
+	requireToken,
+	decryptToken,
+	checkForDeactivatedUser,
+} from "../../../utils";
 
 export default async function createProject(
 	parent: any,
@@ -14,6 +18,9 @@ export default async function createProject(
 	const userId = (decryptToken(token) as any).id;
 
 	try {
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
+
 		const response = await ProjectModel.create({
 			...args.data,
 			owner: userId,
@@ -23,8 +30,6 @@ export default async function createProject(
 			$push: { projects: response._id } as any,
 		});
 		return !!updateReps && !!response;
-
-		return !!response;
 	} catch (e) {
 		throw new Error(e.message);
 	}

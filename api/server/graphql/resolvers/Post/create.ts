@@ -2,7 +2,11 @@ import { isEmpty } from "ramda";
 import PostsModel from "../../../models/posts";
 import UserModel from "../../../models/users";
 
-import { requireToken, decryptToken } from "../../../utils";
+import {
+	requireToken,
+	decryptToken,
+	checkForDeactivatedUser,
+} from "../../../utils";
 
 export default async function createPost(parent: any, args: any, context: any) {
 	type Images = {
@@ -33,6 +37,9 @@ export default async function createPost(parent: any, args: any, context: any) {
 		if (isEmpty(content) && isEmpty(images)) {
 			throw new Error("You have to provide the Content for the Post");
 		}
+
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
 
 		const response = await PostsModel.create({
 			...args.data,

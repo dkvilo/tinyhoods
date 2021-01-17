@@ -1,7 +1,11 @@
 import LocationModel from "../../../models/locations";
 import UserModel from "../../../models/users";
 
-import { requireToken, decryptToken } from "../../../utils";
+import {
+	requireToken,
+	decryptToken,
+	checkForDeactivatedUser,
+} from "../../../utils";
 
 export default async function createLocation(
 	parent: any,
@@ -14,6 +18,9 @@ export default async function createLocation(
 	const userId = (decryptToken(token) as any).id;
 
 	try {
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
+
 		const response = await LocationModel.create({
 			...args.data,
 			explorer: userId,

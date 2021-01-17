@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 import { isEmpty } from "ramda";
 
 import UserModel from "../../../models/users";
-import { decryptToken, requireToken } from "../../../utils";
+import {
+	checkForDeactivatedUser,
+	decryptToken,
+	requireToken,
+} from "../../../utils";
 
 export default async function followUser(parent: any, args: any, context: any) {
 	const { token, username } = args.data;
@@ -11,6 +15,9 @@ export default async function followUser(parent: any, args: any, context: any) {
 	const userId = (decryptToken(token) as any).id;
 
 	try {
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
+
 		{
 			const response = await UserModel.findOne({
 				username,

@@ -1,7 +1,11 @@
 import QuestionsModel from "../../../models/questions";
 import UserModel from "../../../models/users";
 
-import { requireToken, decryptToken } from "../../../utils";
+import {
+	requireToken,
+	decryptToken,
+	checkForDeactivatedUser,
+} from "../../../utils";
 
 export default async function createQuestion(
 	parent: any,
@@ -14,6 +18,9 @@ export default async function createQuestion(
 	const userId = (decryptToken(token) as any).id;
 
 	try {
+		const { isDeactivated, message } = await checkForDeactivatedUser(userId);
+		if (isDeactivated) throw new Error(message);
+
 		const response = await QuestionsModel.create({
 			...args.data,
 			isPublished,
