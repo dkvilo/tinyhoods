@@ -12,7 +12,7 @@ export default function Logo({
 					className={`${size === "big" && "w-16 h-16"} ${
 						size === "small" && "w-10 h-10"
 					} ${size === "xs" && "w-6 h-6"}`}
-					src="/th-logo.svg"
+					src="/logo.svg"
 					alt="Tiny Hoods"
 				/>
 			</figure>
