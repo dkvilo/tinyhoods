@@ -312,6 +312,12 @@ const typeDefs = gql`
 		dataType: String = "private"
 	}
 
+	input GetUserPostsInput {
+		page: Int = 1
+		token: String
+		username: String!
+	}
+
 	input GetSinglePostInput {
 		token: String
 		id: ID!
@@ -369,6 +375,7 @@ const typeDefs = gql`
 		getComments(id: ID!, page: Int!): CommentPayload
 		getUserProjects(id: ID!, page: Int!): ProjectPayload
 		getLastRegisteredUsers: [UserPayload]!
+		getUserPosts(data: GetUserPostsInput!): PostsPayload!
 	}
 
 	type Mutation {
