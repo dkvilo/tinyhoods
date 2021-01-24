@@ -1,5 +1,7 @@
 import moment from "moment";
 import Link from "next/link";
+import Image from "next/image";
+
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { isEmpty, remove, uniq } from "ramda";
@@ -78,8 +80,12 @@ export default function Detailed({
 			</h1>
 			<div className="mb-4 rounded p-1 border-2 border-secondary-soft bg-default">
 				<div className="flex items-center rounded-t py-1">
-					<figure className="w-10 h-10 flex rounded-full overflow-hidden">
-						<img
+					<div className="flex rounded-full overflow-hidden">
+						<Image
+							unoptimized
+							objectFit="cover"
+							width={40}
+							height={40}
 							src={
 								process.env.NODE_ENV === "development"
 									? author.image
@@ -90,8 +96,9 @@ export default function Detailed({
 									: author.avatar
 							}
 							alt={author.username}
+							title={author.username}
 						/>
-					</figure>
+					</div>
 					<div className="flex flex-1 items-center justify-between">
 						<div className="flex flex-col">
 							<span className="text-default-inverted ml-1 font-bold opacity-75">

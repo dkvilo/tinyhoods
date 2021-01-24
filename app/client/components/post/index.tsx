@@ -1,5 +1,6 @@
 import moment from "moment";
 import Link from "next/link";
+import Image from "next/image";
 
 import PostActions from "./PostActions";
 import PostFooter from "./PostFooter";
@@ -35,8 +36,12 @@ export default function Post({
 		>
 			<div className="flex items-center rounded-t py-1">
 				<Link href={`/${author.username}`}>
-					<figure className="cursor-pointer w-10 h-10 flex rounded-full overflow-hidden">
-						<img
+					<div className="cursor-pointer flex rounded-full overflow-hidden">
+						<Image
+							unoptimized
+							objectFit="cover"
+							width={40}
+							height={40}
 							src={
 								process.env.NODE_ENV === "development"
 									? author.image
@@ -47,8 +52,9 @@ export default function Post({
 									: author.avatar
 							}
 							alt={author.username}
+							title={author.username}
 						/>
-					</figure>
+					</div>
 				</Link>
 				<div className="flex flex-1 items-center justify-between">
 					<div className="flex flex-col">

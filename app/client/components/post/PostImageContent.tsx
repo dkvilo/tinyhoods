@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useState } from "react";
 
 export default function PostImageContent({
 	images,
@@ -8,8 +7,6 @@ export default function PostImageContent({
 	images: any[];
 	onImageClick: any;
 }): JSX.Element {
-	const [width, setWidth] = useState<number>(1080);
-
 	return (
 		<figure className="flex flex-1">
 			{images.map((each: any, imageIndex: number) => (
@@ -17,6 +14,7 @@ export default function PostImageContent({
 					<Image
 						unoptimized
 						alt="Thumbnail"
+						title="Thumbnail"
 						className="rounded-md bg-secondary shadow-md"
 						src={
 							process.env.NODE_ENV === "development"

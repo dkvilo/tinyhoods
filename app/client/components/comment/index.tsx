@@ -1,9 +1,12 @@
 import moment from "moment";
 import Link from "next/link";
+import Image from "next/image";
 import { useContext } from "react";
+
 import { UserTokenContext } from "../../context";
-import Button from "../Button";
 import { IProps } from "./types";
+
+import Button from "../Button";
 
 export default function Comment({
 	id,
@@ -29,8 +32,10 @@ export default function Comment({
 			<div className="flex items-center justify-between">
 				<div className="flex items-start">
 					<Link href={`/${author.username}`}>
-						<figure>
-							<img
+						<div>
+							<Image
+								unoptimized
+								objectFit="cover"
 								src={
 									process.env.NODE_ENV === "development"
 										? author.image
@@ -40,14 +45,13 @@ export default function Comment({
 										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${author.image}`
 										: author.avatar
 								}
+								width={24}
+								height={24}
+								className="cursor-pointer rounded-full bg-secondary-soft"
 								alt={author.username}
-								className="cursor-pointer w-8 h-8 rounded-full bg-secondary-soft"
-								style={{
-									width: 24,
-									height: 24,
-								}}
+								title={author.username}
 							/>
-						</figure>
+						</div>
 					</Link>
 
 					<div className="flex flex-col justify-start ml-2">

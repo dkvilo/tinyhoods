@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -18,7 +19,11 @@ const UPDATE_USER_AVATAR = gql`
 export default function Avatar({
 	src,
 	username,
+	width = 80,
+	height = 80,
 }: {
+	width?: number;
+	height?: number;
 	src: string;
 	username: string;
 }): JSX.Element {
@@ -126,16 +131,16 @@ export default function Avatar({
 
 	return (
 		<>
-			<label className="cursor-pointer">
+			<label className="cursor-pointer p-1 hover:bg-secondary-soft cursor-pointer hover:opacity-50 rounded-full">
 				<div className="flex items-center w-20 h-20 rounded-full border-default-inverted overflow-hidden">
-					<img
+					<Image
+						unoptimized
+						objectFit="cover"
 						src={file?.preview ? file?.preview : src}
+						width={width}
+						height={height}
 						alt={username}
-						className="w-20 h-20"
-						style={{
-							height: 80,
-							width: 80,
-						}}
+						title={username}
 					/>
 					<div {...getRootProps({ className: "dropzone" })}>
 						<input {...getInputProps()} />
