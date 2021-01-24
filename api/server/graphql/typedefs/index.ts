@@ -154,7 +154,8 @@ const typeDefs = gql`
 		followersCount: Int!
 		followingCount: Int!
 		locationCount: Int!
-		_following: Boolean!
+		_following: Boolean
+		_editable: Boolean
 		membership: UserMembershipPayload
 	}
 
@@ -362,7 +363,7 @@ const typeDefs = gql`
 	type Query {
 		getLocations(data: GetLocationInputData!): [LocationPayload]!
 		getMyInfo(data: TokenAuthenticationInput!): UserPayload!
-		getUser(username: String!): UserPayload!
+		getUser(username: String!, token: String): UserPayload!
 		getUsers(data: GetUsersTokenAuthenticationInput!): [UserPayload]!
 		getQuestions(data: TokenAuthenticationInput!): [QuestionPayload]!
 		getLandforms: [LandformPayload]!
