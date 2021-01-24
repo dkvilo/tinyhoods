@@ -13,6 +13,7 @@ import AccountPrivacy from "../forms/user/AccountPrivacy";
 
 import { UserTokenContext } from "../context";
 import { isMembershipExpired } from "../../shared/functions";
+import Link from "next/link";
 
 const GET_MY_INFO = gql`
 	query getMyInfo($data: TokenAuthenticationInput!) {
@@ -66,24 +67,15 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 				/>
 
 				<div className="flex flex-col items-center justify-center px-2">
-					{data.getMyInfo.name && (
-						<p className="text-2xl font-bold text-default-inverted">
+					<Link href={`/${data.getMyInfo.username}`}>
+						<p className="text-2xl font-bold text-default-inverted cursor-pointer underline">
 							{data.getMyInfo.name}
 						</p>
-					)}
-					{data.getMyInfo.username && (
-						<p className="text-md text-default-inverted">
-							@{data.getMyInfo.username}
-						</p>
-					)}
-					{data.getMyInfo.link && (
-						<p className="text-sm text-primary p-1">{data.getMyInfo.link}</p>
-					)}
-					{data.getMyInfo.about && (
-						<p className="text-sm text-default-inverted p-1">
-							{data.getMyInfo.about}
-						</p>
-					)}
+					</Link>
+
+					<p className="text-md text-default-inverted">
+						@{data.getMyInfo.username}
+					</p>
 				</div>
 
 				<div className="w-full flex justify-center justify-evenly bg-default border-2 border-secondary-soft rounded-md my-2 text-default-inverted">
@@ -125,8 +117,6 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 						>
 							Projects
 						</span>
-						{/* <span className="font-bold">{data.getMyInfo.questionsCount}</span>{" "}
-						Questions */}
 					</div>
 				</div>
 
@@ -185,8 +175,7 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 							</div>
 						</div>
 					)}
-
-					<div className="mt-5 flex items-center bg-secondary rounded">
+					<div className="mt-5 flex items-center">
 						<Button
 							onClick={() => {
 								dispatch({ type: "UNSET_TOKEN" });

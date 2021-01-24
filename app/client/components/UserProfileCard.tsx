@@ -1,6 +1,9 @@
 import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import PostLoader from "./PostLoader";
+import Timeline from "../screens/timeline";
+import Button from "./Button";
+
+import FollowAction from "./FollowAction";
 import UserListItem from "./UserListItem";
 
 // Utility function to resolve path of the image
@@ -28,37 +31,57 @@ function UserProfileCard({ data }: any) {
 				disabledTabClassName="bg-secondary text-default-inverted"
 			>
 				<div className="flex flex-col items-start">
-					<div className="flex w-full sticky top-0 bg-default border-b-2 border-secondary z-30 mb-2">
-						<div className="flex items-center w-full my-4">
-							<img
-								src={displayImage(data)}
-								alt={data.username}
-								className="w-16 h-16 bg-secondary rounded-full shadow-md"
-								style={{
-									height: 64,
-									width: 64,
-								}}
-							/>
-
-							<div className="flex flex-col items-start ml-2">
-								<p className="text-2xl font-bold text-default-inverted">
-									{data.name}
-								</p>
-								<p
-									className="italic text-default-inverted opacity-50 relative"
+					<div className="flex flex-col w-full sticky top-0 bg-default border-b-2 border-secondary z-30 mb-2 rounded-b-2xl shadow">
+						<div className="flex flex-col items-start w-full">
+							<div className="flex relative">
+								<img
+									src={displayImage(data)}
+									alt={data.username}
+									className="w-20 h-20 bg-secondary rounded-b-2xl rounded-r-2xl shadow-md"
 									style={{
-										top: -8,
+										height: 128,
+										width: 128,
 									}}
-								>
-									@{data.username}
-								</p>
-								<p className="text-sm text-red-400">{data.link}</p>
-								<p className="text-sm text-default-inverted">{data.about}</p>
+								/>
+
+								<div className="flex flex-col items-start ml-2">
+									<p className="text-2xl font-bold text-default-inverted inline-flex items-center">
+										{data.name}
+									</p>
+
+									{data?.about && (
+										<p
+											className="text-sm text-default-inverted"
+											style={{
+												top: -8,
+											}}
+										>
+											{data.about}
+										</p>
+									)}
+
+									{data?.link && (
+										<a href={`${data.link}`}>
+											<p className="text-xs text-red-400">{data.link}</p>
+										</a>
+									)}
+									{data._editable ? (
+										<div className="flex items-center absolute bottom-0 mb-2">
+											<Button className="focus:outline-none px-3 py-1 rounded-full bg-green-400 text-white">
+												Edit Profile
+											</Button>
+										</div>
+									) : (
+										<div className="flex items-center absolute bottom-0 mb-2">
+											<FollowAction {...data} hasLabel />
+										</div>
+									)}
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<TabList className="w-full flex justify-center justify-start bg-default border-secondary-soft rounded-md text-default-inverted">
+					<TabList className="w-full border-2 flex justify-center justify-start bg-default border-secondary-soft rounded-md text-default-inverted">
 						<Tab className="mr-1 flex flex-col items-center justify-center px-1 flex-1 rounded text-center cursor-pointer opacity-75 text-default-inverted hover:bg-secondary hover:opacity-100 transition duration-150 easy-in-out">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -86,16 +109,8 @@ function UserProfileCard({ data }: any) {
 						</Tab>
 					</TabList>
 
-					<TabPanel className="mx-auto container">
-						<>
-							<div className="flex flex-col my-2">
-								<div className="mb-2">
-									{new Array(10).fill(1).map((e, i) => {
-										return <PostLoader border={false} index={i} key={i} />;
-									})}
-								</div>
-							</div>
-						</>
+					<TabPanel className="flex flex-col w-full mt-2">
+						<Timeline username={data.username} />
 					</TabPanel>
 
 					<TabPanel className="mx-auto container">

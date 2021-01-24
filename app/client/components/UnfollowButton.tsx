@@ -10,6 +10,7 @@ import Button from "./Button";
 
 interface IProps {
 	username: string;
+	hasLabel?: boolean;
 	onAction(status: boolean): void;
 }
 
@@ -19,7 +20,11 @@ const UNFOLLOW_USER = gql`
 	}
 `;
 
-function UnfollowButton({ username, onAction }: IProps): JSX.Element {
+function UnfollowButton({
+	username,
+	onAction,
+	hasLabel = false,
+}: IProps): JSX.Element {
 	const { state: loginState } = useContext<any>(UserTokenContext);
 
 	const [unfollowUser, { loading, error }] = useMutation(UNFOLLOW_USER);
@@ -65,7 +70,7 @@ function UnfollowButton({ username, onAction }: IProps): JSX.Element {
 	return (
 		<Button
 			onClick={triggerUnfollow}
-			className="px-1 text-red-500 bg-default border-2 rounded-full hover:bg-red-500 hover:text-default hover:border-red-500"
+			className="px-2 py-1 flex flex-row-reverse text-red-500 bg-default border-2 rounded-full hover:bg-red-500 hover:text-default hover:border-red-500"
 		>
 			{loading ? (
 				<>
@@ -81,6 +86,7 @@ function UnfollowButton({ username, onAction }: IProps): JSX.Element {
 				</>
 			) : (
 				<>
+					{hasLabel && <span className="text-sm ml-1">Unfollow</span>}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 20 20"

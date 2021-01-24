@@ -1,7 +1,6 @@
 import Link from "next/link";
-import React, { useState } from "react";
-import FollowButton from "./FollowButton";
-import UnfollowButton from "./UnfollowButton";
+import React from "react";
+import FollowAction from "./FollowAction";
 
 interface IProps {
 	username: string;
@@ -16,18 +15,12 @@ interface IProps {
 function UserListItem({
 	username,
 	name,
-	_following,
+	_following = false,
 	image,
 	avatar,
 	ableToFollow = true,
 	hasGap = false,
 }: IProps) {
-	const [isFollowing, setIsFollowing] = useState<boolean>(_following);
-
-	const handleFollowActionSuccess = (status: boolean) => {
-		setIsFollowing(status);
-	};
-
 	return (
 		<div
 			key={username}
@@ -59,19 +52,7 @@ function UserListItem({
 				</Link>
 
 				{ableToFollow && (
-					<>
-						{isFollowing ? (
-							<UnfollowButton
-								onAction={handleFollowActionSuccess}
-								username={username}
-							/>
-						) : (
-							<FollowButton
-								onAction={handleFollowActionSuccess}
-								username={username}
-							/>
-						)}
-					</>
+					<FollowAction _following={_following} username={username} />
 				)}
 			</div>
 		</div>

@@ -10,6 +10,7 @@ import Button from "./Button";
 
 interface IProps {
 	username: string;
+	hasLabel?: boolean;
 	onAction(status: boolean): void;
 }
 
@@ -19,7 +20,11 @@ const FOLLOW_USER = gql`
 	}
 `;
 
-function FollowButton({ username, onAction }: IProps): JSX.Element {
+function FollowButton({
+	username,
+	onAction,
+	hasLabel = false,
+}: IProps): JSX.Element {
 	const { state: loginState } = useContext<any>(UserTokenContext);
 
 	const [followUser, { loading, error }] = useMutation(FOLLOW_USER);
@@ -65,7 +70,7 @@ function FollowButton({ username, onAction }: IProps): JSX.Element {
 	return (
 		<Button
 			onClick={triggerFollow}
-			className="px-1 text-primary bg-default border-2 rounded-full hover:bg-green-500 hover:text-default hover:border-green-500"
+			className="px-2 py-1 flex flex-row-reverse items-center text-default-inverted bg-default border-2 rounded-full hover:bg-green-500 hover:text-default hover:border-green-500"
 		>
 			{loading ? (
 				<>
@@ -81,6 +86,7 @@ function FollowButton({ username, onAction }: IProps): JSX.Element {
 				</>
 			) : (
 				<>
+					{hasLabel && <span className="text-sm ml-1">Follow</span>}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 20 20"
