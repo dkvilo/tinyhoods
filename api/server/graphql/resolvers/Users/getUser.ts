@@ -39,6 +39,22 @@ async function getUserAuthenticated(username: string, observer: string) {
 			},
 		},
 		{
+			$lookup: {
+				from: "projects",
+				localField: "projects",
+				foreignField: "_id",
+				as: "projects",
+			},
+		},
+		{
+			$lookup: {
+				from: "posts",
+				localField: "posts",
+				foreignField: "_id",
+				as: "posts",
+			},
+		},
+		{
 			$project: {
 				username: 1,
 				name: 1,
@@ -56,6 +72,8 @@ async function getUserAuthenticated(username: string, observer: string) {
 				followersCount: { $size: "$followers" },
 				locationCount: { $size: "$locations" },
 				questionsCount: { $size: "$questions" },
+				projectsCount: { $size: "$projects" },
+				postsCount: { $size: "$posts" },
 				_editable: {
 					$eq: [mongoose.Types.ObjectId(observer), "$_id"],
 				},

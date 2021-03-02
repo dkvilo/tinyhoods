@@ -154,6 +154,8 @@ const typeDefs = gql`
 		followersCount: Int!
 		followingCount: Int!
 		locationCount: Int!
+		projectsCount: Int!
+		postsCount: Int!
 		_following: Boolean
 		_editable: Boolean
 		membership: UserMembershipPayload
