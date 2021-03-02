@@ -112,14 +112,24 @@ function UserProfileCard({ data }: any) {
 								<h1 className="font-bold text-lg">{data.followingCount}</h1>
 								<span className="text-xs">Following</span>
 							</div>
-							<div className="flex flex-col bg-secondary flex-1 items-center p-1 m-1 w-full rounded">
-								<h1 className="font-bold text-lg">{data.locationCount}</h1>
-								<span className="text-xs">Locations</span>
-							</div>
-							<div className="flex flex-col bg-secondary flex-1 items-center p-1 m-1 rounded">
-								<h1 className="font-bold text-lg">{data.questionsCount}</h1>
-								<span className="text-xs">Posts</span>
-							</div>
+							{Boolean(data.locationCount) && (
+								<div className="flex flex-col bg-secondary flex-1 items-center p-1 m-1 w-full rounded">
+									<h1 className="font-bold text-lg">{data.locationCount}</h1>
+									<span className="text-xs">Locations</span>
+								</div>
+							)}
+							{Boolean(data.projectsCount) && (
+								<div className="flex flex-col bg-secondary flex-1 items-center p-1 m-1 w-full rounded">
+									<h1 className="font-bold text-lg">{data.projectsCount}</h1>
+									<span className="text-xs">Projects</span>
+								</div>
+							)}
+							{Boolean(data.postsCount) && (
+								<div className="flex flex-col bg-secondary flex-1 items-center p-1 m-1 rounded">
+									<h1 className="font-bold text-lg">{data.postsCount}</h1>
+									<span className="text-xs">Posts</span>
+								</div>
+							)}
 						</div>
 					</div>
 

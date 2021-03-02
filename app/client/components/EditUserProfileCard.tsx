@@ -22,8 +22,7 @@ const GET_MY_INFO = gql`
 			name
 			avatar
 			about
-			locationCount
-			questionsCount
+			postsCount
 			followersCount
 			followingCount
 			isPrivate
@@ -107,7 +106,7 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 					</div>
 					<div className="flex flex-col items-center px-1 rounded text-center cursor-pointer hover:text-primary">
 						<span className="font-bold text-lg">
-							{data.getMyInfo.questionsCount}
+							{data.getMyInfo.postsCount}
 						</span>
 						<span
 							style={{
@@ -115,7 +114,7 @@ function EditUserProfileCard({ fromMap = false }: { fromMap?: boolean }) {
 								top: -5,
 							}}
 						>
-							Projects
+							Posts
 						</span>
 					</div>
 				</div>

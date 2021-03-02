@@ -23,6 +23,8 @@ const GET_USER = gql`
 			image
 			locationCount
 			followersCount
+			projectsCount
+			postsCount
 			followingCount
 			_following
 			_editable
