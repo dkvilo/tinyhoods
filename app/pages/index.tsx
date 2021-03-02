@@ -13,10 +13,10 @@ import LSidebar from "../client/components/static/LSidebar";
 import MobileMenu from "../client/components/MobileMenu";
 import HeaderMenu from "../client/components/HeaderMenu";
 import AddProject from "../client/forms/project/add";
-
-import { UserTokenContext } from "../client/context";
 import Loader from "../client/components/Loader";
 import Logo from "../client/components/Logo";
+
+import { UserTokenContext } from "../client/context";
 
 export default function Index() {
 	const { state: loginState } = useContext(UserTokenContext);
