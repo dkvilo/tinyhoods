@@ -46,6 +46,14 @@ export default async function getMyInfo(parent: any, args: any, context: any) {
 				},
 			},
 			{
+				$lookup: {
+					from: "posts",
+					localField: "posts",
+					foreignField: "_id",
+					as: "posts",
+				},
+			},
+			{
 				$project: {
 					username: 1,
 					name: 1,
@@ -59,6 +67,7 @@ export default async function getMyInfo(parent: any, args: any, context: any) {
 					followersCount: { $size: "$followers" },
 					locationCount: { $size: "$locations" },
 					questionsCount: { $size: "$questions" },
+					postsCount: { $size: "$posts" },
 				},
 			},
 		]);
