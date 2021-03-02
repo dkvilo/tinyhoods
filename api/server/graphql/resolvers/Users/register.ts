@@ -13,12 +13,22 @@ import config from "../../../../shared/config";
 import scheduler from "../../../services/queue/scheduler";
 
 export default async function createUser(parent: any, args: any, context: any) {
-	const { email, password, name, username } = args?.data;
+	const {
+		email,
+		password,
+		name,
+		username,
+	}: {
+		email: string;
+		password: string;
+		name: string;
+		username: string;
+	} = args?.data;
 
 	await requestEmailValidation(email);
 
 	requestPasswordValidation(password);
-	requestUsernameValidation(username);
+	requestUsernameValidation(username.toLowerCase());
 
 	try {
 		{
@@ -29,7 +39,9 @@ export default async function createUser(parent: any, args: any, context: any) {
 		}
 
 		{
-			const response = await UsersModel.findOne({ username });
+			const response = await UsersModel.findOne({
+				username: username.toLowerCase(),
+			});
 			if (response) {
 				throw new Error("Username is taken");
 			}
@@ -38,13 +50,13 @@ export default async function createUser(parent: any, args: any, context: any) {
 		const emailActivationCode = generateRandomHash();
 
 		const response = await UsersModel.create({
-			username,
+			username: username.toLowerCase(),
 			email,
 			password: encrypt(password, (config as any).app.secrets.password),
 			name,
 			emailActivateHash: emailActivationCode,
 			avatar: `data:image/png;base64,${(
-				await generateAvatar(username)
+				await generateAvatar(username.toLowerCase())
 			).toString("base64")}`,
 		});
 
@@ -56,7 +68,7 @@ export default async function createUser(parent: any, args: any, context: any) {
 					to: email,
 					subject: "Tiny Hoods - Registration Completed",
 					params: {
-						username,
+						username: username.toLowerCase(),
 						name,
 						hasAction: false,
 					},

@@ -138,7 +138,13 @@ async function getUserNonAuth(username: string) {
 }
 
 export default async function getUser(parent: any, args: any, context: any) {
-	const { username, token } = args;
+	const {
+		username,
+		token,
+	}: {
+		username: string;
+		token: string;
+	} = args;
 
 	try {
 		// if user is authenticated get observer information
@@ -148,9 +154,9 @@ export default async function getUser(parent: any, args: any, context: any) {
 			if (isDeactivated) {
 				throw new Error(message);
 			}
-			return await getUserAuthenticated(username, userId);
+			return await getUserAuthenticated(username.toLowerCase(), userId);
 		}
-		return await getUserNonAuth(username);
+		return await getUserNonAuth(username.toLowerCase());
 	} catch (error) {
 		const { message } = error;
 		throw new Error(message);

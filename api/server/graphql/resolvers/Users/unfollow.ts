@@ -13,7 +13,13 @@ export default async function unfollowUser(
 	args: any,
 	context: any
 ) {
-	const { token, username } = args.data;
+	const {
+		token,
+		username,
+	}: {
+		token: string;
+		username: string;
+	} = args.data;
 
 	requireToken(token);
 	const userId = (decryptToken(token) as any).id;
@@ -24,7 +30,7 @@ export default async function unfollowUser(
 
 		{
 			const response = await UserModel.findOne({
-				username,
+				username: username.toLowerCase(),
 				followers: { $in: userId },
 			});
 
@@ -35,7 +41,7 @@ export default async function unfollowUser(
 
 		const response = await UserModel.findOneAndUpdate(
 			{
-				username,
+				username: username.toLowerCase(),
 			},
 			{
 				$pull: {
