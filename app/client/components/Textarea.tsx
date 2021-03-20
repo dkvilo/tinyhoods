@@ -1,7 +1,7 @@
 import React from "react";
 import { Field } from "formik";
 
-export default function (
+export default function Textarea(
 	props: React.TextareaHTMLAttributes<HTMLTextAreaElement>
 ): JSX.Element {
 	return (

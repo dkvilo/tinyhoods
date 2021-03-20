@@ -8,7 +8,12 @@ interface IProps {
 	mobile?: JSX.Element;
 }
 
-export default function ({ left, right, center, mobile }: IProps): JSX.Element {
+export default function Layout({
+	left,
+	right,
+	center,
+	mobile,
+}: IProps): JSX.Element {
 	const { state: loginState } = useContext<any>(UserTokenContext);
 
 	return (
