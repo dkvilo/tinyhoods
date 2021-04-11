@@ -1,13 +1,16 @@
 version: '3'
 
 services:
-  node-app:
+  website-backend:
     restart: unless-stopped
-    build: ./node-app
+    container_name: website-backend
+    build: ./website-backend
+    links: 
+      - service-redis-storage
     env_file:
       - .env
     volumes:
-      - ./node-app:/usr/src/app
+      - ${PWD}/website-backend:/usr/src/app
     logging:
       driver: "json-file"
       options:
@@ -16,20 +19,55 @@ services:
     networks:
       - sunset
 
-  nginx:
+  website-frontend:
     restart: unless-stopped
-    build: ./nginx
-    container_name: nginx
+    container_name: website-frontend
+    build: ./website-frontend
+    env_file:
+      - .env
+    volumes:
+      - ${PWD}/website-frontend:/usr/src/app
+    depends_on:
+      - website-backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+  
+  service-gossip:
+    restart: unless-stopped
+    env_file:
+      - .env
+    build: ./service-gossip
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    links:
+      - service-redis-storage
+    depends_on:
+      - service-redis-storage
+    networks:
+      - sunset
+
+  service-nginx-proxy:
+    restart: unless-stopped
+    build: ./service-nginx-proxy
+    container_name: service-nginx-proxy
     ports:
       - 443:443
     links:
-      - node-app
-      - imcargo
+      - website-backend
+      - website-frontend
+      - service-imcargo
+      - service-loggerboi
+      - service-gossip
     depends_on:
-      - node-app
-    volumes:
-      - certs:/etc/letsencrypt
-      - certs-data:/data/letsencrypt
+      - website-backend
     logging:
       driver: "json-file"
       options:
@@ -38,14 +76,14 @@ services:
     networks:
       - sunset
 
-  varnish:
+  service-varnish-cache:
     restart: unless-stopped
-    build: ./varnish
-    container_name: varnish_cache
+    build: ./service-varnish-cache
+    container_name: service-varnish-cache
     links:
-      - nginx
+      - service-nginx-proxy
     depends_on:
-      - nginx
+      - service-nginx-proxy
     ports:
       - "80:80"
     logging:
@@ -56,16 +94,14 @@ services:
     networks:
       - sunset
 
-  imcargo:
-    build: ./imcargo
-    container_name: imcargo
+  service-imcargo:
+    build: ./service-imcargo
+    container_name: service-imcargo
     env_file:
       - .env
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     volumes:
-      - ./imcargo:/go/src/static/avatar
+      - ${PWD}/static:/go/src/imcargo/static
     logging:
       driver: "json-file"
       options:
@@ -74,9 +110,37 @@ services:
     networks:
       - sunset
 
-volumes:
-  certs:
-  certs-data:
+  service-loggerboi:
+    build: ./service-loggerboi
+    container_name: service-loggerboi
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - "4343:4343"
+    volumes:
+      - ${PWD}/loggerboi-dump/logs.json:/go/src/loggerboi/logs.json
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+  service-redis-storage:
+    restart: unless-stopped
+    build: ./service-redis-storage
+    container_name: service-redis-storage
+    ports:
+      - "6379:6379"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
 
 networks:
   sunset:

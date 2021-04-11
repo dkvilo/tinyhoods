@@ -1,0 +1,56 @@
+<%- include("../../header") %>
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+  <tr>
+    <td class="container">
+      <div class="content">
+
+        <!-- START CENTERED WHITE CONTAINER -->
+        <table role="presentation" class="main">
+
+          <!-- START MAIN CONTENT AREA -->
+          <tr>
+            <td class="wrapper">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <p>Hi <% if (!name) { %> @<%- username %> <% } else { %> <%- name.split(" ")[0] %> <% } %> </p>
+                    <p>Welcome to Tiny Hoods! 😊 I'm very excited to see you on the platform!</p>
+                    <!--<p>Huge, Massive, Giant thanks to you, for supporting our platform by spending money on the subscription!</p>-->
+                    <p>If you have any questions, or just want to say Hi, don't hesitate to message me at david@tinyhoods.net</p>
+                    <p>Good Luck <% if (!name) { %> @<%- username %> <% } else { %> <%- name.split(" ")[0] %> <% } %>, and Have Fun!</p>
+                    <!-- Button -->
+                    <%if (hasAction) { %>  
+                      <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                        <tbody>
+                          <tr>
+                            <td align="left">
+                              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                  <tr>
+                                    <td><a href="<%- actionUrl %>" target="_blank"><%- actionText %></a> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    <% } %>
+                    <p>Best Regard, David</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        <!-- END MAIN CONTENT AREA -->
+        </table>
+        <!-- END CENTERED WHITE CONTAINER -->
+      </div>
+    </td>
+  </tr>
+</table>
+
+<%- include("../../footer") %>
+
+

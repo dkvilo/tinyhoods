@@ -1,0 +1,129 @@
+version: '3'
+
+services:
+  website-backend:
+    restart: unless-stopped
+    container_name: website-backend
+    build: ./website-backend
+    links: 
+      - service-redis-storage
+    env_file:
+      - .env
+    volumes:
+      - ${PWD}/website-backend:/usr/src/app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+  website-frontend:
+    restart: unless-stopped
+    container_name: website-frontend
+    build: ./website-frontend
+    env_file:
+      - .env
+    volumes:
+      - ${PWD}/website-frontend:/usr/src/app
+    depends_on:
+      - website-backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+  
+  service-gossip:
+    restart: unless-stopped
+    env_file:
+      - .env
+    build: ./service-gossip
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    links:
+      - service-redis-storage
+    depends_on:
+      - service-redis-storage
+    networks:
+      - sunset
+
+  service-nginx-proxy:
+    restart: unless-stopped
+    build: ./service-nginx-proxy
+    container_name: service-nginx-proxy
+    ports:
+      - 80:80
+    links:
+      - website-backend
+      - website-frontend
+      - service-imcargo
+      - service-loggerboi
+      - service-gossip
+    depends_on:
+      - website-backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+  service-imcargo:
+    build: ./service-imcargo
+    container_name: service-imcargo
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/static:/go/src/imcargo/static
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+  service-loggerboi:
+    build: ./service-loggerboi
+    container_name: service-loggerboi
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - "4343:4343"
+    volumes:
+      - ${PWD}/loggerboi-dump/logs.json:/go/src/loggerboi/logs.json
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+  service-redis-storage:
+    restart: unless-stopped
+    build: ./service-redis-storage
+    container_name: service-redis-storage
+    ports:
+      - "6379:6379"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100MB"
+        max-file: "3"
+    networks:
+      - sunset
+
+networks:
+  sunset:
+    driver: bridge

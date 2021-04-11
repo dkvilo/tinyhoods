@@ -1,0 +1,112 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const {
+	DATABASE_DRIVER,
+	DATABASE_PORT,
+	DATABASE_NAME,
+	DATABASE_USER,
+	DATABASE_PASS,
+	DATABASE_HOST,
+	DATABASE_ATLAS_PATH,
+	PORT,
+	NODE_ENV,
+	PASSWORD_SALT,
+	SESSION_SALT,
+	ACCESS_TOKEN_SALT,
+	REFRESH_TOKEN_SALT,
+	STRIPE_PUBLIC_KEY,
+	STRIPE_SECRET_KEY,
+	APP_DOMAIN,
+	STRIPE_CHECKOUT_SUCCESS_URL,
+	STRIPE_CHECKOUT_CANCEL_URL,
+	STRIPE_CHECKOUT_PAYMENT_METHODS,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_ENDPOINT,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_SECRET,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_SIZE,
+	NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_POSTER_SIZE,
+	REDIS_URI,
+	REDIS_PASSWORD,
+	REDIS_PORT,
+	NO_REPLY_EMAIL,
+	NO_REPLY_EMAIL_PASS,
+	MAILGUN_DOMAIN,
+	MAILGUN_API_KEY,
+	MAILGUN_PORT,
+	MAILGUN_HOST,
+	QUEUE_EMAIL_PREFIX,
+	QUEUE_EMAIL_REDIS_DB,
+} = process.env;
+
+export default {
+	app: {
+		port: PORT || 9000,
+		env: NODE_ENV || "development",
+		secrets: {
+			password: PASSWORD_SALT,
+			session: SESSION_SALT,
+			accessToken: ACCESS_TOKEN_SALT,
+			refreshToken: REFRESH_TOKEN_SALT,
+		},
+		domain: APP_DOMAIN,
+	},
+	shadowVariable: {},
+	internalServices: {
+		queue: {
+			email: {
+				prefix: QUEUE_EMAIL_PREFIX,
+			},
+		},
+		redis: {
+			uri: REDIS_URI,
+			password: REDIS_PASSWORD,
+			port: REDIS_PORT,
+			queueDefaultDb: QUEUE_EMAIL_REDIS_DB,
+		},
+		image: {
+			server: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME,
+			ep: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_ENDPOINT,
+			secret: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_SECRET,
+			avatar: {
+				size: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_AVATAR_SIZE,
+			},
+			poster: {
+				size: NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_POSTER_SIZE,
+			},
+		},
+	},
+	externalServices: {
+		mailgun: {
+			host: MAILGUN_HOST,
+			port: MAILGUN_PORT,
+			noReplay: {
+				auth: {
+					email: NO_REPLY_EMAIL,
+					password: NO_REPLY_EMAIL_PASS,
+					domain: MAILGUN_DOMAIN,
+					apiKey: MAILGUN_API_KEY,
+				},
+			},
+		},
+		stripe: {
+			publicsKey: STRIPE_PUBLIC_KEY,
+			secretKey: STRIPE_SECRET_KEY,
+			checkout: {
+				successUrl: STRIPE_CHECKOUT_SUCCESS_URL,
+				cancelUrl: STRIPE_CHECKOUT_CANCEL_URL,
+				paymentMethods: STRIPE_CHECKOUT_PAYMENT_METHODS,
+			},
+		},
+	},
+	mongo: {
+		driver: DATABASE_DRIVER,
+		port: DATABASE_PORT,
+		password: DATABASE_PASS,
+		user: DATABASE_USER,
+		dbName: DATABASE_NAME,
+		fullPath: `${DATABASE_DRIVER}${DATABASE_USER}:${DATABASE_PASS}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`,
+		atlasPath: DATABASE_ATLAS_PATH,
+	},
+};
