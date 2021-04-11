@@ -1,4 +1,4 @@
 .DS_Store
 .env
-node-app/public/*.js
-imcargo/static/
+service-imcargo/static/
+static/*
