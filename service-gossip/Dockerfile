@@ -26,5 +26,5 @@ WORKDIR $APP_HOME
 COPY --chown=0:0 --from=builder $APP_HOME/public $APP_HOME/public
 COPY --chown=0:0 --from=builder $APP_HOME/gossip $APP_HOME
 
-EXPOSE 3000
+EXPOSE 5000
 CMD ["./gossip"]
