@@ -42,8 +42,6 @@ services:
     env_file:
       - .env
     build: ./service-gossip
-    ports:
-      - "5000:5000"
     logging:
       driver: "json-file"
       options:
@@ -67,6 +65,7 @@ services:
       - website-frontend
       - service-imcargo
       - service-loggerboi
+      - service-gossip
     depends_on:
       - website-backend
     logging:
@@ -101,8 +100,6 @@ services:
     env_file:
       - .env
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     volumes:
       - ${PWD}/static:/go/src/imcargo/static
     logging:
