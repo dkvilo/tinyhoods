@@ -1,13 +1,13 @@
 package client
 
 import (
-	uuid "github.com/satori/go.uuid"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/dkvilo/gossip/app/hub"
+	uuid "github.com/satori/go.uuid"
 )
 
 // Serve handles websocket requests from the peer.
@@ -15,7 +15,7 @@ func Serve(h *hub.Hub, w http.ResponseWriter, r *http.Request) {
 
 	var room string = r.URL.Query().Get("room")
 	hub.Upgrader.CheckOrigin = func(r *http.Request) bool {
-		originList := strings.Split(os.Getenv("ALLOWED_ORIGINS"), ",")
+		originList := strings.Split(os.Getenv("GOSSIP_ALLOWED_ORIGINS"), ",")
 		for originIndex := range originList {
 			if r.Header.Get("Origin") == originList[originIndex] {
 				return true

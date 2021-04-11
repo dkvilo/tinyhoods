@@ -138,7 +138,7 @@
 
             App(
               new WebSocket(
-                `ws://localhost:3000/ws?room=${user.room}&accessToken=${accessToken}`
+                `ws://localhost/gossip/ws?room=${user.room}&accessToken=${accessToken}`
               )
             );
           });

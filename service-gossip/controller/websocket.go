@@ -8,6 +8,6 @@ import (
 )
 
 // WebSocket Controller
-func (c *Controller) WebSocket(w http.ResponseWriter, r *http.Request)  {
+func (c *Controller) WebSocket(w http.ResponseWriter, r *http.Request) {
 	client.Serve(&hub.H, w, r);
 }
