@@ -68,6 +68,7 @@ export default function Project({
 			setProjects([]);
 			setPage(1);
 			refetch({
+        token: loginState.isLogin ? loginState.token : null,
 				page,
 				username,
 			});
