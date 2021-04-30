@@ -2,6 +2,8 @@ import Link from "next/link";
 import React from "react";
 import FollowAction from "./FollowAction";
 
+import { getImageOrAvatarPath } from "../../shared/utils";
+
 interface IProps {
 	username: string;
 	name: string;
@@ -24,7 +26,7 @@ function UserListItem({
 	return (
 		<div
 			key={username}
-			className={`cursor-pointer hover:bg-secondary p-2 bg-default border-b-2 border-secondary ${
+			className={`cursor-pointer hover:bg-secondary rounded-md p-2 bg-default border mb-1 border-secondary-soft ${
 				hasGap && "mb-2"
 			}`}
 		>
@@ -32,15 +34,7 @@ function UserListItem({
 				<Link href={`/${username}`}>
 					<div className="flex items-center">
 						<img
-							src={`${
-								process.env.NODE_ENV === "development"
-									? image
-										? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/imcargo/${image}`
-										: avatar
-									: image
-									? `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_SERVICE_NAME}/${image}`
-									: avatar
-							}`}
+							src={getImageOrAvatarPath(image, avatar as any)}
 							alt={username}
 							className="w-12 h-12 rounded-full border-2 border-secondary-soft bg-secondary-soft"
 						/>

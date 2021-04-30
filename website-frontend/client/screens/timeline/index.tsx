@@ -126,7 +126,7 @@ export default function Timeline({ username }: IProps): JSX.Element {
 			<ShallowQuery
 				selector="tab"
 				default={
-					<div>
+					<div className="h-screen">
 						{(posts as any).map((item: any, index: number) => {
 							if ((posts as any).length === index + 1) {
 								return (

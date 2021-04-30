@@ -33,6 +33,7 @@ export default function Project({
 		variables: {
 			page,
 			username,
+      token: loginState.isLogin ? loginState.token : null
 		},
 	});
 
@@ -90,7 +91,7 @@ export default function Project({
 			<ShallowQuery
 				selector="tab"
 				default={
-					<div>
+					<div className="h-screen">
 						{(projects as any).map((item: any, index: number) => {
 							if ((projects as any).length === index + 1) {
 								return (

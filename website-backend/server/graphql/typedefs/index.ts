@@ -150,12 +150,12 @@ const typeDefs = gql`
 		locations: [LocationPayload!]
 		questions: [QuestionPayload!]
 		isPrivate: Boolean
-		questionsCount: Int!
-		followersCount: Int!
-		followingCount: Int!
-		locationCount: Int!
-		projectsCount: Int!
-		postsCount: Int!
+		questionsCount: Int
+		followersCount: Int
+		followingCount: Int
+		locationCount: Int
+		projectsCount: Int
+		postsCount: Int
 		_following: Boolean
 		_editable: Boolean
 		membership: UserMembershipPayload
@@ -380,7 +380,11 @@ const typeDefs = gql`
 		getPosts(data: GetPostsInput!): PostsPayload!
 		getPost(data: GetSinglePostInput!): PostDocumentType
 		getComments(id: ID!, page: Int!): CommentPayload
-		getUserProjects(username: String!, page: Int!): ProjectPayload
+		getUserProjects(
+			username: String!
+			page: Int!
+			token: String
+		): ProjectPayload
 		getLastRegisteredUsers: [UserPayload]!
 		getUserPosts(data: GetUserPostsInput!): PostsPayload!
 	}
