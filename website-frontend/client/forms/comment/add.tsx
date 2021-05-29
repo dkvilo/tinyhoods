@@ -8,7 +8,6 @@ import {
 	UserTokenContext,
 	GQLErrorContext,
 	LoaderProgressContext,
-	AlertMessageContext,
 } from "../../context";
 
 import Textarea from "../../components/Textarea";
@@ -47,19 +46,6 @@ const AddComment = ({ postId, onSuccess, onReply }: IProps) => {
 			loaderDispatcher({ type: "STOP" });
 		}
 	}, [loading, loaderDispatcher]);
-
-	const { dispatch: messageDispatcher } = useContext<any>(AlertMessageContext);
-	useEffect(() => {
-		if (!loading && !error && data?.createComment) {
-			messageDispatcher({
-				type: "SET_MESSAGE",
-				payload: {
-					title: "Comment",
-					message: "The Comment was added successfully",
-				},
-			});
-		}
-	}, [data, loading, error]);
 
 	const alertController = useDropToggleState(!loginState.isLogin);
 

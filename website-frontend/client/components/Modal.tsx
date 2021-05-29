@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function Modal({
 	controller,
@@ -7,14 +7,14 @@ export default function Modal({
 }: any): JSX.Element | null {
 	const [isOpen, updateState] = controller as any;
 
-	useEffect(() => {
-		if (isOpen) {
-			document.body.style.overflow = "hidden";
-		}
-		return () => {
-			document.body.style.overflow = "scroll";
-		};
-	}, [isOpen]);
+	// useEffect(() => {
+	// 	if (isOpen) {
+	// 		document.body.style.overflow = "hidden";
+	// 	}
+	// 	return () => {
+	// 		document.body.style.overflow = "scroll";
+	// 	};
+	// }, [isOpen]);
 
 	if (isOpen) {
 		return (

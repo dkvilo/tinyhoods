@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Image from "next/image";
 
@@ -9,8 +9,12 @@ import UserListItem from "./UserListItem";
 import Timeline from "../screens/timeline";
 import Project from "../screens/project";
 import { getImageOrAvatarPath } from "../../shared/utils";
+import { UserTokenContext } from "../context";
 
 function UserProfileCard({ data }: any) {
+
+  const { state: loginState } = useContext(UserTokenContext);
+
 	return (
 		<>
 			<Tabs
@@ -76,11 +80,11 @@ function UserProfileCard({ data }: any) {
 														d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
 													/>
 												</svg>
-												<span className="text-sm">Edit Profile</span>
+												<span className="text-sm">Edit</span>
 											</Button>
 										</div>
 									) : (
-										<div className="flex items-center absolute bottom-0 mb-2">
+										loginState.isLogin && <div className="flex items-center absolute bottom-0 mb-2">
 											<FollowAction {...data} hasLabel />
 										</div>
 									)}
@@ -174,11 +178,11 @@ function UserProfileCard({ data }: any) {
 													d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
 												/>
 											</svg>
-											<span className="text-sm">Edit Profile</span>
+											<span className="text-sm">Edit</span>
 										</Button>
 									</div>
 								) : (
-									<div className="flex items-center mt-2">
+									loginState.isLogin && <div className="flex items-center mt-2">
 										<FollowAction {...data} hasLabel />
 									</div>
 								)}

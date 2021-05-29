@@ -1,14 +1,13 @@
-/*
-*
-* Loggerboi: main.go
-* Author: David Kviloria <dkviloria@gmail.com>
-* Type: HTTP Service
-* Version: 0.1
-*
-* Usage: curl -H "Content-Type: application/json" -X POST -d '{"service_name": "USER-API", "message": "user not found"}' http://localhost:4343/stdin
- */
 package main
 
+/*
+ *
+ * Loggerboi: main.go
+ * Author: David Kviloria <dkviloria@gmail.com>
+ * Type: HTTP Service
+ * Version: 0.1
+ *
+ */
 import (
 	"bufio"
 	"context"
